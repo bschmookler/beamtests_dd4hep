@@ -1,0 +1,7 @@
+#Files
+*.root
+eic-shell
+
+#Directories
+local
+
