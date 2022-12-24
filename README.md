@@ -21,8 +21,15 @@ To run the simulation, simply do:
 ```
 This will run 100 events, with a single electron generated per event. The generated electron has an energy of 2 GeV, moves along the z-axis, and has its origin at (x,y,z) = (0,0,0). The DD4HEP output is digitized using the Juggler software.
 
-Add detector geometry...
+![detector_geometry](figures/prototype_geometry.png?raw=true)
 
 ### Analysis
-Forthcoming...
+As an example, to draw the total digitized energy deposit in the sensitive area per event, do the following:
+
+```
+root -l prototype_reco_e-_2_GeV.edm4hep.root
+events->Draw("Sum$(HCALHitsReco.energy)")
+```
+
+![energy_figure](figures/prototype_sum.png?raw=true)
 <br/>
