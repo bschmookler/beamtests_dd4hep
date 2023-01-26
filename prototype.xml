@@ -27,7 +27,7 @@
     <detector id="1" name="HCAL" type="ZDC_Sampling" readout="HCALHits">
       <position x="0*m" y="0*m" z="350*cm"/>
       <rotation x="0" y="0" z="0"/>
-      <dimensions x="9.6*cm" y="9.8*cm" z="35.50*cm"/>
+      <dimensions x="9.6*cm" y="9.8*cm" z="34.50*cm"/>
       <layer repeat="16">
         <slice name="Absorber_slice"  material="Steel235"         thickness="2*cm"  vis="AnlGray"/>
         <slice name="Scint_slice"     material="Polystyrene" thickness="0.3*cm" vis="AnlOrange" sensitive="true"/>
