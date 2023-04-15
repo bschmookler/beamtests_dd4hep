@@ -14,6 +14,18 @@ curl --location https://get.epic-eic.org | bash
 ### Detector geometry
 The detector geometry is defined in [this file](prototype.xml). Note that the detector is aligned parallel to the z-axis and placed 350 cm from the nominal particle generation point. The world volume is air. Also note how there are 9 readout cells per scintillator slice.
 
+#### detector visulization
+To view the prototype, convert the xml file into gdml file, and then show it with ROOT
+```
+geoConverter -compact2gdml -input prototype.xml -output prototype.gdml	# run this command with eic-shell
+```
+Root commands to show the prototype:
+```
+TGeoManager::Import("prototype.gdml") // root or GDML file
+gGeoManager->SetVisLevel(10) // Increase it to get more detailed geometry
+gGeoManager->GetTopVolume()->Draw("ogl")
+```
+
 ### Running the simulation
 To run the simulation, simply do:
 ```
