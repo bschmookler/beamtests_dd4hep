@@ -4,69 +4,340 @@
     // HCAL
     // Fe + Scintillator (Fe/Sci) prototype
     ///////////////////////////////////////////////////////////
-  </comment>
+  </comment>        
  <define>
     <constant name="Pi" value="3.14159265359"/>
     <constant name="world_side" value="30*m"/>
     <constant name="world_x" value="world_side"/>
     <constant name="world_y" value="world_side"/>
     <constant name="world_z" value="100*m"/>
-    <constant name="tracker_region_zmax" value="10*m"/>
+      <constant name="tracker_region_zmax" value="10*m"/>
     <constant name="tracker_region_rmax" value="1*m"/>
-  </define>
 
+  </define>
 <includes>
     <gdmlFile ref="compact/elements.xml"/>
     <gdmlFile ref="compact/materials.xml"/>
 </includes>
 
   <detectors>
-    <detector id="1" name="HCAL1" type="ZDC_Sampling" readout="HCALHits">
+    <detector id="1" name="HCAL1" type="ZDC_Sampling" readout="HCALHits" vis="GreenVis">
       <position x="2.37*cm" y="2.37*cm" z="500*cm"/>
       <rotation x="0" y="0" z="0"/>
-      <dimensions x="4.74*cm" y="4.74*cm" z="28.8*cm"/>
-      <layer repeat="10">
-        <slice name="Absorber_slice"  material="Steel235"         thickness="2*cm"  vis="AnlGray"/>
+      <dimensions x="4.74*cm" y="4.74*cm" z="11.28*cm"/>
+      <layer repeat="4">
+        <slice name="Absorber_slice"  material="Steel235"         thickness="2*cm"  vis="AnlGray" sensitive="false"/>
+        <slice name="Air_gap"         material="Air"         thickness="0.52*cm" sensitive="false"/>
         <slice name="Scint_slice"     material="Polystyrene" thickness="0.3*cm" vis="AnlOrange" sensitive="true"/>
-	<slice name="Air_gap"         material="Air"         thickness="0.52*cm" />
       </layer>
     </detector>
     <detector id="2" name="HCAL2" type="ZDC_Sampling" readout="HCALHits">
       <position x="-2.37*cm" y="2.37*cm" z="500*cm"/>
       <rotation x="0" y="0" z="0"/>
-      <dimensions x="4.74*cm" y="4.74*cm" z="28.8*cm"/>
-      <layer repeat="10">
-        <slice name="Absorber_slice"  material="Steel235"         thickness="2*cm"  vis="AnlGray"/>
+      <dimensions x="4.74*cm" y="4.74*cm" z="11.28*cm"/>
+      <layer repeat="4">
+        <slice name="Absorber_slice"  material="Steel235"         thickness="2*cm"  vis="AnlGray" sensitive="false"/>
+        <slice name="Air_gap"         material="Air"         thickness="0.52*cm" sensitive="false" vis="Invisible"/>
         <slice name="Scint_slice"     material="Polystyrene" thickness="0.3*cm" vis="AnlOrange" sensitive="true"/>
-        <slice name="Air_gap"         material="Air"         thickness="0.52*cm" />
       </layer>
     </detector>
     <detector id="3" name="HCAL3" type="ZDC_Sampling" readout="HCALHits">
       <position x="2.37*cm" y="-2.37*cm" z="500*cm"/>
       <rotation x="0" y="0" z="0"/>
-      <dimensions x="4.74*cm" y="4.74*cm" z="28.8*cm"/>
-      <layer repeat="10">
-        <slice name="Absorber_slice"  material="Steel235"         thickness="2*cm"  vis="AnlGray"/>
+      <dimensions x="4.74*cm" y="4.74*cm" z="11.28*cm"/>
+      <layer repeat="4">
+        <slice name="Absorber_slice"  material="Steel235"         thickness="2*cm"  vis="AnlGray" sensitive="false"/>
+        <slice name="Air_gap"         material="Air"         thickness="0.52*cm" sensitive="false"/>
         <slice name="Scint_slice"     material="Polystyrene" thickness="0.3*cm" vis="AnlOrange" sensitive="true"/>
-        <slice name="Air_gap"         material="Air"         thickness="0.52*cm" />
       </layer>
     </detector>
     <detector id="4" name="HCAL4" type="ZDC_Sampling" readout="HCALHits">
       <position x="-2.37*cm" y="-2.37*cm" z="500*cm"/>
       <rotation x="0" y="0" z="0"/>
-      <dimensions x="4.74*cm" y="4.74*cm" z="28.8*cm"/>
-      <layer repeat="10">
-        <slice name="Absorber_slice"  material="Steel235"         thickness="2*cm"  vis="AnlGray"/>
+      <dimensions x="4.74*cm" y="4.74*cm" z="11.28*cm"/>
+      <layer repeat="4">
+        <slice name="Absorber_slice"  material="Steel235"         thickness="2*cm"  vis="AnlGray" sensitive="false"/>
+        <slice name="Air_gap"         material="Air"         thickness="0.52*cm" sensitive="false"/>
         <slice name="Scint_slice"     material="Polystyrene" thickness="0.3*cm" vis="AnlOrange" sensitive="true"/>
+      </layer>
+    </detector>
+
+    <detector id="5" name="HCAL5" type="ZDC_Sampling" readout="IronHits">
+      <position x="0*cm" y="0*cm" z="511.28*cm" />
+      <rotation x="0" y="0" z="0"/>
+      <dimensions x="9.48*cm" y="9.48*cm" z="2.52*cm"/>
+      <layer repeat="1">
+        <slice name="Absorber_slice"  material="Steel235"         thickness="2*cm"  vis="AnlGray" sensitive="true"/>
         <slice name="Air_gap"         material="Air"         thickness="0.52*cm" />
       </layer>
     </detector>
+
+    <detector id="6" name="HCAL6" type="ZDC_Sampling" readout="IronHits">
+      <position x="0*cm" y="0*cm" z="514.1*cm"/>
+      <rotation x="0" y="0" z="0"/>
+      <dimensions x="9.48*cm" y="9.48*cm" z="2.52*cm"/>
+      <layer repeat="1">
+        <slice name="Absorber_slice"  material="Steel235"         thickness="2*cm"  vis="AnlGray" sensitive="true"/>
+        <slice name="Air_gap"         material="Air"         thickness="0.52*cm" />
+      </layer>
+    </detector>
+
+    <detector id="7" name="HCAL7" type="ZDC_Sampling" readout="IronHits">
+      <position x="0*cm" y="0*cm" z="516.92*cm"/>
+      <rotation x="0" y="0" z="0"/>
+      <dimensions x="9.48*cm" y="9.48*cm" z="2.52*cm"/>
+      <layer repeat="1">
+        <slice name="Absorber_slice"  material="Steel235"         thickness="2*cm"  vis="AnlGray" sensitive="true"/>
+        <slice name="Air_gap"         material="Air"         thickness="0.52*cm" />
+      </layer>
+    </detector>
+
+    <detector id="8" name="HCAL8" type="ZDC_Sampling" readout="IronHits">
+      <position x="0*cm" y="0*cm" z="519.74*cm"/>
+      <rotation x="0" y="0" z="0"/>
+      <dimensions x="9.48*cm" y="9.48*cm" z="2.52*cm"/>
+      <layer repeat="1">
+        <slice name="Absorber_slice"  material="Steel235"         thickness="2*cm"  vis="AnlGray" sensitive="true"/>
+        <slice name="Air_gap"         material="Air"         thickness="0.52*cm" />
+      </layer>
+    </detector>
+
+    <detector id="9" name="HCAL9" type="ZDC_Sampling" readout="IronHits">
+      <position x="0*cm" y="0*cm" z="522.56*cm"/>
+      <rotation x="0" y="0" z="0"/>
+      <dimensions x="9.48*cm" y="9.48*cm" z="2.52*cm"/>
+      <layer repeat="1">
+        <slice name="Absorber_slice"  material="Steel235"         thickness="2*cm"  vis="AnlGray" sensitive="true"/>
+        <slice name="Air_gap"         material="Air"         thickness="0.52*cm" />
+      </layer>
+    </detector>
+
+    <detector id="10" name="HCAL10" type="ZDC_Sampling" readout="IronHits">
+      <position x="0*cm" y="0*cm" z="525.38*cm"/>
+      <rotation x="0" y="0" z="0"/>
+      <dimensions x="9.48*cm" y="9.48*cm" z="2.52*cm"/>
+      <layer repeat="1">
+        <slice name="Absorber_slice"  material="Steel235"         thickness="2*cm"  vis="AnlGray" sensitive="true"/>
+        <slice name="Air_gap"         material="Air"         thickness="0.52*cm" />
+      </layer>
+    </detector>
+
+    <detector id="11" name="HCAL11" type="ZDC_Sampling" readout="HCALHits2">
+      <position x="2.37*cm" y="2.37*cm" z="513.8*cm"/>
+      <rotation x="0" y="0" z="45"/>
+      <dimensions x="3.64*cm" y="3.64*cm" z="0.3*cm"/>
+      <layer repeat="1">
+        <slice name="Scint_slice"     material="Polystyrene" thickness="0.3*cm" vis="AnlOrange" sensitive="true"/>
+      </layer>
+    </detector>
+    <detector id="12" name="HCAL12" type="ZDC_Sampling" readout="HCALHits2">
+      <position x="-2.37*cm" y="2.37*cm" z="513.8*cm"/>
+      <rotation x="0" y="0" z="45"/>
+      <dimensions x="3.64*cm" y="3.64*cm" z="0.3*cm"/>
+      <layer repeat="1">
+        <slice name="Scint_slice"     material="Polystyrene" thickness="0.3*cm" vis="AnlOrange" sensitive="true"/>
+      </layer>
+    </detector>
+    <detector id="13" name="HCAL13" type="ZDC_Sampling" readout="HCALHits2">
+      <position x="2.37*cm" y="-2.37*cm" z="513.8*cm"/>
+      <rotation x="0" y="0" z="45"/>
+      <dimensions x="3.64*cm" y="3.64*cm" z="0.3*cm"/>
+      <layer repeat="1">
+        <slice name="Scint_slice"     material="Polystyrene" thickness="0.3*cm" vis="AnlOrange" sensitive="true"/>
+      </layer>
+    </detector>
+    <detector id="14" name="HCAL14" type="ZDC_Sampling" readout="HCALHits2">
+      <position x="-2.37*cm" y="-2.37*cm" z="513.8*cm"/>
+      <rotation x="0" y="0" z="45"/>
+      <dimensions x="3.64*cm" y="3.64*cm" z="0.3*cm"/>
+      <layer repeat="1">
+        <slice name="Scint_slice"     material="Polystyrene" thickness="0.3*cm" vis="AnlOrange" sensitive="true"/>
+      </layer>
+    </detector>
+
+    <detector id="15" name="HCAL15" type="ZDC_Sampling" readout="HCALHits2">
+      <position x="2.37*cm" y="2.37*cm" z="516.62*cm"/>
+      <rotation x="0" y="0" z="45"/>
+      <dimensions x="3.64*cm" y="3.64*cm" z="0.3*cm"/>
+      <layer repeat="1">
+        <slice name="Scint_slice"     material="Polystyrene" thickness="0.3*cm" vis="AnlOrange" sensitive="true"/>
+      </layer>
+    </detector>
+    <detector id="16" name="HCAL16" type="ZDC_Sampling" readout="HCALHits2">
+      <position x="-2.37*cm" y="2.37*cm" z="516.62*cm"/>
+      <rotation x="0" y="0" z="45"/>
+      <dimensions x="3.64*cm" y="3.64*cm" z="0.3*cm"/>
+      <layer repeat="1">
+        <slice name="Scint_slice"     material="Polystyrene" thickness="0.3*cm" vis="AnlOrange" sensitive="true"/>
+      </layer>
+    </detector>
+    <detector id="17" name="HCAL17" type="ZDC_Sampling" readout="HCALHits2">
+      <position x="2.37*cm" y="-2.37*cm" z="516.62*cm"/>
+      <rotation x="0" y="0" z="45"/>
+      <dimensions x="3.64*cm" y="3.64*cm" z="0.3*cm"/>
+      <layer repeat="1">
+        <slice name="Scint_slice"     material="Polystyrene" thickness="0.3*cm" vis="AnlOrange" sensitive="true"/>
+      </layer>
+    </detector>
+    <detector id="18" name="HCAL18" type="ZDC_Sampling" readout="HCALHits2">
+      <position x="-2.37*cm" y="-2.37*cm" z="516.62*cm"/>
+      <rotation x="0" y="0" z="45"/>
+      <dimensions x="3.64*cm" y="3.64*cm" z="0.3*cm"/>
+      <layer repeat="1">
+        <slice name="Scint_slice"     material="Polystyrene" thickness="0.3*cm" vis="AnlOrange" sensitive="true"/>
+      </layer>
+    </detector>
+
+    <detector id="19" name="HCAL19" type="ZDC_Sampling" readout="HCALHits2">
+      <position x="2.37*cm" y="2.37*cm" z="519.44*cm"/>
+      <rotation x="0" y="0" z="45"/>
+      <dimensions x="3.64*cm" y="3.64*cm" z="0.3*cm"/>
+      <layer repeat="1">
+        <slice name="Scint_slice"     material="Polystyrene" thickness="0.3*cm" vis="AnlOrange" sensitive="true"/>
+      </layer>
+    </detector>
+    <detector id="20" name="HCAL20" type="ZDC_Sampling" readout="HCALHits2">
+      <position x="-2.37*cm" y="2.37*cm" z="519.44*cm"/>
+      <rotation x="0" y="0" z="45"/>
+      <dimensions x="3.64*cm" y="3.64*cm" z="0.3*cm"/>
+      <layer repeat="1">
+        <slice name="Scint_slice"     material="Polystyrene" thickness="0.3*cm" vis="AnlOrange" sensitive="true"/>
+      </layer>
+    </detector>
+    <detector id="21" name="HCAL21" type="ZDC_Sampling" readout="HCALHits2">
+      <position x="2.37*cm" y="-2.37*cm" z="519.44*cm"/>
+      <rotation x="0" y="0" z="45"/>
+      <dimensions x="3.64*cm" y="3.64*cm" z="0.3*cm"/>
+      <layer repeat="1">
+        <slice name="Scint_slice"     material="Polystyrene" thickness="0.3*cm" vis="AnlOrange" sensitive="true"/>
+      </layer>
+    </detector>
+    <detector id="22" name="HCAL22" type="ZDC_Sampling" readout="HCALHits2">
+      <position x="-2.37*cm" y="-2.37*cm" z="519.44*cm"/>
+      <rotation x="0" y="0" z="45"/>
+      <dimensions x="3.64*cm" y="3.64*cm" z="0.3*cm"/>
+      <layer repeat="1">
+        <slice name="Scint_slice"     material="Polystyrene" thickness="0.3*cm" vis="AnlOrange" sensitive="true"/>
+      </layer>
+    </detector>
+
+    <detector id="23" name="HCAL23" type="ZDC_Sampling" readout="HCALHits2">
+      <position x="2.37*cm" y="2.37*cm" z="522.26*cm"/>
+      <rotation x="0" y="0" z="45"/>
+      <dimensions x="3.64*cm" y="3.64*cm" z="0.3*cm"/>
+      <layer repeat="1">
+        <slice name="Scint_slice"     material="Polystyrene" thickness="0.3*cm" vis="AnlOrange" sensitive="true"/>
+      </layer>
+    </detector>
+    <detector id="24" name="HCAL24" type="ZDC_Sampling" readout="HCALHits2">
+      <position x="-2.37*cm" y="2.37*cm" z="522.26*cm"/>
+      <rotation x="0" y="0" z="45"/>
+      <dimensions x="3.64*cm" y="3.64*cm" z="0.3*cm"/>
+      <layer repeat="1">
+        <slice name="Scint_slice"     material="Polystyrene" thickness="0.3*cm" vis="AnlOrange" sensitive="true"/>
+      </layer>
+    </detector>
+    <detector id="25" name="HCAL25" type="ZDC_Sampling" readout="HCALHits2">
+      <position x="2.37*cm" y="-2.37*cm" z="522.26*cm"/>
+      <rotation x="0" y="0" z="45"/>
+      <dimensions x="3.64*cm" y="3.64*cm" z="0.3*cm"/>
+      <layer repeat="1">
+        <slice name="Scint_slice"     material="Polystyrene" thickness="0.3*cm" vis="AnlOrange" sensitive="true"/>
+      </layer>
+    </detector>
+    <detector id="26" name="HCAL26" type="ZDC_Sampling" readout="HCALHits2">
+      <position x="-2.37*cm" y="-2.37*cm" z="522.26*cm"/>
+      <rotation x="0" y="0" z="45"/>
+      <dimensions x="3.64*cm" y="3.64*cm" z="0.3*cm"/>
+      <layer repeat="1">
+        <slice name="Scint_slice"     material="Polystyrene" thickness="0.3*cm" vis="AnlOrange" sensitive="true"/>
+      </layer>
+    </detector>
+
+    <detector id="27" name="HCAL27" type="ZDC_Sampling" readout="HCALHits2">
+      <position x="2.37*cm" y="2.37*cm" z="525.08*cm"/>
+      <rotation x="0" y="0" z="45"/>
+      <dimensions x="3.64*cm" y="3.64*cm" z="0.3*cm"/>
+      <layer repeat="1">
+        <slice name="Scint_slice"     material="Polystyrene" thickness="0.3*cm" vis="AnlOrange" sensitive="true"/>
+      </layer>
+    </detector>
+    <detector id="28" name="HCAL28" type="ZDC_Sampling" readout="HCALHits2">
+      <position x="-2.37*cm" y="2.37*cm" z="525.08*cm"/>
+      <rotation x="0" y="0" z="45"/>
+      <dimensions x="3.64*cm" y="3.64*cm" z="0.3*cm"/>
+      <layer repeat="1">
+        <slice name="Scint_slice"     material="Polystyrene" thickness="0.3*cm" vis="AnlOrange" sensitive="true"/>
+      </layer>
+    </detector>
+    <detector id="29" name="HCAL29" type="ZDC_Sampling" readout="HCALHits2">
+      <position x="2.37*cm" y="-2.37*cm" z="525.08*cm"/>
+      <rotation x="0" y="0" z="45"/>
+      <dimensions x="3.64*cm" y="3.64*cm" z="0.3*cm"/>
+      <layer repeat="1">
+        <slice name="Scint_slice"     material="Polystyrene" thickness="0.3*cm" vis="AnlOrange" sensitive="true"/>
+      </layer>
+    </detector>
+    <detector id="30" name="HCAL30" type="ZDC_Sampling" readout="HCALHits2">
+      <position x="-2.37*cm" y="-2.37*cm" z="525.08*cm"/>
+      <rotation x="0" y="0" z="45"/>
+      <dimensions x="3.64*cm" y="3.64*cm" z="0.3*cm"/>
+      <layer repeat="1">
+        <slice name="Scint_slice"     material="Polystyrene" thickness="0.3*cm" vis="AnlOrange" sensitive="true"/>
+      </layer>
+    </detector>
+
+    <detector id="31" name="HCAL31" type="ZDC_Sampling" readout="HCALHits2">
+      <position x="2.37*cm" y="2.37*cm" z="527.9*cm"/>
+      <rotation x="0" y="0" z="45"/>
+      <dimensions x="3.64*cm" y="3.64*cm" z="0.3*cm"/>
+      <layer repeat="1">
+        <slice name="Scint_slice"     material="Polystyrene" thickness="0.3*cm" vis="AnlOrange" sensitive="true"/>
+      </layer>
+    </detector>
+    <detector id="32" name="HCAL32" type="ZDC_Sampling" readout="HCALHits2">
+      <position x="-2.37*cm" y="2.37*cm" z="527.9*cm"/>
+      <rotation x="0" y="0" z="45"/>
+      <dimensions x="3.64*cm" y="3.64*cm" z="0.3*cm"/>
+      <layer repeat="1">
+        <slice name="Scint_slice"     material="Polystyrene" thickness="0.3*cm" vis="AnlOrange" sensitive="true"/>
+      </layer>
+    </detector>
+    <detector id="33" name="HCAL33" type="ZDC_Sampling" readout="HCALHits2">
+      <position x="2.37*cm" y="-2.37*cm" z="527.9*cm"/>
+      <rotation x="0" y="0" z="45"/>
+      <dimensions x="3.64*cm" y="3.64*cm" z="0.3*cm"/>
+      <layer repeat="1">
+        <slice name="Scint_slice"     material="Polystyrene" thickness="0.3*cm" vis="AnlOrange" sensitive="true"/>
+      </layer>
+    </detector>
+    <detector id="34" name="HCAL34" type="ZDC_Sampling" readout="HCALHits2">
+      <position x="-2.37*cm" y="-2.37*cm" z="527.9*cm"/>
+      <rotation x="0" y="0" z="45"/>
+      <dimensions x="3.64*cm" y="3.64*cm" z="0.3*cm"/>
+      <layer repeat="1">
+        <slice name="Scint_slice"     material="Polystyrene" thickness="0.3*cm" vis="AnlOrange" sensitive="true"/>
+      </layer>
+    </detector>
+
+
   </detectors>
 
   <readouts>
     <readout name="HCALHits">
       <segmentation type="CartesianGridXY" grid_size_x="4.74 * cm" grid_size_y="4.74 * cm"/>
+      <id>system:8,layer:12,slice:12,x:32:-16,y:-16</id>  
+    </readout>
+
+    <readout name="HCALHits2">
+      <segmentation type="CartesianGridXY" grid_size_x="3.64 * cm" grid_size_y="3.64 * cm"/>
       <id>system:8,layer:12,slice:12,x:32:-16,y:-16</id>
     </readout>
+
+    <readout name="IronHits">
+      <segmentation type="CartesianGridXY" grid_size_x="4.74 * cm" grid_size_y="4.74 * cm"/>
+      <id>system:8,layer:12,slice:12,x:32:-16,y:-16</id>
+    </readout>
+    
   </readouts>
 </lccdd>
