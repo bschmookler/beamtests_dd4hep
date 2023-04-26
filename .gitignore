@@ -1,6 +1,10 @@
 #Files
 *.root
 eic-shell
+work/
+install/
+**/*.pkl
+build/
 
 #Directories
 local
