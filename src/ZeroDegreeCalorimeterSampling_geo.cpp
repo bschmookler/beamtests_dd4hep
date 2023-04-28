@@ -127,9 +127,13 @@ static Ref_t createPolyhedraZDC(Detector& desc, xml_h e, SensitiveDetector sens)
     int        repeat     = x_layer.repeat();
     double     layerThickness = 0;
 
-    for (xml_coll_t l(x_layer, _U(slice)); l; ++l)
-			layerThickness += xml_comp_t(l).thickness();
-		// printout(WARNING, "layer construction", to_string(layerThickness));
+    for (xml_coll_t l(x_layer, "*"); l; ++l)
+		{
+			xml_comp_t x_comp = l;
+			if (x_comp.hasAttr("count") && 0 == x_comp.count())
+				continue;
+			layerThickness += x_comp.thickness();
+		}
 
     // Loop over repeat#
     for (int i = 0; i < repeat; i++) {
@@ -137,39 +141,46 @@ static Ref_t createPolyhedraZDC(Detector& desc, xml_h e, SensitiveDetector sens)
       string layer_name = detName + _toString(layer_num, "_layer%d");
       Volume layer_vol(layer_name, Box(width / 2.0, height / 2.0, layerThickness / 2.0), Vacuum);
 
-      int slice_num = 1;
-      // Loop over slices
-      for (xml_coll_t l(x_layer, _U(slice)); l; ++l) {
-        xml_comp_t x_slice    = l;
-        double     t          = x_slice.thickness();
-        string     slice_name = layer_name + _toString(slice_num, "slice%d");
-        Material   slice_mat  = desc.material(x_slice.materialStr());
-				string		 slice_type;
-				if (x_slice.hasAttr("type"))
-					slice_type = x_slice.typeStr();
-        Volume     slice_vol(slice_name);
-				slice_vol.setMaterial(slice_mat);
+      int comp_num = 1;
+      // Loop over layer components
+      for (xml_coll_t l(x_layer, "*"); l; ++l) {
+        xml_comp_t x_comp		= l;
+				string		 comp_tag = x_comp.tag();
+        double     t				= x_comp.thickness();
+        string     comp_name = layer_name + "_" + comp_tag + to_string(comp_num);
+        Material   comp_mat  = desc.material(x_comp.materialStr());
+        Volume     comp_vol(comp_name);
+				comp_vol.setMaterial(comp_mat);
 
-				if (slice_type == "PolyhedraRegular")
+				if ("slice" == comp_tag)
 				{
-					slice_vol.setSolid(PolyhedraRegular(x_slice.numsides(), x_slice.rmin(), x_slice.rmax(), t));
+					comp_vol.setSolid(Box(width/2.0, height/2.0, t/2.0));
 				}
-				else
+				else if ("Box" == comp_tag)
 				{
-					slice_vol.setSolid(Box(width/2.0, height/2.0, t/2.0));
+					comp_vol.setSolid(Box(x_comp.x(width)/2.0, x_comp.y(height)/2.0, t/2.0));
+				}
+				else if ("PolyhedraRegular" == comp_tag)
+				{
+					comp_vol.setSolid(PolyhedraRegular(x_comp.numsides(), x_comp.rmin(0), x_comp.rmax(), t));
 				}
 
-        if (x_slice.isSensitive()) {
+        if (x_comp.isSensitive()) {
           sens.setType("calorimeter");
-          slice_vol.setSensitiveDetector(sens);
+          comp_vol.setSensitiveDetector(sens);
         }
 
-        slice_vol.setAttributes(desc, x_slice.regionStr(), x_slice.limitsStr(), x_slice.visStr());
+				double x_offset = x_comp.x_offset(0); 
+				double y_offset = x_comp.y_offset(0); 
+
+        comp_vol.setAttributes(desc, x_comp.regionStr(), x_comp.limitsStr(), x_comp.visStr());
         pv = layer_vol.placeVolume(
-            slice_vol, Transform3D(RotationZYX(0, 0, 0), Position(0.0, 0.0, z - zlayer - layerThickness / 2.0 + t / 2.0)));
-        pv.addPhysVolID("slice", slice_num);
+            comp_vol, Transform3D(RotationZYX(0, 0, 0), Position(x_offset, y_offset, z - zlayer - layerThickness / 2.0 + t / 2.0)));
+        pv.addPhysVolID("slice", comp_num);
+        ++comp_num;
+				if (x_comp.hasAttr("count") && 0 == x_comp.count())
+					continue;
         z += t;
-        ++slice_num;
       }
 
       string layer_vis = dd4hep::getAttrOrDefault<std::string>(x_layer, _Unicode(vis), "InvisibleWithDaughters");
