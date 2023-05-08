@@ -1,0 +1,46 @@
+<lccdd>
+  <comment>
+    ///////////////////////////////////////////////////////////
+    // HCAL
+    // Fe + Scintillator (Fe/Sci) sandwich sampling calorimeter
+    ///////////////////////////////////////////////////////////
+  </comment>        
+ <define>
+    <constant name="Pi" value="3.14159265359"/>
+    <constant name="world_side" value="30*m"/>
+    <constant name="world_x" value="world_side"/>
+    <constant name="world_y" value="world_side"/>
+    <constant name="world_z" value="100*m"/>
+    <constant name="tracker_region_zmax" value="10*m"/>
+    <constant name="tracker_region_rmax" value="1*m"/>
+  </define>
+
+<includes>
+    <gdmlFile ref="compact/elements.xml"/>
+    <gdmlFile ref="compact/materials.xml"/>
+</includes>
+<display>
+	<include ref="compact/colors.xml" />
+</display>
+
+  <detectors>
+    <detector id="1" name="HCAL" type="ZDC_Sampling" readout="HCALHits">
+      <position x="0*m" y="0*m" z="350*cm"/>
+      <rotation x="0" y="0" z="0"/>
+      <dimensions x="9.6*cm" y="9.8*cm" z="34.50*cm"/>
+      <layer repeat="16">
+        <slice name="Absorber_slice"  material="Steel235"         thickness="2*cm"  vis="AnlGray"/>
+        <slice name="Scint_slice"     material="Polystyrene" thickness="0.3*cm" vis="AnlOrange" sensitive="true"/>
+	<slice name="Air_gap"         material="Air"         thickness="0.52*cm" />
+      </layer>
+    </detector> 
+  </detectors>
+
+  <readouts>
+    <readout name="HCALHits">
+	    <segmentation type="CartesianGridXY" grid_size_x="3.2*cm" grid_size_y="3.266666*cm"/>
+	    <id>system:8,layer:12,slice:12,x:32:-16,y:-16</id> 
+    </readout>    
+  </readouts>
+
+</lccdd>
