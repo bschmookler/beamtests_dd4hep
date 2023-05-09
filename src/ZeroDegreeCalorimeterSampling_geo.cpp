@@ -59,7 +59,7 @@ static Ref_t createDetector(Detector& desc, xml_h e, SensitiveDetector sens)
       for (xml_coll_t l(x_layer, _U(slice)); l; ++l) {
         xml_comp_t x_slice    = l;
         double     w          = x_slice.thickness();
-        string     slice_name = layer_name + _toString(slice_num, "slice%d");
+        string     slice_name = layer_name + _toString(slice_num, "_slice%d");
         Material   slice_mat  = desc.material(x_slice.materialStr());
         Volume     slice_vol(slice_name, Box(Width / 2.0, Width / 2.0, w / 2.0), slice_mat);
 
@@ -105,7 +105,7 @@ static Ref_t createPolyhedraZDC(Detector& desc, xml_h e, SensitiveDetector sens)
   xml_dim_t dim   = x_det.dimensions();
   double    width = dim.x();
 	double		height = dim.y();
-  // double    length = dim.z();
+  double    det_thickness = dim.z();
 
   xml_dim_t pos = x_det.position();
   double    z   = pos.z();
@@ -113,9 +113,9 @@ static Ref_t createPolyhedraZDC(Detector& desc, xml_h e, SensitiveDetector sens)
 
   Material Vacuum = desc.material("Vacuum");
 
-  double totThickness = Layering(x_det).totalThickness();
+  // double det_thickness = Layering(x_det).totalThickness();
 
-  Box    envelope(width / 2.0, height / 2.0, totThickness / 2.0);
+  Box    envelope(width / 2.0, height / 2.0, det_thickness / 2.0);
   Volume envelopeVol(detName + "_envelope", envelope, Vacuum);
   envelopeVol.setVisAttributes(desc.visAttributes(x_det.visStr()));
   PlacedVolume pv;
@@ -130,10 +130,11 @@ static Ref_t createPolyhedraZDC(Detector& desc, xml_h e, SensitiveDetector sens)
     for (xml_coll_t l(x_layer, "*"); l; ++l)
 		{
 			xml_comp_t x_comp = l;
-			if (x_comp.hasAttr("count") && 0 == x_comp.count())
+			if (x_comp.hasAttr(_U(count)) && 0 == x_comp.count())
 				continue;
 			layerThickness += x_comp.thickness();
 		}
+		printout(WARNING, "layer thickness: ", to_string(layerThickness));
 
     // Loop over repeat#
     for (int i = 0; i < repeat; i++) {
@@ -178,7 +179,7 @@ static Ref_t createPolyhedraZDC(Detector& desc, xml_h e, SensitiveDetector sens)
             comp_vol, Transform3D(RotationZYX(0, 0, 0), Position(x_offset, y_offset, z - zlayer - layerThickness / 2.0 + t / 2.0)));
         pv.addPhysVolID("slice", comp_num);
         ++comp_num;
-				if (x_comp.hasAttr("count") && 0 == x_comp.count())
+				if (x_comp.hasAttr(_U(count)) && 0 == x_comp.count())
 					continue;
         z += t;
       }
@@ -187,7 +188,7 @@ static Ref_t createPolyhedraZDC(Detector& desc, xml_h e, SensitiveDetector sens)
       layer_vol.setAttributes(desc, x_layer.regionStr(), x_layer.limitsStr(), layer_vis);
       pv = envelopeVol.placeVolume(
           layer_vol,
-          Transform3D(RotationZYX(0, 0, 0), Position(0, 0, zlayer - pos.z() - totThickness / 2.0 + layerThickness / 2.0)));
+          Transform3D(RotationZYX(0, 0, 0), Position(0, 0, zlayer - pos.z() - det_thickness / 2.0 + layerThickness / 2.0)));
       pv.addPhysVolID("layer", layer_num);
       ++layer_num;
     }
@@ -195,7 +196,7 @@ static Ref_t createPolyhedraZDC(Detector& desc, xml_h e, SensitiveDetector sens)
 
   DetElement   det(detName, detID);
   Volume       motherVol = desc.pickMotherVolume(det);
-  Transform3D  tr(RotationZYX(rot.z(), rot.y(), rot.x()), Position(pos.x(), pos.y(), pos.z() + totThickness / 2.0));
+  Transform3D  tr(RotationZYX(rot.z(), rot.y(), rot.x()), Position(pos.x(), pos.y(), pos.z() + det_thickness / 2.0));
   PlacedVolume phv = motherVol.placeVolume(envelopeVol, tr);
   phv.addPhysVolID("system", detID);
   det.setPlacement(phv);

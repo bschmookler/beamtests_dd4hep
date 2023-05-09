@@ -1,4 +1,4 @@
-void plot(const char *fname = "output.edm4hep.root")
+void plot(const char *fname = "output.edm4hep.root", const char*out_name = "output.root")
 {
     gROOT->SetBatch(1);
     TGaxis::SetMaxDigits(3);
@@ -44,6 +44,7 @@ void plot(const char *fname = "output.edm4hep.root")
     map<string, TH2F*> h2;
     map<string, vector<TH1F*>> h1_array;
 
+    TFile *fout = new TFile(out_name, "recreate");
     /*
     h1["mc_vx"] = new TH1F("mc_vx", "MC Vertex x", 100, -500, 500);
     h1["mc_vx"]->GetXaxis()->SetTitle("X/mm");
@@ -64,7 +65,7 @@ void plot(const char *fname = "output.edm4hep.root")
     h1["hit_y"] = new TH1F("hit_y", "y", 100, -50, 50);
     h1["hit_z"] = new TH1F("hit_z", "z", 60, 5000, 5300);
     h1["hit_energy"] = new TH1F("hit_energy", "ADC count", 100, 0, 0.003*ADC2MIP);
-    h1["hit_total_energy"] = new TH1F("hit_total_energy", "total ADC count", 100, 0, 0.02*ADC2MIP);
+    h1["hit_total_energy"] = new TH1F("hit_total_energy", "total energy (MIP)", 100, 0, /* 0.02*ADC2MIP */ 300);
 
     // h2["mc_vx_vs_vy"] = new TH2F("mc_vx_vs_vy", "MC Vertex X vs Y", 100, -500, 500, 100, -500, 500);
     h2["hit_x_vs_y"] = new TH2F("hit_x_vs_y", "x vs y", 100, -50, 50, 100, -50, 50);
@@ -74,12 +75,12 @@ void plot(const char *fname = "output.edm4hep.root")
     for (int l=0; l<10; l++)
     {
 	const char *name = Form("layer%d_hit_energy", l);
-	h1_array["hit_layer_energy"].push_back(new TH1F(name, Form("layer%d ADC count", l), 100, 0, 0.003*ADC2MIP));
+	h1_array["hit_layer_energy"].push_back(new TH1F(name, Form("layer%d ADC count", l), 100, 0, /* 0.003*ADC2MIP */ 80));
     }
 
 
     double layer_id[] = {2097409, 2097665, 2097921, 2098177, 2098433, 2098689, 2098945, 2099201, 2099457, 2099713};
-    cout << "Total number of events: " << tin->GetEntries() << endl;
+    cout << "INFO -- number of events: " << tin->GetEntries() << endl;
     int zero_event = 0;
     int ei = 0;
     while (tr.Next())
@@ -114,7 +115,7 @@ void plot(const char *fname = "output.edm4hep.root")
 	{
 	    for (int hi=0; hi<hit_x.GetSize(); hi++)
 	    {
-		unsigned long layer = (hit_layer_id[hi]-2097409)/256;
+		unsigned long layer = (hit_z[hi]-5021.5)/28.2;
 		int cell = 4*layer + 2*(hit_y[hi] < 0) + (hit_x[hi] > 0);
 		if (1 == cell || 7 == cell)
 		    continue;
@@ -159,12 +160,18 @@ void plot(const char *fname = "output.edm4hep.root")
     {
 	ele.second->Draw();
 	c.SaveAs(Form("%s.png", ele.first.c_str()));
+
+	fout->cd();
+	ele.second->Write();
     }
 
     for (auto ele : h2)
     {
 	ele.second->Draw();
 	c.SaveAs(Form("%s.png", ele.first.c_str()));
+
+	fout->cd();
+	ele.second->Write();
     }
 
     TCanvas c1("c1", "c1", 4000, 1600);
@@ -174,6 +181,12 @@ void plot(const char *fname = "output.edm4hep.root")
 	c1.cd(l+1);
 	gPad->SetLogy();
 	h1_array["hit_layer_energy"][l]->Draw();
+
+	fout->cd();
+	h1_array["hit_layer_energy"][l]->Write();
     }
     c1.SaveAs("hit_layer_energy.png");
+
+    fout->Write();
+    fout->Close();
 }

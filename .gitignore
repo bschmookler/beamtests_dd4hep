@@ -1,5 +1,6 @@
 #Files
-*.root
+**/*.root
+**/*.png
 eic-shell
 work/
 install/
