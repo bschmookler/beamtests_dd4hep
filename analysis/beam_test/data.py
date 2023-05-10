@@ -47,6 +47,7 @@ def usage():
 class ADC:
     data_file = ''
     conf_file = ''
+    out_file = ''
     ped_file = ''
     config = {}
     pedestal = []
@@ -63,11 +64,12 @@ class ADC:
 
     hist = {}   # root histogram
     graph = {}  # root graph
-    fout = TFile("data.root", "recreate")
+    fout = TFile()
 
-    def __init__(self, data_file, conf_file):
+    def __init__(self, data_file, conf_file, out_file):
         self.data_file = data_file
         self.conf_file = conf_file
+        self.out_file = out_file
         # read the config file
         with open(conf_file, 'r') as fin:
             print(f'INFO -- the configuration:')
@@ -87,6 +89,7 @@ class ADC:
         self.MIP_cut = float(self.config['MIP_cut'])
 
         self.df = pd.read_pickle(data_file)
+        self.fout = TFile(out_file, "recreate")
 
     # plot raw ADC distribution
     def plot_raw_spectra(self):
@@ -322,6 +325,7 @@ if __name__ == '__main__':
     # read in command line arguments
     data_file=''
     conf_file=''
+    out_file =''
     i=1
     while i<len(sys.argv):
         if '-h' == sys.argv[i]:
@@ -329,26 +333,33 @@ if __name__ == '__main__':
             exit(0)
         elif '-c' == sys.argv[i]:
             conf_file=sys.argv[i+1]
-            print(f'INFO -- using config file: {config}')
+            print(f'INFO -- using config file: {conf_file}')
+            i+=1
+        elif '-o' == sys.argv[i]:
+            out_file = sys.argv[i+1]
+            print(f'INFO -- output root file: {out_file}')
             i+=1
         else:
-            data_file = sys.argv[1]
+            data_file = sys.argv[i]
             print(f'INFO -- will process {data_file}')
         i+=1
 
-    if '' == conf_file:
-        print(f'WARNING -- no config file specified, use the default one: config.cfg')
-        conf_file='config.cfg'
     if '' == data_file:
         print(f'FATAL -- no data file specified')
         exit(2)
+    if '' == conf_file:
+        print(f'WARNING -- no config file specified, use the default one: config.cfg')
+        conf_file='config.cfg'
+    if '' == out_file:
+        print(f'WARNING -- no output file specified, use the default one: output.root')
+        out_file='output.root'
 
     for f in [conf_file, data_file]:
         if not os.path.isfile(f):
             print(f'FATAL -- file doesn\'t exist: {f}')
             exit(4)
 
-    data_ADC = ADC(data_file, conf_file)
+    data_ADC = ADC(data_file, conf_file, out_file)
     data_ADC.plot_raw_spectra()
     data_ADC.read_data()
     data_ADC.plot_cor_spectra()

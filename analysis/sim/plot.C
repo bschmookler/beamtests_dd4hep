@@ -34,7 +34,7 @@ void plot(const char *fname = "output.edm4hep.root", const char*out_name = "outp
     TTreeReaderArray<float> mc_endpoint_pz(tr, "MCParticles.momentumAtEndpoint.z");
     */
 
-    TTreeReaderArray<unsigned long> hit_layer_id(tr, "HCALHits.cellID");
+    TTreeReaderArray<unsigned long> hit_cellID(tr, "HCALHits.cellID");
     TTreeReaderArray<float> hit_energy(tr, "HCALHits.energy");
     TTreeReaderArray<float> hit_x(tr, "HCALHits.position.x");
     TTreeReaderArray<float> hit_y(tr, "HCALHits.position.y");
@@ -79,7 +79,6 @@ void plot(const char *fname = "output.edm4hep.root", const char*out_name = "outp
     }
 
 
-    double layer_id[] = {2097409, 2097665, 2097921, 2098177, 2098433, 2098689, 2098945, 2099201, 2099457, 2099713};
     cout << "INFO -- number of events: " << tin->GetEntries() << endl;
     int zero_event = 0;
     int ei = 0;
@@ -115,7 +114,9 @@ void plot(const char *fname = "output.edm4hep.root", const char*out_name = "outp
 	{
 	    for (int hi=0; hi<hit_x.GetSize(); hi++)
 	    {
-		unsigned long layer = (hit_z[hi]-5021.5)/28.2;
+		int system_id = hit_cellID[hi] & 0xFF;
+		int layer_id = (hit_cellID[hi] & 0xFF00) >> 8;
+		int layer = 4*(system_id-1) + layer_id - 1;
 		int cell = 4*layer + 2*(hit_y[hi] < 0) + (hit_x[hi] > 0);
 		if (1 == cell || 7 == cell)
 		    continue;
