@@ -42,7 +42,7 @@ def gauss(x, *p):
     return A*np.exp(-(x-mu)**2/(2.*sigma**2))
 
 def usage():
-    print(f'{sys.argv[0]}: -c config.cfg data.pkl')
+    print(f'{sys.argv[0]} -c config.cfg [-o output.root] data.pkl')
 
 class ADC:
     data_file = ''
@@ -140,6 +140,8 @@ class ADC:
 
         for l in range(0, kLayers):
             self.hist[f'layer{l}_MIP'] = TH1F(f'layer{l}_energy', f'Layer {l} energy (MIPs)', 100, 0, 80)
+        for i in range(kLayers*kCells):
+            self.hist[f'cell{i}_MIP'] = TH1F(f'cell{i}_energy', f'Cell {i} energy (MIPs)', 100, 0, 40)
 
         self.hist["total_MIP"] = TH1F("event_energy", "Total Energy (MIPs)", 100, 0, 300)
 
@@ -167,6 +169,7 @@ class ADC:
                         
                         MIP = ADC_cor/mips[ch]
                         if MIP > self.MIP_cut:
+                            self.hist[f'cell{ch}_MIP'].Fill(MIP)
                             layerMIP += MIP
                             totMIP += MIP
                     
@@ -186,6 +189,8 @@ class ADC:
         self.fout.cd()
         for l in range(0, kLayers):
             self.hist[f'layer{l}_MIP'].Write()
+        for i in range(kLayers*kCells):
+            self.hist[f'cell{i}_MIP'].Write()
         self.hist['total_MIP'].Write()
 
 

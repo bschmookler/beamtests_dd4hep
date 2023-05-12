@@ -24,8 +24,9 @@
     <constant name="absorber_t"		    value="2*cm"/>
     <constant name="scint_cover_t"	    value="0.1*cm"/>
     <constant name="ESR_foil_t"		    value="0.015*cm"/>
-    <constant name="scintillator_t"	    value="0.3*cm"/>
+    <constant name="scintillator_t"	    value="0.62*cm"/>
     <constant name="PCB_t"		    value="0.16*cm"/>
+    <constant name="layer_t"		    value="absorber_t + scint_cover_t + ESR_foil_t*2 + scintillator_t + PCB_t"/>
   </define>
 
   <includes>
@@ -37,7 +38,7 @@
     <detector id="1" name="HCAL1" type="Polyhedra_ZDC_Sampling" readout="HCALHits" vis="GreenVis">
       <position x="0*cm" y="0*cm" z="500*cm"/>
       <rotation x="0" y="0" z="0"/>
-      <dimensions x="9.48*cm" y="9.48*cm" z="4*(absorber_t + scint_cover_t + ESR_foil_t*2 + scintillator_t + PCB_t)"/>
+      <dimensions x="9.48*cm" y="9.48*cm" z="4*layer_t"/>
       <layer repeat="4">
         <slice name="Absorber"	  material="Steel235"    thickness="absorber_t"	    vis="AnlGray"  sensitive="false"/>
 	<slice name="Scint_cover" material="Aluminum"    thickness="scint_cover_t"  vis="BlackVis" sensitive="false"/>
@@ -52,17 +53,17 @@
     </detector>
 
     <detector id="2" name="HCAL2" type="Polyhedra_ZDC_Sampling" readout="HCALHits" vis="GreenVis">
-      <position x="0*cm" y="0*cm" z="510.36*cm"/>
+      <position x="0*cm" y="0*cm" z="500*cm + 4*layer_t"/>
       <rotation x="0" y="0" z="0"/>
-      <dimensions x="9.48*cm" y="9.48*cm" z="6*(absorber_t + scint_cover_t + ESR_foil_t*2 + scintillator_t + PCB_t)"/>
+      <dimensions x="9.48*cm" y="9.48*cm" z="6*layer_t"/>
       <layer repeat="6">
         <slice name="Absorber"	  material="Steel235"    thickness="absorber_t"	    vis="AnlGray"  sensitive="false"/>
 	<slice name="Scint_cover" material="Aluminum"    thickness="scint_cover_t"  vis="BlackVis" sensitive="false"/>
 	<slice name="ESR_foil_1"  material="Polystyrene" thickness="ESR_foil_t"	    vis="BlueVis"  sensitive="false"/>
-	<PolyhedraRegular name="Scint1" material="Polystyrene" numsides="6" rmin="0*cm" rmax="1.931*cm" thickness="scintillator_t" x_offset=" 2.37*cm" y_offset=" 2.37*cm" count="0" vis="AnlOrange" sensitive="true"/>
-      	<PolyhedraRegular name="Scint2" material="Polystyrene" numsides="6" rmin="0*cm" rmax="1.931*cm" thickness="scintillator_t" x_offset="-2.37*cm" y_offset=" 2.37*cm" count="0" vis="AnlOrange" sensitive="true"/>
-      	<PolyhedraRegular name="Scint3" material="Polystyrene" numsides="6" rmin="0*cm" rmax="1.931*cm" thickness="scintillator_t" x_offset="-2.37*cm" y_offset="-2.37*cm" count="0" vis="AnlOrange" sensitive="true"/>
-      	<PolyhedraRegular name="Scint4" material="Polystyrene" numsides="6" rmin="0*cm" rmax="1.931*cm" thickness="scintillator_t" x_offset=" 2.37*cm" y_offset="-2.37*cm"		 vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Scint_1" material="Polystyrene" numsides="6" rmin="0*cm" rmax="1.931*cm" thickness="scintillator_t" x_offset=" 2.37*cm" y_offset=" 2.37*cm" count="0" vis="AnlOrange" sensitive="true"/>
+      	<PolyhedraRegular name="Scint_2" material="Polystyrene" numsides="6" rmin="0*cm" rmax="1.931*cm" thickness="scintillator_t" x_offset="-2.37*cm" y_offset=" 2.37*cm" count="0" vis="AnlOrange" sensitive="true"/>
+      	<PolyhedraRegular name="Scint_3" material="Polystyrene" numsides="6" rmin="0*cm" rmax="1.931*cm" thickness="scintillator_t" x_offset="-2.37*cm" y_offset="-2.37*cm" count="0" vis="AnlOrange" sensitive="true"/>
+      	<PolyhedraRegular name="Scint_4" material="Polystyrene" numsides="6" rmin="0*cm" rmax="1.931*cm" thickness="scintillator_t" x_offset=" 2.37*cm" y_offset="-2.37*cm"		 vis="AnlOrange" sensitive="true"/>
 	<slice name="ESR_foil_2"  material="Polystyrene" thickness="ESR_foil_t" vis="BlueVis"  sensitive="false"/>
 	<slice name="PCB"	  material="Fr4"	 thickness="PCB_t"	vis="CyanVis"  sensitive="false"/>
       </layer>
@@ -71,7 +72,6 @@
 
   <readouts>
     <readout name="HCALHits">
-      <!-- segmentation type="CartesianGridXY" grid_size_x="4.74 * cm" grid_size_y="4.74 * cm"/-->
       <segmentation type="NoSegmentation"/>
       <id>system:8,layer:8,slice:8,x:8,y:8</id>  
     </readout>

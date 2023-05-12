@@ -1,7 +1,7 @@
 Universe        = vanilla
 Notification    = Never
 Executable      = run_eic.csh
-Arguments       = /gpfs02/eic/wbzhang/epic/beamtests_dd4hep/condor/ $(ClusterID)_$(ProcID)
+Arguments       = ./doit.sh /gpfs02/eic/wbzhang/epic/beamtests_dd4hep/condor/ $(ClusterID)_$(ProcID)
 Requirements    = (CPU_Speed >= 2)
 Rank		= CPU_Speed
 request_memory  = 2GB
@@ -12,7 +12,7 @@ Initialdir      = /gpfs02/eic/wbzhang/epic/beamtests_dd4hep/condor/
 Input           = doit.sh
 # transfer_input_files = file1,file2
 Output          = $(ClusterID)_$(ProcID).out
-Error           = $(ClusterID).$(ProcID).err
+Error           = $(ClusterID)_$(ProcID).err
 Log             = $(ClusterID)_$(ProcID).log
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT_OR_EVICT

@@ -4,9 +4,8 @@
 '''
 read and correct data
 
-usage: ./data.py [beam.pkl] [ped_file.json]
+usage: ./plot.py [-c config.cfg] [-o output.root] input.edm4hep.root
 
-TODO: read in a config file for configurations
 '''
 
 import os
@@ -21,7 +20,8 @@ from ROOT import gROOT, TGaxis, gStyle, gPad
 # constants
 kLayers = 10    # number of total layers
 kCells = 4      # number of cells in one layer
-ADC2MIP = 1/0.000465;
+# ADC2MIP = 1/0.000465; # 0.3 cm
+ADC2MIP = 1/0.000975;   # 0.62 cm
 
 gROOT.SetBatch(1)
 TGaxis.SetMaxDigits(3)
@@ -33,7 +33,7 @@ def gauss(x, *p):
     return A*np.exp(-(x-mu)**2/(2.*sigma**2))
 
 def usage():
-    print(f'{sys.argv[0]}: -c config.cfg data.pkl')
+    print(f'{sys.argv[0]}: -c config.cfg -o output.root input.edm4hep.root')
 
 class ADC:
     data_file = ''
@@ -48,6 +48,7 @@ class ADC:
     h1 = {}     # 1D histogram
     h2 = {}     # 2D hist
     h1_layer = []
+    h1_cell = []
     h1['hit_layer_id'] = TH1F('hit_layer_id', 'Layer id', 20, 0, 20)
     h1['hit_cell_id'] = TH1F('hit_cell_id', 'cell id', 45, 0, 45);
     h1['hit_x'] = TH1F('hit_x', 'x', 100, -50, 50);
@@ -57,6 +58,8 @@ class ADC:
     h1['hit_event_energy'] = TH1F('event_energy', 'Event Energy (MIP)', 100, 0, 300);
     for l in range(kLayers):
         h1_layer.append(TH1F(f'layer{l}_energy', f'Layer{l} Energy (MIPs)', 100, 0, 80)) 
+    for i in range(kLayers*kCells):
+        h1_cell.append(TH1F(f'cell{i}_energy', f'Cell{i} Energy (MIPs)', 100, 0, 40)) 
 
     h2['hit_x_vs_y'] = TH2F('hit_x_vs_y', 'x vs y', 100, -50, 50, 100, -50, 50);
     h2['hit_x_vs_z'] = TH2F('hit_x_vs_z', 'x vs z', 100, -50, 50, 100, 5000, 5300);
@@ -128,6 +131,7 @@ class ADC:
                         continue
 
                     layer_energy[layer] += energy
+                    self.h1_cell[cell].Fill(energy)
                     self.h1['hit_layer_id'].Fill(2*layer+1)
                     self.h1['hit_cell_id'].Fill(cell);
                     self.h1['hit_energy'].Fill(energy);
@@ -181,6 +185,18 @@ class ADC:
             self.fout.cd()
             self.h1_layer[l].Write()
         c.SaveAs('hit_layer_energy.png')
+
+        c = TCanvas('c', 'c', 500*kLayers, 500*kCells)
+        c.Divide(kLayers, kCells)
+        for i in range(kLayers*kCells):
+            c.cd(10*(i%4) + i//4 + 1)
+            gPad.SetLogy()
+            self.h1_cell[i].Draw()
+
+            self.fout.cd()
+            self.h1_cell[i].Write()
+        c.SaveAs('hit_cell_energy.png')
+
 
         self.fout.cd()
         self.graph['layer_med_energy'].Write()
