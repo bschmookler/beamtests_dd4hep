@@ -394,13 +394,18 @@
   </material>
 
 
+  <material name="Polylactide">
+    <D value="1.32" unit="g/cm3"/>
+    <composite n="3" ref="C"/>
+    <composite n="4" ref="H"/>
+    <composite n="2" ref="O"/>
+  </material>
   
   <material name="Polystyrole" state="solid">
-  <MEE unit="eV" value="68.7"/>
-  <D unit="g/cm3" value="1.06"/>
-  <fraction n="0.077418" ref="H"/>
-  <fraction n="0.922582" ref="C"/>
-</material>
+    <MEE unit="eV" value="68.7"/>
+    <D unit="g/cm3" value="1.06"/>
+    <fraction n="0.077418" ref="H"/>
+    <fraction n="0.922582" ref="C"/>
+  </material>
 
-  
 </materials>

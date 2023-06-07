@@ -35,6 +35,7 @@ def usage():
 
 class ADC:
     data_file = ''
+    nmax = -1
 
     layerADCs = [[],[],[],[],[],[],[],[],[],[]]
     eventADCs = []
@@ -42,6 +43,8 @@ class ADC:
     h1 = {}     # 1D histogram
     h2 = {}     # 2D hist
     h1_layer = []
+    h1_cell = []
+
     h1['hit_layer_id'] = TH1F('hit_layer_id', 'Layer id', 20, 0, 20)
     h1['hit_cell_id'] = TH1F('hit_cell_id', 'cell id', 45, 0, 45);
     h1['hit_x'] = TH1F('hit_x', 'x', 100, -50, 50);
@@ -68,8 +71,9 @@ class ADC:
 
     fout = TFile()
 
-    def __init__(self, data_file, out_file):
+    def __init__(self, data_file, nmax, out_file):
         self.data_file = data_file
+        self.nmax = nmax
         self.out_file = out_file
 
         self.events = ur.open(f'{data_file}:events')
@@ -84,10 +88,12 @@ class ADC:
         hit_z = arrays['HCALHits.position.z']
         hit_energy = arrays['HCALHits.energy']
         # hit_layer_id = arrays['HCALHits.cellID']
+        if (self.nmax == -1 or self.nmax > len(hit_x)):
+            self.nmax = len(hit_x)
 
         zero_event = 0
         print('INFO -- reading tree')
-        for i in range(len(hit_x)):
+        for i in range(self.nmax):
             if (i%10000 == 0):
                 print(f'\tevent {i}')
             event_energy = 0
@@ -189,6 +195,7 @@ if __name__ == '__main__':
     # read in command line arguments
     data_file=''
     out_file =''
+    nmax = -1
     i=1
     while i<len(sys.argv):
         if '-h' == sys.argv[i]:
@@ -197,6 +204,10 @@ if __name__ == '__main__':
         elif '-o' == sys.argv[i]:
             out_file = sys.argv[i+1]
             print(f'INFO -- output root file: {out_file}')
+            i+=1
+        elif '-n' == sys.argv[i]:
+            nmax = int(sys.argv[i+1])
+            print(f'INTO -- will process {nmax} event')
             i+=1
         else:
             data_file = sys.argv[i]
@@ -215,6 +226,6 @@ if __name__ == '__main__':
             print(f'FATAL -- file doesn\'t exist: {f}')
             exit(4)
 
-    data_ADC = ADC(data_file, out_file)
+    data_ADC = ADC(data_file, nmax, out_file)
     data_ADC.read_data()
     data_ADC.plot()

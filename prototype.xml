@@ -21,10 +21,24 @@
     <constant name="world_z" 	    	    value="100*m"/>
     <constant name="tracker_region_zmax"    value="10*m"/>
     <constant name="tracker_region_rmax"    value="1*m"/>
+    <constant name="cell_x"		    value="4.74*cm" />
+    <constant name="cell_y"		    value="4.74*cm" />
+    <constant name="layer_x"		    value="cell_x*2" />
+    <constant name="layer_y"		    value="cell_y*2" />
+    <constant name="scintillator_rmax"	    value="1.931*cm" />
+    <constant name="frame_w_1"		    value="0.4*mm" />
+    <constant name="frame_w_2"		    value="cell_y/2-scintillator_rmax" />
+    <constant name="scintillator_x"	    value="cell_x - frame_w_1/2" />
+    <constant name="scintillator_y"	    value="cell_y - frame_w_1/2" />
+    <constant name="box_offset_x"	    value="cell_x/2 + frame_w_1/4" />
+    <constant name="box_offset_y"	    value="cell_y/2 + frame_w_1/4" />
+    <constant name="polyhedra_offset_x"	    value="cell_x/2" />
+    <constant name="polyhedra_offset_y"	    value="cell_y/2" />
     <constant name="absorber_t"		    value="2*cm"/>
     <constant name="scint_cover_t"	    value="0.1*cm"/>
     <constant name="ESR_foil_t"		    value="0.015*cm"/>
     <constant name="scintillator_t"	    value="0.62*cm"/>
+    <constant name="frame_t"		    value="scintillator_t"/>
     <constant name="PCB_t"		    value="0.16*cm"/>
     <constant name="layer_t"		    value="absorber_t + scint_cover_t + ESR_foil_t*2 + scintillator_t + PCB_t"/>
   </define>
@@ -41,12 +55,15 @@
       <dimensions x="9.48*cm" y="9.48*cm" z="4*layer_t"/>
       <layer repeat="4">
         <slice name="Absorber"	  material="Steel235"    thickness="absorber_t"	    vis="AnlGray"  sensitive="false"/>
-	<slice name="Scint_cover" material="Aluminum"    thickness="scint_cover_t"  vis="BlackVis" sensitive="false"/>
+	<slice name="Scint_cover" material="Polylactide" thickness="scint_cover_t"  vis="BlackVis" sensitive="false"/>
 	<slice name="ESR_foil_1"  material="Polystyrene" thickness="ESR_foil_t"	    vis="BlueVis"  sensitive="false"/>
-	<Box   name="Scint_1"     material="Polystyrene" x="4.74*cm" y="4.74*cm" thickness="scintillator_t" x_offset=" 2.37*cm" y_offset=" 2.37*cm" count="0" vis="AnlOrange" sensitive="true"/>
-      	<Box   name="Scint_2"     material="Polystyrene" x="4.74*cm" y="4.74*cm" thickness="scintillator_t" x_offset="-2.37*cm" y_offset=" 2.37*cm" count="0" vis="AnlOrange" sensitive="true"/>
-      	<Box   name="Scint_3"     material="Polystyrene" x="4.74*cm" y="4.74*cm" thickness="scintillator_t" x_offset="-2.37*cm" y_offset="-2.37*cm" count="0" vis="AnlOrange" sensitive="true"/>
-      	<Box   name="Scint_4"     material="Polystyrene" x="4.74*cm" y="4.74*cm" thickness="scintillator_t" x_offset=" 2.37*cm" y_offset="-2.37*cm"	   vis="AnlOrange" sensitive="true"/>
+	<Box   name="frame_1"	  material="Polylactide" x="layer_x" y="frame_w_1" thickness="frame_t" count="0" vis="YellowVis" sensitive="false" />
+	<Box   name="frame_2"	  material="Polylactide" x="frame_w_1" y="cell_y-frame_w_1/2" thickness="frame_t" y_offset=" box_offset_y" count="0" vis="YellowVis" sensitive="false" />
+	<Box   name="frame_3"	  material="Polylactide" x="frame_w_1" y="cell_y-frame_w_1/2" thickness="frame_t" y_offset="-box_offset_y" count="0" vis="YellowVis" sensitive="false" />
+	<Box   name="Scint_1"     material="Polystyrene" x="scintillator_x" y="scintillator_y" thickness="scintillator_t" x_offset=" box_offset_x" y_offset=" box_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+      	<Box   name="Scint_2"     material="Polystyrene" x="scintillator_x" y="scintillator_y" thickness="scintillator_t" x_offset="-box_offset_x" y_offset=" box_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+      	<Box   name="Scint_3"     material="Polystyrene" x="scintillator_x" y="scintillator_y" thickness="scintillator_t" x_offset="-box_offset_x" y_offset="-box_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+      	<Box   name="Scint_4"     material="Polystyrene" x="scintillator_x" y="scintillator_y" thickness="scintillator_t" x_offset=" box_offset_x" y_offset="-box_offset_y"	   vis="AnlOrange" sensitive="true"/>
 	<slice name="ESR_foil_2"  material="Polystyrene" thickness="ESR_foil_t" vis="BlueVis"  sensitive="false"/>
 	<slice name="PCB"	  material="Fr4"	 thickness="PCB_t"	vis="CyanVis"  sensitive="false"/>
       </layer>
@@ -58,12 +75,17 @@
       <dimensions x="9.48*cm" y="9.48*cm" z="6*layer_t"/>
       <layer repeat="6">
         <slice name="Absorber"	  material="Steel235"    thickness="absorber_t"	    vis="AnlGray"  sensitive="false"/>
-	<slice name="Scint_cover" material="Aluminum"    thickness="scint_cover_t"  vis="BlackVis" sensitive="false"/>
+	<slice name="Scint_cover" material="Polylactide" thickness="scint_cover_t"  vis="BlackVis" sensitive="false"/>
 	<slice name="ESR_foil_1"  material="Polystyrene" thickness="ESR_foil_t"	    vis="BlueVis"  sensitive="false"/>
-	<PolyhedraRegular name="Scint_1" material="Polystyrene" numsides="6" rmin="0*cm" rmax="1.931*cm" thickness="scintillator_t" x_offset=" 2.37*cm" y_offset=" 2.37*cm" count="0" vis="AnlOrange" sensitive="true"/>
-      	<PolyhedraRegular name="Scint_2" material="Polystyrene" numsides="6" rmin="0*cm" rmax="1.931*cm" thickness="scintillator_t" x_offset="-2.37*cm" y_offset=" 2.37*cm" count="0" vis="AnlOrange" sensitive="true"/>
-      	<PolyhedraRegular name="Scint_3" material="Polystyrene" numsides="6" rmin="0*cm" rmax="1.931*cm" thickness="scintillator_t" x_offset="-2.37*cm" y_offset="-2.37*cm" count="0" vis="AnlOrange" sensitive="true"/>
-      	<PolyhedraRegular name="Scint_4" material="Polystyrene" numsides="6" rmin="0*cm" rmax="1.931*cm" thickness="scintillator_t" x_offset=" 2.37*cm" y_offset="-2.37*cm"		 vis="AnlOrange" sensitive="true"/>
+	<Box   name="frame_1"	  material="Polylactide" x="layer_x" y="frame_w_2*2" thickness="frame_t" count="0" vis="YellowVis" sensitive="false" />
+	<Box   name="frame_2"	  material="Polylactide" x="layer_x" y="frame_w_2"   thickness="frame_t" y_offset=" cell_y-frame_w_2/2" count="0" vis="YellowVis" sensitive="false" />
+	<Box   name="frame_3"	  material="Polylactide" x="layer_x" y="frame_w_2"   thickness="frame_t" y_offset="-cell_y+frame_w_2/2" count="0" vis="YellowVis" sensitive="false" />
+	<Box   name="frame_4"	  material="Polylactide" x="frame_w_1" y="cell_y - frame_w_2*2" thickness="frame_t" y_offset=" cell_y/2" count="0" vis="YellowVis" sensitive="false" />
+	<Box   name="frame_5"	  material="Polylactide" x="frame_w_1" y="cell_y - frame_w_2*2" thickness="frame_t" y_offset="-cell_y/2" count="0" vis="YellowVis" sensitive="false" />
+	<PolyhedraRegular name="Scint_1" material="Polystyrene" numsides="6" rmin="0*cm" rmax="scintillator_rmax" thickness="scintillator_t" x_offset=" polyhedra_offset_x" y_offset=" polyhedra_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+      	<PolyhedraRegular name="Scint_2" material="Polystyrene" numsides="6" rmin="0*cm" rmax="scintillator_rmax" thickness="scintillator_t" x_offset="-polyhedra_offset_x" y_offset=" polyhedra_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+      	<PolyhedraRegular name="Scint_3" material="Polystyrene" numsides="6" rmin="0*cm" rmax="scintillator_rmax" thickness="scintillator_t" x_offset="-polyhedra_offset_x" y_offset="-polyhedra_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+      	<PolyhedraRegular name="Scint_4" material="Polystyrene" numsides="6" rmin="0*cm" rmax="scintillator_rmax" thickness="scintillator_t" x_offset=" polyhedra_offset_x" y_offset="-polyhedra_offset_y"	     vis="AnlOrange" sensitive="true"/>
 	<slice name="ESR_foil_2"  material="Polystyrene" thickness="ESR_foil_t" vis="BlueVis"  sensitive="false"/>
 	<slice name="PCB"	  material="Fr4"	 thickness="PCB_t"	vis="CyanVis"  sensitive="false"/>
       </layer>
