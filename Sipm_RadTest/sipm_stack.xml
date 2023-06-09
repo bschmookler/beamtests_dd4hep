@@ -33,6 +33,9 @@
 	<slice name="Air"      material="Air"      thickness="10*mm"/>
 	<slice name="Epoxy"    material="Epoxy"    thickness="0.3*mm" vis="AnlGray"/>
 	<slice name="Silicon"  material="Silicon"  thickness="1.15*mm" vis="AnlOrange" sensitive="true"/>
+	<slice name="Air"      material="Air"      thickness="10*mm"/>
+	<slice name="Epoxy"    material="Epoxy"    thickness="0.3*mm" vis="AnlGray"/>
+	<slice name="Silicon"  material="Silicon"  thickness="1.15*mm" vis="AnlOrange" sensitive="true"/>
       </layer>
     </detector> 
   </detectors>
