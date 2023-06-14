@@ -10,6 +10,9 @@ debug = False
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest='subcommand', required=True)
+    
+    '''init command'''
+    parser_insert = subparsers.add_parser('init', help='Initialize the database')
 
     ''' insert command '''
     parser_insert = subparsers.add_parser('insert', help='Insert record from a csv file')
@@ -37,7 +40,10 @@ if __name__ == '__main__':
         print('Error! cannot create the database connection.')
         exit()
 
-    if args.subcommand == 'insert':
+    if args.subcommand == 'init':
+        for table in g_tables:
+            create_table(conn, table)
+    elif args.subcommand == 'insert':
         if args.insert_file:
             insert_to_table1(conn, table, args.insert_file)
         else:
