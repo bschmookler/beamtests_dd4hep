@@ -26,13 +26,17 @@ kLayers = 10    # number of total layers
 kCells = 4      # number of cells in one layer
 ADCmult = 1     #set to 1 for 4k files, 2 for 8k files
 #values taken from a previous cosmic data run, hard coded for now
-mips = [52.74750277855359, 48.30860848773839, 53.943404039851835, 44.92190677955567, 61.26714324627709, 65.86727404494636,
-50.49966238440961, 55.02522837553596, 46.61446015527332, 60.39973772203866, 55.30173491280392, 62.707398178412745,
-50.482420120919734, 62.40987646935536, 59.02966599638661, 55.30173491280392, 123.13587491197416, 118.85827154485337,
-93.36027551977364, 104.55347745998186, 88.72268957494947, 87.9317698337502, 99.4048611423608, 109.98290193288523,
-102.39942115610283, 82.29288341793296, 93.36027551977364, 93.1310966604848, 120.5428145522235, 96.02936108638767,
-107.29564320373284, 93.36027551977364, 78.16073077714876, 62.53205599751284, 90.81216227164441, 90.71800272849238,
-109.00527397085415, 109.68782873235487, 85.36866495961932, 93.52544458950403]
+mips = [
+    52.74750277855359,  48.30860848773839,  53.943404039851835, 44.92190677955567,
+    61.26714324627709,  65.86727404494636,  50.49966238440961,  55.02522837553596,
+    46.61446015527332,  60.39973772203866,  55.30173491280392,  62.707398178412745,
+    50.482420120919734, 62.40987646935536,  59.02966599638661,  55.30173491280392,
+    123.13587491197416, 118.85827154485337, 93.36027551977364,  104.55347745998186,
+    88.72268957494947,  87.9317698337502,   99.4048611423608,   109.98290193288523,
+    102.39942115610283, 82.29288341793296,  93.36027551977364,  93.1310966604848,
+    120.5428145522235,  96.02936108638767,  107.29564320373284, 93.36027551977364,
+    78.16073077714876,  62.53205599751284,  90.81216227164441,  90.71800272849238,
+    109.00527397085415, 109.68782873235487, 85.36866495961932,  93.52544458950403, ]
 mips = [i*ADCmult for i in mips]
 
 plt.style.use(hep.style.ROOT)
@@ -54,6 +58,7 @@ class ADC:
     ped_means = []
     ped_stds = []
     df = []
+    bad_channels = []
 
     layerADCs = [[],[],[],[],[],[],[],[],[],[]]
     layerMIPs = [[],[],[],[],[],[],[],[],[],[]]
@@ -92,9 +97,8 @@ class ADC:
         self.fout = TFile(out_file, "recreate")
 
     # plot raw ADC distribution
-    def plot_raw_spectra(self):
+    def pre_check(self):
         xmax = {'LG': 4000, 'HG': 4000}
-        bad_channels = []
         for gain in ["LG", "HG"]:
             print(f'INFO -- processing {gain}')
             fig, axs=plt.subplots(nrows=kCells, ncols=kLayers, sharex=True, sharey=True, figsize=(40, 15), gridspec_kw = {'wspace': 0, 'hspace': 0})
@@ -114,7 +118,7 @@ class ADC:
 
                 # check bad channel with too little data points
                 if (np.count_nonzero(hist)/100 < 0.2):
-                    bad_channels.append(i)
+                    self.bad_channels.append(i)
 
                 ax = axs[i%kCells][i//kCells]
                 ax.set_title('Ch_{:02d}'.format(i), y=0.8)
@@ -126,7 +130,7 @@ class ADC:
             plt.rcParams['savefig.bbox']='tight'
             plt.savefig(f'raw_data_{gain}.png')
 
-        for i in set(bad_channels):
+        for i in set(self.bad_channels):
             print(f"WARNING -- bad channel: {i}", file=sys.stderr)
 
     ######################
@@ -141,11 +145,14 @@ class ADC:
         for l in range(0, kLayers):
             self.hist[f'layer{l}_MIP'] = TH1F(f'layer{l}_energy', f'Layer {l} energy (MIPs)', 100, 0, 80)
         for i in range(kLayers*kCells):
+            self.hist[f'cell{i}_ADC'] = TH1F(f'cell{i}_ADC', f'Cell {i} energy (ADCs)', 100, 0, 4000)
             self.hist[f'cell{i}_MIP'] = TH1F(f'cell{i}_energy', f'Cell {i} energy (MIPs)', 100, 0, 40)
 
         self.hist["total_MIP"] = TH1F("event_energy", "Total Energy (MIPs)", 100, 0, 300)
 
         print(f'INFO -- reading events:')
+        yup = 0
+        ydown = 0
         for evtn in range(len(self.df)): 
             hasMax = 0
             if evtn%20000 == 0:
@@ -153,44 +160,73 @@ class ADC:
 
             totADC = 0
             totMIP = 0
-            for l in range(0, kLayers):
-                layerADC = 0
-                layerMIP = 0
-                for ch in range(l*kCells, (l+1)*kCells):
-                    ADC = getattr(self.df, "Ch_{:02d}_LG".format(ch))[evtn] 
-                    ADC_cor = ADC - self.ped_means[ch]
 
-                    if ADC >= 8000:
-                        hasMax = 1
+            for ch in range(0, kLayers*kCells):
+                if ch in self.bad_channels:
+                    continue
+                ADC = getattr(self.df, "Ch_{:02d}_LG".format(ch))[evtn] 
+                ADC_cor = ADC - self.ped_means[ch]
+                if (ADC_cor > 4000) and (16 == ch or 17 == ch):
+                    continue
+                if ADC_cor >= 3*self.ped_stds[ch]:
+                    totADC += ADC_cor
+                    MIP = ADC_cor/mips[ch]
+                    if MIP > self.MIP_cut:
+                        totMIP += MIP
 
-                    if ADC_cor >= 3*self.ped_stds[ch]:
-                        layerADC += ADC_cor
-                        totADC += ADC_cor
+            if (totMIP > 0):
+                for l in range(0, kLayers):
+                    layerADC = 0
+                    layerMIP = 0
+                    for ch in range(l*kCells, (l+1)*kCells):
+                        if ch in self.bad_channels:
+                            continue
+
+                        ADC = getattr(self.df, "Ch_{:02d}_LG".format(ch))[evtn] 
+                        ADC_cor = ADC - self.ped_means[ch]
+
+                        if ADC >= 8000:
+                            hasMax = 1
+                        if (ADC_cor > 4000) and (16 == ch or 17 == ch):
+                            continue
+
+                        if ADC_cor >= 3*self.ped_stds[ch]:
+                            layerADC += ADC_cor
+                            
+                            MIP = ADC_cor/mips[ch]
+                            if MIP > self.MIP_cut:
+                                self.hist[f'cell{ch}_ADC'].Fill(ADC_cor)
+                                self.hist[f'cell{ch}_MIP'].Fill(MIP)
+                                layerMIP += MIP
+
+                                if (ch % 4) < 2:
+                                    yup += 1
+                                else:
+                                    ydown += 1
                         
-                        MIP = ADC_cor/mips[ch]
-                        if MIP > self.MIP_cut:
-                            self.hist[f'cell{ch}_MIP'].Fill(MIP)
-                            layerMIP += MIP
-                            totMIP += MIP
-                    
-                self.layerMIPs[l].append(layerMIP)
-                self.layerADCs[l].append(layerADC)
-                self.hist[f'layer{l}_MIP'].Fill(layerMIP)
+                        self.layerMIPs[l].append(layerMIP)
+                        self.layerADCs[l].append(layerADC)
+                        self.hist[f'layer{l}_MIP'].Fill(layerMIP)
 
-            self.totMIPs.append(totMIP)
-            self.totADCs.append(totADC)
-            self.hist['total_MIP'].Fill(totMIP)
+                self.totMIPs.append(totMIP)
+                self.totADCs.append(totADC)
+                self.hist['total_MIP'].Fill(totMIP)
+            else:
+                self.totMIPs.append(0)
+                self.totADCs.append(0)
             
             if hasMax == 1:
                 maxEvts += 1
 
         print(f'WARNING -- number of max out event: {maxEvts}')
+        print(f'INFO -- number of up and down haft hits: {yup} - {ydown} = {yup - ydown}')
 
         self.fout.cd()
         for l in range(0, kLayers):
             self.hist[f'layer{l}_MIP'].Write()
         for i in range(kLayers*kCells):
             self.hist[f'cell{i}_MIP'].Write()
+            self.hist[f'cell{i}_ADC'].Write()
         self.hist['total_MIP'].Write()
 
 
@@ -365,7 +401,7 @@ if __name__ == '__main__':
             exit(4)
 
     data_ADC = ADC(data_file, conf_file, out_file)
-    data_ADC.plot_raw_spectra()
+    data_ADC.pre_check()
     data_ADC.read_data()
     data_ADC.plot_cor_spectra()
     data_ADC.plot_rate()

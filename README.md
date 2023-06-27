@@ -28,6 +28,23 @@ LD_LIBRARY_PATH:
 source setup.sh
 ```
 
+### work flow
+     (make_tree.py)
+data ------------> ROOT tree
+			    \
+			     \
+			      --> plot.py --> compare.C
+			     /
+			    /
+sim  ------------> ROOT tree
+     (make_tree.py)
+
+* There are two make_tree.py scripts, one for simulation and the other one for 
+  data processing. They will deal with different aspects of data and simulations,
+  the output will be a ROOT tree with hit_cellID and hit_energy (in units of MIP).
+* The plot.py script will read in the ROOT tree and produce histograms (graphs)
+* The compare.C script produce comparison plots from histograms (graphs) resulted from plot.py
+
 ### Detector geometry
 The detector geometry is defined in [this file](prototype.xml). Note that the 
 detector is aligned parallel to the z-axis and placed 350 cm from the nominal 

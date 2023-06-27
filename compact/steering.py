@@ -1,5 +1,5 @@
 from DDSim.DD4hepSimulation import DD4hepSimulation
-from g4units import mm, GeV, MeV
+from g4units import mm, cm, GeV, MeV, degree
 SIM = DD4hepSimulation()
 
 ## The compact XML file, or multiple compact files, if the last one is the closer.
@@ -187,21 +187,21 @@ SIM.gun.energy = None
 SIM.gun.isotrop = True
 
 ## Maximal momentum when using distribution (default = 0.0)
-SIM.gun.momentumMax = 4000.0
+SIM.gun.momentumMax = 4*GeV
 
 ## Minimal momentum when using distribution (default = 0.0)
-SIM.gun.momentumMin = 4000.0
+SIM.gun.momentumMin = 4*GeV
 SIM.gun.multiplicity = 1
-SIM.gun.particle = "e-"
-SIM.gun.phiMax = 0.0
+SIM.gun.particle = "e+"
 
 ## Minimal azimuthal angle for random distribution
-SIM.gun.phiMin = 0.0
+SIM.gun.phiMin = -110*degree
+SIM.gun.phiMax = -70*degree
 
 ##  position of the particle gun, 3 vector 
-SIM.gun.position = (0.0, 20.0, 0.0)
-SIM.gun.thetaMax = 0.04
-SIM.gun.thetaMin = -0.04
+SIM.gun.position = (-1*mm, 218*mm, 0)
+SIM.gun.thetaMax = 0.042
+SIM.gun.thetaMin = 0.040
 
 
 ################################################################################

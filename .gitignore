@@ -2,11 +2,12 @@
 **/*.root
 **/*.png
 eic-shell
-work/
-install/
 **/*.pkl
-build/
 
 #Directories
-local
+local/
+build/
+install/
+**/tmp/
+**/work/
 
