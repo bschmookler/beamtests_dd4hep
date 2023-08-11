@@ -2,8 +2,8 @@ const int kColors[] = {kRed, kBlue};
 const int kLayer = 10;
 const int kCell = 4;
 
-void compare(const char *file0,		 const char *file1 = "beam_test/data_hist.root",
-	     const char *title0 = "sim", const char *title1 = "data")
+void compare(const char *file0,		  const char *file1 = "beam_test/data_hist.root",
+	     const char *title0 = "reco", const char *title1 = "data")
 {
     gROOT->SetBatch(1);
     gStyle->SetOptStat(101111);                                                 
@@ -25,7 +25,7 @@ void compare(const char *file0,		 const char *file1 = "beam_test/data_hist.root"
 	hist[0] = (TH1F *) fin[0]->Get(var);
 	hist[0]->SetLineColor(kColors[0]);
 	hist[0]->SetName(title0);
-	hist[0]->SetTitle(Form("Cell%d Energy (#color[%d]{sim} vs #color[%d]{data});MIP;", i, kColors[0], kColors[1]));
+	hist[0]->SetTitle(Form("Cell%d Energy (#color[%d]{%s} vs #color[%d]{%s});MIP;", i, kColors[0], title0, kColors[1], title1));
 	hist[1] = (TH1F *) fin[1]->Get(var);
 	hist[1]->SetLineColor(kColors[1]);
 	hist[1]->SetName(title1);
@@ -82,7 +82,7 @@ void compare(const char *file0,		 const char *file1 = "beam_test/data_hist.root"
 	    hist[0] = (TH1F *) fin[0]->Get(vname);
 	    hist[0]->SetLineColor(kColors[0]);
 	    hist[0]->SetName(title0);
-	    hist[0]->SetTitle(Form("Layer%d %s (#color[%d]{sim} vs #color[%d]{data});%s;", i, var, kColors[0], kColors[1], unit));
+	    hist[0]->SetTitle(Form("Layer%d %s (#color[%d]{%s} vs #color[%d]{%s});%s;", i, var, kColors[0], title0, kColors[1], title1, unit));
 	    hist[1] = (TH1F *) fin[1]->Get(vname);
 	    hist[1]->SetLineColor(kColors[1]);
 	    hist[1]->SetName(title1);
@@ -130,7 +130,7 @@ void compare(const char *file0,		 const char *file1 = "beam_test/data_hist.root"
 	hist[0] = (TH1F *) fin[0]->Get(vname);
 	hist[0]->SetLineColor(kColors[0]);
 	hist[0]->SetName(title0);
-	hist[0]->SetTitle(Form("Event %s (#color[%d]{sim} vs #color[%d]{data}); %s;", var, kColors[0], kColors[1], unit));
+	hist[0]->SetTitle(Form("Event %s (#color[%d]{%s} vs #color[%d]{%s}); %s;", var, kColors[0], title0, kColors[1], title1, unit));
 	hist[1] = (TH1F *) fin[1]->Get(vname);
 	hist[1]->SetLineColor(kColors[1]);
 	hist[1]->SetName(title1);
@@ -171,7 +171,7 @@ void compare(const char *file0,		 const char *file1 = "beam_test/data_hist.root"
 
 	g[0]->SetMarkerColor(kColors[0]);
 	g[0]->SetName(title0);
-	g[0]->SetTitle(Form("Layer %s mean (#color[%d]{sim} vs #color[%d]{data});layer;mm", var, kColors[0], kColors[1]));
+	g[0]->SetTitle(Form("Layer %s mean (#color[%d]{%s} vs #color[%d]{%s});layer;mm", var, kColors[0], title0, kColors[1], title1));
 	g[1]->SetMarkerColor(kColors[1]);
 	g[1]->SetName(title1);
 	double min = g[0]->GetHistogram()->GetMinimum();

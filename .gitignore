@@ -10,4 +10,5 @@ build/
 install/
 **/tmp/
 **/work/
+**/figures/
 

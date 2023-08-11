@@ -20,13 +20,14 @@ import awkward as ak
 kLayers = 10    # number of total layers
 kCells = 4      # number of cells in one layer
 # ADC2MIP = 1/0.000465; # 0.3 cm
+level = "sim"
 
 def gauss(x, *p):
     A, mu, sigma = p
     return A*np.exp(-(x-mu)**2/(2.*sigma**2))
 
 def usage():
-    print(f'{sys.argv[0]}: -c config.cfg -o output.root input.edm4hep.root')
+    print(f'{sys.argv[0]}: -c config.cfg -o output.root -l level input.edm4hep.root')
 
 class ADC:
     data_file = ''
@@ -62,14 +63,21 @@ class ADC:
 
     ###############################
     def make_tree(self):
+        branch = 'HCALHits'
+        amplitude_var = 'HCALHits.energy'
+        if level == "reco":
+            branch = 'HCALHitsReco'
+            amplitude_var = 'HCALHitsDigi.amplitude'
         arrays = self.events.arrays()
-        hit_cellID = arrays["HCALHits.cellID"]
-        hit_x = arrays["HCALHits.position.x"]
-        hit_y = arrays["HCALHits.position.y"]
-        hit_energy = arrays['HCALHits.energy']
+        hit_cellID = arrays[f'{branch}.cellID']
+        hit_x = arrays[f'{branch}.position.x']
+        hit_y = arrays[f'{branch}.position.y']
+        hit_energy = arrays[f'{branch}.energy']
+        hit_amplitude = arrays[amplitude_var]
 
         hit_cellID_out = []
         hit_energy_out = []
+        hit_amplitude_out = []
 
         print('INFO -- reading tree')
 
@@ -79,6 +87,7 @@ class ADC:
 
             cellID_b = []
             energy_b = []
+            amplitude_b = []
             for hi in range(len(hit_cellID[i])):
                 system_id = (int(hit_cellID[i][hi]) & 0xFF)
                 layer_id = (int(hit_cellID[i][hi]) & 0xFF00) >> 8
@@ -86,17 +95,22 @@ class ADC:
                 cell = 4*layer + 2*(hit_y[i][hi] < 0) + (hit_x[i][hi] > 0)
 
                 energy = hit_energy[i][hi]*self.ADC2MIP
+                amplitude = hit_amplitude[i][hi]
 
                 cellID_b.append(cell)
                 energy_b.append(energy) 
+                amplitude_b.append(amplitude)
 
             if (len(hit_cellID[i]) > 0):
                 hit_cellID_out.append(cellID_b)
                 hit_energy_out.append(energy_b)
+                hit_amplitude_out.append(amplitude_b)
 
-
-        with ur.recreate(self.out_file) as fout:                            
-             fout['events'] = { 'hit': ak.zip({'cellID': hit_cellID_out, 'energy': hit_energy_out}) }
+        with ur.recreate(self.out_file) as fout:
+            if level == "sim":
+                fout['events'] = { 'hit': ak.zip({'cellID': hit_cellID_out, 'energy': hit_energy_out}) }
+            elif level == "reco":
+                fout['events'] = { 'hit': ak.zip({'cellID': hit_cellID_out, 'energy': hit_energy_out, 'amplitude': hit_amplitude_out}) }
 
 
 if __name__ == '__main__':
@@ -116,6 +130,14 @@ if __name__ == '__main__':
         elif '-o' == sys.argv[i]:
             out_file = sys.argv[i+1]
             print(f'INFO -- output root file: {out_file}')
+            i+=1
+        elif '-l' == sys.argv[i]:
+            level = sys.argv[i+1]
+            if level not in ["sim", "reco"]:
+                print(f'ERROR -- unknown particle level: {level}')
+                print(f'\tAvailbale choices: sim, reco')
+                exit(5)
+            print(f'INFO -- particle level: {level}')
             i+=1
         else:
             data_file = sys.argv[i]

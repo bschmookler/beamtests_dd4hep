@@ -71,10 +71,10 @@ gGeoManager->GetTopVolume()->Draw("ogl")
 ### Running the simulation
 To run the simulation, simply do:
 ```
-./run_sim_proto.sh
+./run.sh
 ```
 This will run 100 events, with a single electron generated per event. 
-The generated electron has an energy of 2 GeV, moves along the z-axis, and has 
+The generated electron has an energy of 4 GeV, moves along the z-axis, and has 
 its origin at (x,y,z) = (0,0,0). The DD4HEP output is digitized using the Juggler software.
 
 ![detector_geometry](figures/prototype_geometry.png?raw=true)

@@ -49,9 +49,9 @@ podout = PodioOutput("out", filename=output_rec)
 # Hcal Hadron Endcap Insert
 ci_hcal_insert_daq = dict(
          dynamicRangeADC=200.*MeV,
-         capacityADC=32768,
-         pedestalMean=400,
-         pedestalSigma=10)
+         capacityADC=4000,
+         pedestalMean=60,
+         pedestalSigma=3.16)
 ci_hcal_insert_digi = CalHitDigi("ci_hcal_insert_digi",
          inputHitCollection="HCALHits",
          outputHitCollection="HCALHitsDigi",
