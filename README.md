@@ -20,7 +20,7 @@ To use it, one needs to compile it first:
 ```
 cmake -B build -S . -DCMAKE_INSTALL_PREFIX=install
 cd build
-make
+make install
 ```
 To make the new detector type available, add the newly built library to 
 LD_LIBRARY_PATH:

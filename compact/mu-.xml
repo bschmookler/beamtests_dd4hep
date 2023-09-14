@@ -39,8 +39,7 @@
       <position x="0*cm" y="0*cm" z="500*cm"/>
       <rotation x="0" y="0" z="0"/>
       <dimensions x="4.74*cm" y="4.74*cm" z="4*layer_t"/>
-      <layer repeat="4">
-        <slice name="Absorber"	  material="Steel235"    thickness="absorber_t"	    vis="AnlGray"  sensitive="false"/>
+      <layer repeat="10">
 	<slice name="Scint_cover" material="Polylactide" thickness="scint_cover_t"  vis="BlackVis" sensitive="false"/>
 	<slice name="ESR_foil_1"  material="Polystyrene" thickness="ESR_foil_t"	    vis="BlueVis"  sensitive="false"/>
 	<slice name="Scint"	  material="Polystyrene" thickness="scintillator_t" vis="AnlOrange"  sensitive="true"/>
@@ -48,22 +47,7 @@
 	<slice name="PCB"	  material="Fr4"	 thickness="PCB_t"	vis="CyanVis"  sensitive="false"/>
       </layer>
     </detector>
-
-    <detector id="2" name="HCAL2" type="Polyhedra_ZDC_Sampling" readout="HCALHits" vis="GreenVis">
-      <position x="0*cm" y="0*cm" z="500*cm + 4*layer_t"/>
-      <rotation x="0" y="0" z="0"/>
-      <dimensions x="4.74*cm" y="4.74*cm" z="6*layer_t"/>
-      <layer repeat="6">
-        <slice name="Absorber"	  material="Steel235"    thickness="absorber_t"	    vis="AnlGray"  sensitive="false"/>
-	<slice name="Scint_cover" material="Polylactide" thickness="scint_cover_t"  vis="BlackVis" sensitive="false"/>
-	<slice name="ESR_foil_1"  material="Polystyrene" thickness="ESR_foil_t"	    vis="BlueVis"  sensitive="false"/>
-	<PolyhedraRegular name="Scint" material="Polystyrene" numsides="6" rmin="0*cm" rmax="1.931*cm" thickness="scintillator_t" vis="AnlOrange" sensitive="true"/>
-	<slice name="ESR_foil_2"  material="Polystyrene" thickness="ESR_foil_t" vis="BlueVis"  sensitive="false"/>
-	<slice name="PCB"	  material="Fr4"	 thickness="PCB_t"	vis="CyanVis"  sensitive="false"/>
-      </layer>
-    </detector>
   </detectors>
-
   <readouts>
     <readout name="HCALHits">
       <segmentation type="NoSegmentation"/>

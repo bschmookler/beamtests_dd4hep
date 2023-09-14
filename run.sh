@@ -30,7 +30,7 @@ if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
 eval set -- "$OPTIONS"
 
 # default configurations
-particle="e-"
+particle="e+"
 particleEnergy=4	# in GeV
 numberOfEvents=1000
 compactFile="prototype.xml"

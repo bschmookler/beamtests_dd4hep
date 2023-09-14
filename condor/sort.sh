@@ -2,10 +2,19 @@
 
 DIR=${1:-.}
 cd $DIR
+shift
+
 i=1
-ls *.edm4hep.root | while read f
+if [ $# -ge 1 ]; then
+    i=$1
+fi
+
+ls *_hist.root | while read f
 do
-    prefix=${f%.edm4hep.root}
-    rename ${prefix} ${i} ${prefix}*.root
+    id=$(echo $f | egrep -o '[0-9]+_[0-9]+')
+    if [ -z "$id" ]; then
+	continue
+    fi
+    rename ${id} ${i} *${id}*.root
     let i++
 done

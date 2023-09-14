@@ -10,6 +10,7 @@ from Configurables import ApplicationMgr, EICDataSvc, PodioInput, PodioOutput, G
 from GaudiKernel.SystemOfUnits import MeV, GeV, mm, cm, mrad
 
 detector_name = "prototype"
+# detector_name = "no_frame"
 detector_path = "."
 compact_path = os.path.join(detector_path, detector_name)
 

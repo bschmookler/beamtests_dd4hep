@@ -11,6 +11,7 @@ usage(){
     --numberOfProcesses N   number of processes per job
     --numberOfEvents N      number of events in each job process 
     --particle P
+    --compactFile F
     --steeringFile F
     "
 }
@@ -23,6 +24,7 @@ numberOfJobs:,\
 numberOfProcesses:,\
 numberOfEvents:,\
 particle:,\
+compactFile:,\
 steeringFile: \
 --name "${me}" \
 -- "$@")
@@ -33,7 +35,8 @@ eval set -- "$OPTIONS"
 numberOfJobs=1
 numberOfProcesses=1
 numberOfEvents=1000
-particle="e-"
+particle="e+"
+compactFile="prototype.xml"
 steeringFile=$(realpath $ROOTDIR/compact/steering.py)
 
 while true; do
@@ -43,7 +46,8 @@ while true; do
 	--numberOfProcesses)numberOfProcesses="$2"; shift 2 ;;
 	--numberOfEvents)   numberOfEvents="$2";    shift 2 ;;
 	--particle)	    particle="$2";	    shift 2 ;;
-	--steeringFile)	    steeringFile=$(realpath $2); shift 2 ;;
+	--compactFile)	    compactFile=$(realpath "$2");   shift 2 ;;
+	--steeringFile)	    steeringFile=$(realpath "$2");  shift 2 ;;
 	--) shift; break ;;
 	*) break ;;
     esac
@@ -60,6 +64,7 @@ Executable      = ${CONDOR}/run_eic.csh
 Arguments       = ${ROOTDIR}/run.sh \
     --particle ${particle}\
     --numberOfEvents ${numberOfEvents}\
+    --compactFile ${compactFile}\
     --steeringFile ${steeringFile}\
     --outputSuffix ${i}_\$(ProcID)
 Requirements    = (CPU_Speed >= 2)
