@@ -89,10 +89,16 @@ class ADC:
             energy_b = []
             amplitude_b = []
             for hi in range(len(hit_cellID[i])):
-                system_id = (int(hit_cellID[i][hi]) & 0xFF)
-                layer_id = (int(hit_cellID[i][hi]) & 0xFF00) >> 8
-                layer = 4*(system_id-1) + layer_id - 1
-                cell = 4*layer + 2*(hit_y[i][hi] < 0) + (hit_x[i][hi] > 0)
+                system_id = (int(hit_cellID[i][hi]) & 0x0000FF)
+                layer_id  = (int(hit_cellID[i][hi]) & 0x00FF00) >> 8
+                cell_id   = (int(hit_cellID[i][hi]) & 0xFF0000) >> 16
+                layer = 7*(system_id-1) + (layer_id-1)
+
+                cell = cell_id-1
+                if (layer < 7):
+                    cell = cell + 7*layer
+                else:
+                    cell = cell + 7*7 + 4*(layer - 7)
 
                 energy = hit_energy[i][hi]*self.ADC2MIP
                 amplitude = hit_amplitude[i][hi]

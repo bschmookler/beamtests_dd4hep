@@ -76,3 +76,11 @@ export JUGGLER_SIM_FILE=${simfile} JUGGLER_REC_FILE=${recofile} JUGGLER_N_EVENTS
 gaudirun.py prototype_reco.py
 
 # analysis
+output=${recofile%.edm4hep.root}
+level=reco
+
+make_tree='${ROOTDIR}/beamtests_dd4hep/analysis/sim/make_tree.py'
+# plot='${ROOTDIR}/analysis/plot.py'
+CONFIG_FILE='${ROOTDIR}/analysis/sim/config.cfg'
+$make_tree -c $CONFIG_FILE -o ${output}.root -l $level ${recofile}
+# $plot -c $CONFIG_FILE -o ${output}_hist.root ${output}.root

@@ -143,6 +143,8 @@ static Ref_t createPolyhedraZDC(Detector& desc, xml_h e, SensitiveDetector sens)
       Volume layer_vol(layer_name, Box(width / 2.0, height / 2.0, layerThickness / 2.0), Vacuum);
 
       int comp_num = 1;
+			int sensitive_num = 1;
+			int nonsensitive_num = 100;
       // Loop over layer components
       for (xml_coll_t l(x_layer, "*"); l; ++l) {
         xml_comp_t x_comp		= l;
@@ -177,7 +179,15 @@ static Ref_t createPolyhedraZDC(Detector& desc, xml_h e, SensitiveDetector sens)
         comp_vol.setAttributes(desc, x_comp.regionStr(), x_comp.limitsStr(), x_comp.visStr());
         pv = layer_vol.placeVolume(
             comp_vol, Transform3D(RotationZYX(0, 0, 0), Position(x_offset, y_offset, z - zlayer - layerThickness / 2.0 + t / 2.0)));
-        pv.addPhysVolID("slice", comp_num);
+
+        if (x_comp.isSensitive()) {
+					pv.addPhysVolID("slice", sensitive_num);
+					++sensitive_num;
+				} else {
+					pv.addPhysVolID("slice", nonsensitive_num);
+					++nonsensitive_num;
+				}
+
         ++comp_num;
 				if (x_comp.hasAttr(_U(count)) && 0 == x_comp.count())
 					continue;
