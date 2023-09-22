@@ -30,15 +30,16 @@
       <layer repeat="1">
 	<slice name="Epoxy"    material="Epoxy"    thickness="0.3*mm" vis="AnlGray"/>
         <slice name="Silicon"  material="Silicon"  thickness="1.15*mm" vis="AnlOrange" sensitive="true"/>
+	<slice name="PCB"      material="Fr4"      thickness="1.6*mm"  vis="CyanVis"  sensitive="false"/>
       </layer>
     </detector> 
   </detectors>
 
   <readouts>
-    <readout name="SipmHits">
-      <segmentation type="CartesianGridXY" grid_size_x="3*mm" grid_size_y="3*mm"/>
-      <id>system:8,layer:12,slice:12,x:32:-16,y:-16</id>  
-    </readout>    
+   <readout name="SipmHits">
+      <segmentation type="NoSegmentation"/>
+      <id>system:8,layer:8,slice:8,x:8,y:8</id>  
+    </readout>
   </readouts>
 
 </lccdd>

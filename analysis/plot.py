@@ -45,6 +45,7 @@ class ADC:
 
     h1 = {}     # 1D histogram
     h2 = {}     # 2D hist
+    h1['hit_mult'] = TH1F('hit_mult', 'Hit Multiplicity', 30, 0, 30)
     h1['hit_cell_id'] = TH1F('hit_cell_id', 'Hit Cell ID', 45, 0, 45)
     h1['hit_layer_id'] = TH1F('hit_layer_id', 'Hit Layer ID', 20, 0, 20)
     h1['hit_x'] = TH1F('hit_x', 'Hit X;mm', 80, -40, 40)
@@ -124,6 +125,7 @@ class ADC:
             layer_x = []
             layer_y = []
             layer_energy = []
+            nhit = 0
             for l in range(kLayers):
                 layer_x.append(0)
                 layer_y.append(0)
@@ -136,6 +138,7 @@ class ADC:
                 if (1 == cell) or (7 == cell) or (energy < self.MIP_cut) or (16 == cell and energy >= 32.4) or (17 == cell and energy >= 33.5):
                     continue
 
+                nhit+=1
                 x = 1 if (cell%2) > 0 else -1
                 x *= 23.7   # mm
                 y = 1 if (cell%4) < 2 else -1
@@ -161,6 +164,7 @@ class ADC:
 
             if (event_energy > 0):
                 self.eventMIPs.append(event_energy)
+                self.h1['hit_mult'].Fill(nhit)
                 self.h1['event_energy'].Fill(event_energy)
                 self.h1['event_x'].Fill(event_x/event_energy)
                 self.h1['event_y'].Fill(event_y/event_energy)

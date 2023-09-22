@@ -1,0 +1,150 @@
+<lccdd>
+  <comment>
+    ///////////////////////////////////////////////////////////
+    // HCAL
+    // Fe + Scintillator (Fe/Sci) prototype
+    ///////////////////////////////////////////////////////////
+  </comment>        
+
+  <info name="EPIC HCal Insert" title="EPIC Forward HCal Insert"
+        author="EPIC Collaboration"
+	url="https://github.com/bschmookler/beamtests_dd4hep"
+	status="development"
+	version="v2 2023-09-14">
+  </info>
+
+  <define>
+    <constant name="Pi"			    value="3.14159265359"/>
+    <constant name="world_side"     	    value="30*m"/>
+    <constant name="world_x"	    	    value="world_side"/>
+    <constant name="world_y" 	    	    value="world_side"/>
+    <constant name="world_z" 	    	    value="100*m"/>
+    <constant name="tracker_region_zmax"    value="10*m"/>
+    <constant name="tracker_region_rmax"    value="1*m"/>
+    <constant name="x0"		     	    value="0"/>
+    <constant name="y0"		     	    value="0"/>
+    <constant name="z0"		     	    value="100*cm"/>
+    <constant name="sin_60"		    value="sqrt(3)/2"/>
+    <constant name="nrepeat_hexagon"	    value="7"/>
+    <constant name="nrepeat_square"	    value="13"/>
+
+    <constant name="hexagon_scint_side"	    value="17.4*mm" />
+    <constant name="hexagon_scint_rmin"	    value="0" />
+    <constant name="hexagon_scint_rmax"	    value="hexagon_scint_side*sin_60" />
+    <constant name="frame_w"		    value="0.4*mm" />
+    <constant name="hexagon_frame_rmin"	    value="hexagon_scint_rmax" />
+    <constant name="hexagon_frame_rmax"	    value="hexagon_scint_rmax + frame_w/2" />
+    <constant name="hexagon_frame_side"	    value="hexagon_frame_rmax/sin_60" />
+
+    <constant name="megacell_x"		    value="5*hexagon_frame_side + 2*frame_w" />
+    <constant name="megacell_y"		    value="6*hexagon_frame_rmax + 2*frame_w" />
+    <constant name="layer_x"		    value="megacell_x" />
+    <constant name="layer_y"		    value="megacell_y" />
+    <constant name="megacell_frame_x"	    value="5*hexagon_frame_side" />
+    <constant name="megacell_frame_y"	    value="6*hexagon_frame_rmax" />
+
+    <constant name="cell_0_offset_x"	    value="0" />
+    <constant name="cell_0_offset_y"	    value="0" />
+    <constant name="cell_1_offset_x"	    value="-hexagon_frame_side*3/2" />
+    <constant name="cell_1_offset_y"	    value="hexagon_frame_rmax" />
+    <constant name="cell_2_offset_x"	    value="0" />
+    <constant name="cell_2_offset_y"	    value="2*hexagon_frame_rmax" />
+    <constant name="cell_3_offset_x"	    value="hexagon_frame_side*3/2" />
+    <constant name="cell_3_offset_y"	    value="hexagon_frame_rmax" />
+    <constant name="cell_4_offset_x"	    value="hexagon_frame_side*3/2" />
+    <constant name="cell_4_offset_y"	    value="-hexagon_frame_rmax" />
+    <constant name="cell_5_offset_x"	    value="0" />
+    <constant name="cell_5_offset_y"	    value="-2*hexagon_frame_rmax" />
+    <constant name="cell_6_offset_x"	    value="-hexagon_frame_side*3/2" />
+    <constant name="cell_6_offset_y"	    value="-hexagon_frame_rmax" />
+    <constant name="megacell_up_frame_offset_x"	    value="0" />
+    <constant name="megacell_up_frame_offset_y"     value="megacell_y/2 + frame_w/2" />
+    <constant name="megacell_dn_frame_offset_x"     value="0" />
+    <constant name="megacell_dn_frame_offset_y"     value="-(megacell_y/2 + frame_w/2)" />
+    <constant name="megacell_left_frame_offset_x"   value="-(megacell_x/2 + frame_w/2)" />
+    <constant name="megacell_left_frame_offset_y"   value="0" />
+    <constant name="megacell_right_frame_offset_x"  value="megacell_x/2 + frame_w/2" />
+    <constant name="megacell_right_frame_offset_y"  value="0" />
+
+    <constant name="absorber_t"		    value="2*cm"/>
+    <constant name="cover_t"		    value="0.04*cm"/>
+    <constant name="ESR_t"		    value="0.015*cm"/>
+    <constant name="scintillator_t"	    value="0.3*cm"/>
+    <constant name="frame_t"		    value="scintillator_t"/>
+    <constant name="PCB_t"		    value="0.08*cm"/>
+    <constant name="layer_t"		    value="absorber_t + cover_t + 2*ESR_t + scintillator_t + PCB_t"/>
+  </define>
+
+  <includes>
+    <gdmlFile ref="compact/elements.xml"/>
+    <gdmlFile ref="compact/materials.xml"/>
+  </includes>
+
+  <detectors>
+
+    <!-- Hexagon Tiles -->
+    <detector id="1" name="HCAL1" type="Polyhedra_ZDC_Sampling" readout="HCALHits" vis="GreenVis">
+      <position x="x0" y="y0" z="z0"/>
+      <rotation x="0" y="0" z="0"/>
+      <dimensions x="layer_x" y="layer_y" z="nrepeat_hexagon*layer_t"/>
+      <layer repeat="nrepeat_hexagon">
+	<!-- absorber -->
+        <Box name="Absorber"	material="Steel235" 	x="megacell_x" y="megacell_y" thickness="absorber_t" count="1" vis="AnlGray" sensitive="false"/>
+        <Box name="Cover"	material="Polylactide" 	x="megacell_x" y="megacell_y" thickness="cover_t"    count="1" vis="BlackVis" sensitive="false"/>
+        <Box name="ESR_1"	material="Polystyrene" 	x="megacell_x" y="megacell_y" thickness="ESR_t"      count="1" vis="BlueVis" sensitive="false"/>
+
+	<!-- scintillating tiles -->
+	<PolyhedraRegular name="Scint_0" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="cell_0_offset_x" y_offset="cell_0_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_0" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="cell_0_offset_x" y_offset="cell_0_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_1" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="cell_1_offset_x" y_offset="cell_1_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_1" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="cell_1_offset_x" y_offset="cell_1_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_2" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="cell_2_offset_x" y_offset="cell_2_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_2" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="cell_2_offset_x" y_offset="cell_2_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_3" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="cell_3_offset_x" y_offset="cell_3_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_3" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="cell_3_offset_x" y_offset="cell_3_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_4" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="cell_4_offset_x" y_offset="cell_4_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_4" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="cell_4_offset_x" y_offset="cell_4_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_5" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="cell_5_offset_x" y_offset="cell_5_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_5" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="cell_5_offset_x" y_offset="cell_5_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_6" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="cell_6_offset_x" y_offset="cell_6_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_6" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="cell_6_offset_x" y_offset="cell_6_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<!-- megacell border frame -->
+	<Box name="Frame_border_up"	material="Polylactide" x="megacell_frame_x" y="frame_w" thickness="frame_t" x_offset="megacell_up_frame_offset_x"	y_offset="megacell_up_frame_offset_y"	    count="0" vis="CyanVis" sensitive="false"/>
+	<Box name="Frame_border_dn"	material="Polylactide" x="megacell_frame_x" y="frame_w" thickness="frame_t" x_offset="megacell_dn_frame_offset_x"	y_offset="megacell_dn_frame_offset_y"	    count="0" vis="CyanVis" sensitive="false"/>
+	<Box name="Frame_border_left"	material="Polylactide" x="frame_w" y="megacell_frame_y" thickness="frame_t" x_offset="megacell_left_frame_offset_x"	y_offset="megacell_left_frame_offset_y"   count="0" vis="CyanVis" sensitive="false"/>
+	<Box name="Frame_border_right"	material="Polylactide" x="frame_w" y="megacell_frame_y" thickness="frame_t" x_offset="megacell_right_frame_offset_x"	y_offset="megacell_right_frame_offset_y"   count="1" vis="CyanVis" sensitive="false"/>
+	     
+        <Box name="ESR_2"	material="Polystyrene" 	x="megacell_x" y="megacell_y" thickness="ESR_t" count="1" vis="BlueVis" sensitive="false"/>
+        <Box name="PCB"    	material="Fr4" 		x="megacell_x" y="megacell_y" thickness="PCB_t" count="1" vis="CyanVis" sensitive="false"/>
+      </layer>
+    </detector>
+
+    <!-- Square Tiles -->
+    <detector id="2" name="HCAL2" type="Polyhedra_ZDC_Sampling" readout="HCALHits" vis="GreenVis">
+      <position x="x0" y="y0" z="z0+nrepeat_hexagon*layer_t"/>
+      <rotation x="0" y="0" z="0"/>
+      <dimensions x="layer_x" y="layer_y" z="nrepeat_square*layer_t"/>
+      <layer repeat="nrepeat_square">
+        <Box name="Absorber"	material="Steel235" 	x="megacell_x" y="megacell_y" thickness="absorber_t" count="1" vis="AnlGray" sensitive="false"/>
+        <Box name="Cover"	material="Polylactide" 	x="megacell_x" y="megacell_y" thickness="cover_t"    count="1" vis="BlackVis" sensitive="false"/>
+        <Box name="ESR_1"	material="Polystyrene" 	x="megacell_x" y="megacell_y" thickness="ESR_t"      count="1" vis="BlueVis" sensitive="false"/>
+        <Box name="Scint"	material="Polystyrene" 	x="megacell_x" y="megacell_y" thickness="scintillator_t" count="0" vis="AnlOrange" sensitive="true"/>
+	<!-- up left megacell border frame -->
+	<Box name="Frame_border_up"	material="Polylactide" x="megacell_frame_x" y="frame_w" thickness="frame_t" x_offset="megacell_up_frame_offset_x"	y_offset="megacell_up_frame_offset_y"	    count="0" vis="CyanVis" sensitive="false"/>
+	<Box name="Frame_border_dn"	material="Polylactide" x="megacell_frame_x" y="frame_w" thickness="frame_t" x_offset="megacell_dn_frame_offset_x"	y_offset="megacell_dn_frame_offset_y"	    count="0" vis="CyanVis" sensitive="false"/>
+	<Box name="Frame_border_left"	material="Polylactide" x="frame_w" y="megacell_frame_y" thickness="frame_t" x_offset="megacell_left_frame_offset_x"	y_offset="megacell_left_frame_offset_y"	    count="0" vis="CyanVis" sensitive="false"/>
+	<Box name="Frame_border_right"	material="Polylactide" x="frame_w" y="megacell_frame_y" thickness="frame_t" x_offset="megacell_right_frame_offset_x"	y_offset="megacell_right_frame_offset_y"    count="1" vis="CyanVis" sensitive="false"/>
+
+        <Box name="ESR_2"	material="Polystyrene" 	x="megacell_x" y="megacell_y" thickness="ESR_t" count="1" vis="BlueVis" sensitive="false"/>
+        <Box name="PCB"    	material="Fr4" 		x="megacell_x" y="megacell_y" thickness="PCB_t" count="1" vis="CyanVis" sensitive="false"/>
+      </layer>
+    </detector>
+  </detectors>
+
+  <readouts>
+    <readout name="HCALHits">
+      <segmentation type="NoSegmentation"/>
+      <id>system:8,layer:8,slice:8,x:8,y:8</id>  
+    </readout>
+  </readouts>
+</lccdd>

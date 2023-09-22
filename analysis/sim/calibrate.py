@@ -20,6 +20,8 @@ from ROOT import gROOT, TGaxis, gStyle, gPad
 # constants
 kLayers = 10    # number of total layers
 kCells = 4      # number of cells in one layer
+branch = 'HCALHits'
+# branch = 'HCALHitsReco'
 
 gROOT.SetBatch(1)
 TGaxis.SetMaxDigits(3)
@@ -50,8 +52,8 @@ class ADC:
     h1['hit_x'] = TH1F('hit_x', 'x', 100, -50, 50);
     h1['hit_y'] = TH1F('hit_y', 'y', 100, -50, 50);
     h1['hit_z'] = TH1F('hit_z', 'z', 60, 5000, 5300);
-    h1['hit_energy'] = TH1F('hit_energy', 'Hit energy', 100, 0, 0.003);
-    h1['hit_event_energy'] = TH1F('event_energy', 'Event Energy', 100, 0, 300);
+    h1['hit_energy'] = TH1F('hit_energy', 'Hit energy', 100, 0, 0.005);
+    h1['event_energy'] = TH1F('event_energy', 'Event Energy', 100, 0, 10);
     for l in range(kLayers):
         h1_layer.append(TH1F(f'layer{l}_energy', f'Layer{l} Energy', 100, 0, 80)) 
     for i in range(kLayers*kCells):
@@ -82,12 +84,11 @@ class ADC:
     ###############################
     def read_data(self):
         arrays = self.events.arrays()
-        hit_cellID = arrays["HCALHits.cellID"]
-        hit_x = arrays['HCALHits.position.x']
-        hit_y = arrays['HCALHits.position.y']
-        hit_z = arrays['HCALHits.position.z']
-        hit_energy = arrays['HCALHits.energy']
-        # hit_layer_id = arrays['HCALHits.cellID']
+        hit_cellID = arrays[f'{branch}.cellID']
+        hit_x = arrays[f'{branch}.position.x']
+        hit_y = arrays[f'{branch}.position.y']
+        hit_z = arrays[f'{branch}.position.z']
+        hit_energy = arrays[f'{branch}.energy']
         if (self.nmax == -1 or self.nmax > len(hit_x)):
             self.nmax = len(hit_x)
 
@@ -106,11 +107,12 @@ class ADC:
 
             if (event_energy > 0):
                 self.eventADCs.append(event_energy)
-                self.h1['hit_event_energy'].Fill(event_energy)
+                self.h1['event_energy'].Fill(event_energy)
 
                 for hi in range(len(hit_energy[i])):
-                    system_id = (hit_cellID[i][hi] & 0xFF)
-                    layer_id = (hit_cellID[i][hi] & 0xFF00) >> 8
+                    _id = int(hit_cellID[i][hi])
+                    system_id = (_id & 0x00FF)
+                    layer_id  = (_id & 0xFF00) >> 8
                     layer = 4*(system_id-1) + layer_id - 1
                     cell = 4*layer + 2*(hit_y[i][hi] < 0) + (hit_x[i][hi] > 0)
                     energy = hit_energy[i][hi]
@@ -137,8 +139,8 @@ class ADC:
 
 
         print('Muon spectrum peak: %.6f'%(self.h1['hit_energy'].GetBinCenter(self.h1['hit_energy'].GetMaximumBin()))) 
-        self.h1['hit_event_energy'].Fit('gaus')
-        delta = self.h1['hit_event_energy'].GetFunction('gaus').GetParameter(2)
+        self.h1['event_energy'].Fit('gaus')
+        delta = self.h1['event_energy'].GetFunction('gaus').GetParameter(2)
         print(f'INFO -- Energy resolution: {delta}')
 
         for l in range(kLayers):

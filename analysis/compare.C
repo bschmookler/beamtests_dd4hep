@@ -16,6 +16,13 @@ void compare(const char *file0,		  const char *file1 = "beam_test/data_hist.root
     TH1F* hist[2];
     TGraphErrors* g[2];
 
+    double nevents[2];
+    for (int i=0; i<2; i++)
+    {
+	hist[i] = (TH1F*) fin[i]->Get("event_energy");
+	nevents[i] = hist[i]->GetEntries();
+    }
+
     TCanvas c("c", "c", 500*kLayer, 500*kCell);
     c.Divide(kLayer, kCell);
     // cells
@@ -29,7 +36,7 @@ void compare(const char *file0,		  const char *file1 = "beam_test/data_hist.root
 	hist[1] = (TH1F *) fin[1]->Get(var);
 	hist[1]->SetLineColor(kColors[1]);
 	hist[1]->SetName(title1);
-	hist[0]->Scale(hist[1]->Integral()/hist[0]->Integral());
+	hist[0]->Scale(nevents[1]/nevents[0]);
 	double min = hist[0]->GetMinimum();
 	if (min > hist[1]->GetMinimum())
 	    min = hist[1]->GetMinimum();
@@ -86,7 +93,7 @@ void compare(const char *file0,		  const char *file1 = "beam_test/data_hist.root
 	    hist[1] = (TH1F *) fin[1]->Get(vname);
 	    hist[1]->SetLineColor(kColors[1]);
 	    hist[1]->SetName(title1);
-	    hist[0]->Scale(hist[1]->Integral()/hist[0]->Integral());
+	    hist[0]->Scale(nevents[1]/nevents[0]);
 	    double min = hist[0]->GetMinimum();
 	    if (min > hist[1]->GetMinimum())
 		min = hist[1]->GetMinimum();
@@ -134,7 +141,7 @@ void compare(const char *file0,		  const char *file1 = "beam_test/data_hist.root
 	hist[1] = (TH1F *) fin[1]->Get(vname);
 	hist[1]->SetLineColor(kColors[1]);
 	hist[1]->SetName(title1);
-	hist[0]->Scale(hist[1]->Integral()/hist[0]->Integral());
+	hist[0]->Scale(nevents[1]/nevents[0]);
 
 	double min = hist[0]->GetMinimum();
 	if (min > hist[1]->GetMinimum())
