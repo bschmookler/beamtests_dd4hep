@@ -150,7 +150,7 @@ static Ref_t createPolyhedraZDC(Detector& desc, xml_h e, SensitiveDetector sens)
         xml_comp_t x_comp		= l;
 				string		 comp_tag = x_comp.tag();
         double     t				= x_comp.thickness();
-        string     comp_name = layer_name + "_" + comp_tag + to_string(comp_num);
+        string     comp_name = layer_name + "_" + comp_tag + "_" + x_comp.nameStr();
         Material   comp_mat  = desc.material(x_comp.materialStr());
         Volume     comp_vol(comp_name);
 				comp_vol.setMaterial(comp_mat);
@@ -175,10 +175,13 @@ static Ref_t createPolyhedraZDC(Detector& desc, xml_h e, SensitiveDetector sens)
 
 				double x_offset = x_comp.x_offset(0); 
 				double y_offset = x_comp.y_offset(0); 
+				double angle = 0;
+				if (x_comp.hasAttr(_U(angle)))
+					angle = x_comp.angle();	// in degree
 
         comp_vol.setAttributes(desc, x_comp.regionStr(), x_comp.limitsStr(), x_comp.visStr());
         pv = layer_vol.placeVolume(
-            comp_vol, Transform3D(RotationZYX(0, 0, 0), Position(x_offset, y_offset, z - zlayer - layerThickness / 2.0 + t / 2.0)));
+            comp_vol, Transform3D(RotationZYX(angle, 0, 0), Position(x_offset, y_offset, z - zlayer - layerThickness / 2.0 + t / 2.0)));
 
         if (x_comp.isSensitive()) {
 					pv.addPhysVolID("slice", sensitive_num);

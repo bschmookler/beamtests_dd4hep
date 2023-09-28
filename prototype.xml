@@ -15,73 +15,79 @@
 
   <define>
     <constant name="Pi"			    value="3.14159265359"/>
-    <constant name="world_side"     	    value="30*m"/>
+    <constant name="world_side"     	    value="30.0*m"/>
     <constant name="world_x"	    	    value="world_side"/>
     <constant name="world_y" 	    	    value="world_side"/>
-    <constant name="world_z" 	    	    value="100*m"/>
-    <constant name="tracker_region_zmax"    value="10*m"/>
-    <constant name="tracker_region_rmax"    value="1*m"/>
-    <constant name="x0"		     	    value="0"/>
-    <constant name="y0"		     	    value="0"/>
-    <constant name="z0"		     	    value="300*cm"/>
+    <constant name="world_z" 	    	    value="100.0*m"/>
+    <constant name="tracker_region_zmax"    value="10.0*m"/>
+    <constant name="tracker_region_rmax"    value="1.0*m"/>
+    <constant name="x0"		     	    value="0.0"/>
+    <constant name="y0"		     	    value="0.0"/>
+    <constant name="z0"		     	    value="300.0*cm"/>
     <constant name="sin_60"		    value="sqrt(3)/2"/>
     <constant name="nrepeat_hexagon"	    value="7"/>
     <constant name="nrepeat_square"	    value="13"/>
 
-    <constant name="hexagon_scint_side"	    value="17.4*mm" />
-    <constant name="hexagon_scint_rmin"	    value="0" />
-    <constant name="hexagon_scint_rmax"	    value="hexagon_scint_side*sin_60" />
     <constant name="frame_w"		    value="0.4*mm" />
+    <constant name="hexagon_scint_side"	    value="17.4*mm" />
+    <constant name="hexagon_scint_rmin"	    value="0.0" />
+    <constant name="hexagon_scint_rmax"	    value="hexagon_scint_side*sin_60" />
     <constant name="hexagon_frame_rmin"	    value="hexagon_scint_rmax" />
-    <constant name="hexagon_frame_rmax"	    value="hexagon_scint_rmax + frame_w/2" />
+    <constant name="hexagon_frame_rmax"	    value="hexagon_frame_rmin + frame_w/2" />
     <constant name="hexagon_frame_side"	    value="hexagon_frame_rmax/sin_60" />
 
-    <constant name="megacell_x"		    value="5*hexagon_frame_side + 2*frame_w" />
-    <constant name="megacell_y"		    value="6*hexagon_frame_rmax + 2*frame_w" />
-    <constant name="gap_x"		    value="1*cm" />
-    <constant name="gap_y"		    value="1*cm" />
-    <constant name="layer_x"		    value="2*megacell_x + gap_x" />
-    <constant name="layer_y"		    value="2*megacell_y + gap_y" />
-    <constant name="megacell_frame_x"	    value="5*hexagon_frame_side" />
-    <constant name="megacell_frame_y"	    value="6*hexagon_frame_rmax" />
+    <constant name="square_scint_side"	    value="47.4*mm" />
+    <constant name="square_scint_rmin"	    value="0.0" />
+    <constant name="square_scint_rmax"	    value="square_scint_side/2" />
+    <constant name="square_frame_rmin"	    value="square_scint_rmax" />
+    <constant name="square_frame_rmax"	    value="square_frame_rmin + frame_w/2" />
 
-    <constant name="up_left_x"		    value="-(gap_x/2 + megacell_x/2)" />
-    <constant name="up_left_y"		    value="gap_y/2 + megacell_y/2" />
-    <constant name="up_right_x"		    value="gap_x/2 + megacell_x/2" />
-    <constant name="up_right_y"		    value="gap_y/2 + megacell_y/2" />
-    <constant name="dn_left_x"		    value="-(gap_x/2 + megacell_x/2)" />
-    <constant name="dn_left_y"	    	    value="-(gap_y/2 + megacell_y/2)" />
-    <constant name="dn_right_x"	    	    value="gap_x/2 + megacell_x/2" />
-    <constant name="dn_right_y"	    	    value="-(gap_y/2 + megacell_y/2)" />
-    <constant name="cell_0_offset_x"	    value="0" />
-    <constant name="cell_0_offset_y"	    value="0" />
-    <constant name="cell_1_offset_x"	    value="-hexagon_frame_side*3/2" />
-    <constant name="cell_1_offset_y"	    value="hexagon_frame_rmax" />
-    <constant name="cell_2_offset_x"	    value="0" />
-    <constant name="cell_2_offset_y"	    value="2*hexagon_frame_rmax" />
-    <constant name="cell_3_offset_x"	    value="hexagon_frame_side*3/2" />
-    <constant name="cell_3_offset_y"	    value="hexagon_frame_rmax" />
-    <constant name="cell_4_offset_x"	    value="hexagon_frame_side*3/2" />
-    <constant name="cell_4_offset_y"	    value="-hexagon_frame_rmax" />
-    <constant name="cell_5_offset_x"	    value="0" />
-    <constant name="cell_5_offset_y"	    value="-2*hexagon_frame_rmax" />
-    <constant name="cell_6_offset_x"	    value="-hexagon_frame_side*3/2" />
-    <constant name="cell_6_offset_y"	    value="-hexagon_frame_rmax" />
-    <constant name="megacell_up_frame_offset_x"	    value="0" />
-    <constant name="megacell_up_frame_offset_y"     value="megacell_y/2 + frame_w/2" />
-    <constant name="megacell_dn_frame_offset_x"     value="0" />
-    <constant name="megacell_dn_frame_offset_y"     value="-(megacell_y/2 + frame_w/2)" />
-    <constant name="megacell_left_frame_offset_x"   value="-(megacell_x/2 + frame_w/2)" />
-    <constant name="megacell_left_frame_offset_y"   value="0" />
-    <constant name="megacell_right_frame_offset_x"  value="megacell_x/2 + frame_w/2" />
-    <constant name="megacell_right_frame_offset_y"  value="0" />
+    <constant name="megacell_inner_x"	    value="2*square_scint_side + frame_w" />
+    <constant name="megacell_inner_y"	    value="megacell_inner_x" />
+    <constant name="megacell_outer_x"	    value="megacell_inner_x + 2*frame_w" />
+    <constant name="megacell_outer_y"	    value="megacell_inner_y + 2*frame_w" />
+    <constant name="gap_x"		    value="5.0*mm" />
+    <constant name="gap_y"		    value="10.0*mm" />
+    <constant name="layer_x"		    value="2*megacell_outer_x + gap_x" />
+    <constant name="layer_y"		    value="2*megacell_outer_y + gap_y" />
 
-    <constant name="absorber_t"		    value="2*cm"/>
-    <constant name="cover_t"		    value="0.04*cm"/>
-    <constant name="ESR_t"		    value="0.015*cm"/>
-    <constant name="scintillator_t"	    value="0.3*cm"/>
+    <constant name="up_left_x"		    value="gap_x/2 + megacell_outer_x/2" />
+    <constant name="up_left_y"		    value="gap_y/2 + megacell_outer_y/2" />
+    <constant name="up_right_x"		    value="-(gap_x/2 + megacell_outer_x/2)" />
+    <constant name="up_right_y"		    value="gap_y/2 + megacell_outer_y/2" />
+    <constant name="dn_left_x"		    value="gap_x/2 + megacell_outer_x/2" />
+    <constant name="dn_left_y"	    	    value="-(gap_y/2 + megacell_outer_y/2)" />
+    <constant name="dn_right_x"	    	    value="-(gap_x/2 + megacell_outer_x/2)" />
+    <constant name="dn_right_y"	    	    value="-(gap_y/2 + megacell_outer_y/2)" />
+    <constant name="hexcell_0_offset_x"	    value="0.0" />
+    <constant name="hexcell_0_offset_y"	    value="0.0" />
+    <constant name="hexcell_1_offset_x"	    value="hexagon_frame_side*3/2" />
+    <constant name="hexcell_1_offset_y"	    value="hexagon_frame_rmax" />
+    <constant name="hexcell_2_offset_x"	    value="0.0" />
+    <constant name="hexcell_2_offset_y"	    value="2*hexagon_frame_rmax" />
+    <constant name="hexcell_3_offset_x"	    value="-hexagon_frame_side*3/2" />
+    <constant name="hexcell_3_offset_y"	    value="hexagon_frame_rmax" />
+    <constant name="hexcell_4_offset_x"	    value="-hexagon_frame_side*3/2" />
+    <constant name="hexcell_4_offset_y"	    value="-hexagon_frame_rmax" />
+    <constant name="hexcell_5_offset_x"	    value="0.0" />
+    <constant name="hexcell_5_offset_y"	    value="-2*hexagon_frame_rmax" />
+    <constant name="hexcell_6_offset_x"	    value="hexagon_frame_side*3/2" />
+    <constant name="hexcell_6_offset_y"	    value="-hexagon_frame_rmax" />
+    <constant name="sqacell_0_offset_x"	    value="square_frame_rmax" />
+    <constant name="sqacell_0_offset_y"	    value="square_frame_rmax" />
+    <constant name="sqacell_1_offset_x"	    value="-square_frame_rmax" />
+    <constant name="sqacell_1_offset_y"	    value="square_frame_rmax" />
+    <constant name="sqacell_2_offset_x"	    value="-square_frame_rmax" />
+    <constant name="sqacell_2_offset_y"	    value="-square_frame_rmax" />
+    <constant name="sqacell_3_offset_x"	    value="square_frame_rmax" />
+    <constant name="sqacell_3_offset_y"	    value="-square_frame_rmax" />
+
+    <constant name="absorber_t"		    value="20.0*mm"/>
+    <constant name="cover_t"		    value="0.4*mm"/>
+    <constant name="ESR_t"		    value="0.15*mm"/>
+    <constant name="scintillator_t"	    value="3.0*mm"/>
     <constant name="frame_t"		    value="scintillator_t"/>
-    <constant name="PCB_t"		    value="0.08*cm"/>
+    <constant name="PCB_t"		    value="0.8*mm"/>
     <constant name="layer_t"		    value="absorber_t + cover_t + 2*ESR_t + scintillator_t + PCB_t"/>
   </define>
 
@@ -99,118 +105,106 @@
       <dimensions x="layer_x" y="layer_y" z="nrepeat_hexagon*layer_t"/>
       <layer repeat="nrepeat_hexagon">
 	<!-- absorber -->
-        <Box name="Absorber_up_left"	material="Steel235"	x="megacell_x" y="megacell_y" thickness="absorber_t" x_offset="up_left_x"  y_offset="up_left_y"  count="0" vis="AnlGray" sensitive="false"/>
-        <Box name="Absorber_up_right"	material="Steel235" 	x="megacell_x" y="megacell_y" thickness="absorber_t" x_offset="up_right_x" y_offset="up_right_y" count="0" vis="AnlGray" sensitive="false"/>
-        <Box name="Absorber_dn_left"	material="Steel235" 	x="megacell_x" y="megacell_y" thickness="absorber_t" x_offset="dn_left_x"  y_offset="dn_left_y"  count="0" vis="AnlGray" sensitive="false"/>
-        <Box name="Absorber_dn_right"	material="Steel235" 	x="megacell_x" y="megacell_y" thickness="absorber_t" x_offset="dn_right_x" y_offset="dn_right_y" count="1" vis="AnlGray" sensitive="false"/>
+        <Box name="Absorber_up_left"	material="Steel235"	x="megacell_outer_x" y="megacell_outer_y" thickness="absorber_t" x_offset="up_left_x"  y_offset="up_left_y"  count="0" vis="AnlGray" sensitive="false"/>
+        <Box name="Absorber_up_right"	material="Steel235" 	x="megacell_outer_x" y="megacell_outer_y" thickness="absorber_t" x_offset="up_right_x" y_offset="up_right_y" count="0" vis="AnlGray" sensitive="false"/>
+        <Box name="Absorber_dn_left"	material="Steel235" 	x="megacell_outer_x" y="megacell_outer_y" thickness="absorber_t" x_offset="dn_left_x"  y_offset="dn_left_y"  count="0" vis="AnlGray" sensitive="false"/>
+        <Box name="Absorber_dn_right"	material="Steel235" 	x="megacell_outer_x" y="megacell_outer_y" thickness="absorber_t" x_offset="dn_right_x" y_offset="dn_right_y" count="1" vis="AnlGray" sensitive="false"/>
 
 	<!-- scintillator cover -->
-        <Box name="Cover_up_left"	material="Polylactide"	x="megacell_x" y="megacell_y" thickness="cover_t"    x_offset="up_left_x"  y_offset="up_left_y"  count="0" vis="BlackVis" sensitive="false"/>
-        <Box name="Cover_up_right"	material="Polylactide" 	x="megacell_x" y="megacell_y" thickness="cover_t"    x_offset="up_right_x" y_offset="up_right_y" count="0" vis="BlackVis" sensitive="false"/>
-        <Box name="Cover_dn_left"	material="Polylactide" 	x="megacell_x" y="megacell_y" thickness="cover_t"    x_offset="dn_left_x"  y_offset="dn_left_y"  count="0" vis="BlackVis" sensitive="false"/>
-        <Box name="Cover_dn_right"	material="Polylactide" 	x="megacell_x" y="megacell_y" thickness="cover_t"    x_offset="dn_right_x" y_offset="dn_right_y" count="1" vis="BlackVis" sensitive="false"/>
+        <Box name="Cover_up_left"	material="Polylactide"	x="megacell_outer_x" y="megacell_outer_y" thickness="cover_t"    x_offset="up_left_x"  y_offset="up_left_y"  count="0" vis="BlackVis" sensitive="false"/>
+        <Box name="Cover_up_right"	material="Polylactide" 	x="megacell_outer_x" y="megacell_outer_y" thickness="cover_t"    x_offset="up_right_x" y_offset="up_right_y" count="0" vis="BlackVis" sensitive="false"/>
+        <Box name="Cover_dn_left"	material="Polylactide" 	x="megacell_outer_x" y="megacell_outer_y" thickness="cover_t"    x_offset="dn_left_x"  y_offset="dn_left_y"  count="0" vis="BlackVis" sensitive="false"/>
+        <Box name="Cover_dn_right"	material="Polylactide" 	x="megacell_outer_x" y="megacell_outer_y" thickness="cover_t"    x_offset="dn_right_x" y_offset="dn_right_y" count="1" vis="BlackVis" sensitive="false"/>
 
 	<!-- ESR foil 1 -->
-        <Box name="ESR_1_up_left"	material="Polystyrene"	x="megacell_x" y="megacell_y" thickness="ESR_t"	     x_offset="up_left_x"  y_offset="up_left_y"  count="0" vis="BlueVis" sensitive="false"/>
-        <Box name="ESR_1_up_right"	material="Polystyrene" 	x="megacell_x" y="megacell_y" thickness="ESR_t"	     x_offset="up_right_x" y_offset="up_right_y" count="0" vis="BlueVis" sensitive="false"/>
-        <Box name="ESR_1_dn_left"	material="Polystyrene" 	x="megacell_x" y="megacell_y" thickness="ESR_t"      x_offset="dn_left_x"  y_offset="dn_left_y"  count="0" vis="BlueVis" sensitive="false"/>
-        <Box name="ESR_1_dn_right"	material="Polystyrene" 	x="megacell_x" y="megacell_y" thickness="ESR_t"      x_offset="dn_right_x" y_offset="dn_right_y" count="1" vis="BlueVis" sensitive="false"/>
+        <Box name="ESR_1_up_left"	material="Polystyrene"	x="megacell_outer_x" y="megacell_outer_y" thickness="ESR_t"	     x_offset="up_left_x"  y_offset="up_left_y"  count="0" vis="BlueVis" sensitive="false"/>
+        <Box name="ESR_1_up_right"	material="Polystyrene" 	x="megacell_outer_x" y="megacell_outer_y" thickness="ESR_t"	     x_offset="up_right_x" y_offset="up_right_y" count="0" vis="BlueVis" sensitive="false"/>
+        <Box name="ESR_1_dn_left"	material="Polystyrene" 	x="megacell_outer_x" y="megacell_outer_y" thickness="ESR_t"      x_offset="dn_left_x"  y_offset="dn_left_y"  count="0" vis="BlueVis" sensitive="false"/>
+        <Box name="ESR_1_dn_right"	material="Polystyrene" 	x="megacell_outer_x" y="megacell_outer_y" thickness="ESR_t"      x_offset="dn_right_x" y_offset="dn_right_y" count="1" vis="BlueVis" sensitive="false"/>
 
 	<!-- up left megacell -->
-	<PolyhedraRegular name="Scint_up_left_0" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="up_left_x+cell_0_offset_x" y_offset="up_left_y+cell_0_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
-	<PolyhedraRegular name="Frame_up_left_0" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="up_left_x+cell_0_offset_x" y_offset="up_left_y+cell_0_offset_y" count="0" vis="YellowVis" sensitive="false"/>
-	<PolyhedraRegular name="Scint_up_left_1" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="up_left_x+cell_1_offset_x" y_offset="up_left_y+cell_1_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
-	<PolyhedraRegular name="Frame_up_left_1" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="up_left_x+cell_1_offset_x" y_offset="up_left_y+cell_1_offset_y" count="0" vis="YellowVis" sensitive="false"/>
-	<PolyhedraRegular name="Scint_up_left_2" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="up_left_x+cell_2_offset_x" y_offset="up_left_y+cell_2_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
-	<PolyhedraRegular name="Frame_up_left_2" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="up_left_x+cell_2_offset_x" y_offset="up_left_y+cell_2_offset_y" count="0" vis="YellowVis" sensitive="false"/>
-	<PolyhedraRegular name="Scint_up_left_3" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="up_left_x+cell_3_offset_x" y_offset="up_left_y+cell_3_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
-	<PolyhedraRegular name="Frame_up_left_3" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="up_left_x+cell_3_offset_x" y_offset="up_left_y+cell_3_offset_y" count="0" vis="YellowVis" sensitive="false"/>
-	<PolyhedraRegular name="Scint_up_left_4" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="up_left_x+cell_4_offset_x" y_offset="up_left_y+cell_4_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
-	<PolyhedraRegular name="Frame_up_left_4" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="up_left_x+cell_4_offset_x" y_offset="up_left_y+cell_4_offset_y" count="0" vis="YellowVis" sensitive="false"/>
-	<PolyhedraRegular name="Scint_up_left_5" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="up_left_x+cell_5_offset_x" y_offset="up_left_y+cell_5_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
-	<PolyhedraRegular name="Frame_up_left_5" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="up_left_x+cell_5_offset_x" y_offset="up_left_y+cell_5_offset_y" count="0" vis="YellowVis" sensitive="false"/>
-	<PolyhedraRegular name="Scint_up_left_6" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="up_left_x+cell_6_offset_x" y_offset="up_left_y+cell_6_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
-	<PolyhedraRegular name="Frame_up_left_6" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="up_left_x+cell_6_offset_x" y_offset="up_left_y+cell_6_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_up_left_0" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="up_left_x+hexcell_0_offset_x" y_offset="up_left_y+hexcell_0_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_up_left_0" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="up_left_x+hexcell_0_offset_x" y_offset="up_left_y+hexcell_0_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_up_left_1" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="up_left_x+hexcell_1_offset_x" y_offset="up_left_y+hexcell_1_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_up_left_1" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="up_left_x+hexcell_1_offset_x" y_offset="up_left_y+hexcell_1_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_up_left_2" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="up_left_x+hexcell_2_offset_x" y_offset="up_left_y+hexcell_2_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_up_left_2" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="up_left_x+hexcell_2_offset_x" y_offset="up_left_y+hexcell_2_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_up_left_3" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="up_left_x+hexcell_3_offset_x" y_offset="up_left_y+hexcell_3_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_up_left_3" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="up_left_x+hexcell_3_offset_x" y_offset="up_left_y+hexcell_3_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_up_left_4" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="up_left_x+hexcell_4_offset_x" y_offset="up_left_y+hexcell_4_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_up_left_4" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="up_left_x+hexcell_4_offset_x" y_offset="up_left_y+hexcell_4_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_up_left_5" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="up_left_x+hexcell_5_offset_x" y_offset="up_left_y+hexcell_5_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_up_left_5" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="up_left_x+hexcell_5_offset_x" y_offset="up_left_y+hexcell_5_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_up_left_6" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="up_left_x+hexcell_6_offset_x" y_offset="up_left_y+hexcell_6_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_up_left_6" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="up_left_x+hexcell_6_offset_x" y_offset="up_left_y+hexcell_6_offset_y" count="0" vis="YellowVis" sensitive="false"/>
 	<!-- megacell border frame -->
-	<Box name="Frame_up_left_border_up"	material="Polylactide" x="megacell_frame_x" y="frame_w" thickness="frame_t" x_offset="up_left_x+megacell_up_frame_offset_x"	y_offset="up_left_y+megacell_up_frame_offset_y"	    count="0" vis="CyanVis" sensitive="false"/>
-	<Box name="Frame_up_left_border_dn"	material="Polylactide" x="megacell_frame_x" y="frame_w" thickness="frame_t" x_offset="up_left_x+megacell_dn_frame_offset_x"	y_offset="up_left_y+megacell_dn_frame_offset_y"	    count="0" vis="CyanVis" sensitive="false"/>
-	<Box name="Frame_up_left_border_left"	material="Polylactide" x="frame_w" y="megacell_frame_y" thickness="frame_t" x_offset="up_left_x+megacell_left_frame_offset_x"	y_offset="up_left_y+megacell_left_frame_offset_y"   count="0" vis="CyanVis" sensitive="false"/>
-	<Box name="Frame_up_left_border_right"	material="Polylactide" x="frame_w" y="megacell_frame_y" thickness="frame_t" x_offset="up_left_x+megacell_right_frame_offset_x"	y_offset="up_left_y+megacell_right_frame_offset_y"   count="0" vis="CyanVis" sensitive="false"/>
+	<PolyhedraRegular name="Frame_up_left_megacell"	material="Polylactide" numsides="4" rmin="megacell_inner_x/2" rmax="megacell_outer_x/2" thickness="frame_t" angle="45*degree" x_offset="up_left_x" y_offset="up_left_y" count="0" vis="CyanVis" sensitive="false"/>
 	     
 	<!-- up right -->
-	<PolyhedraRegular name="Scint_up_right_0" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="up_right_x+cell_0_offset_x" y_offset="up_right_y+cell_0_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
-	<PolyhedraRegular name="Frame_up_right_0" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="up_right_x+cell_0_offset_x" y_offset="up_right_y+cell_0_offset_y" count="0" vis="YellowVis" sensitive="false"/>
-	<PolyhedraRegular name="Scint_up_right_1" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="up_right_x+cell_1_offset_x" y_offset="up_right_y+cell_1_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
-	<PolyhedraRegular name="Frame_up_right_1" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="up_right_x+cell_1_offset_x" y_offset="up_right_y+cell_1_offset_y" count="0" vis="YellowVis" sensitive="false"/>
-	<PolyhedraRegular name="Scint_up_right_2" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="up_right_x+cell_2_offset_x" y_offset="up_right_y+cell_2_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
-	<PolyhedraRegular name="Frame_up_right_2" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="up_right_x+cell_2_offset_x" y_offset="up_right_y+cell_2_offset_y" count="0" vis="YellowVis" sensitive="false"/>
-	<PolyhedraRegular name="Scint_up_right_3" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="up_right_x+cell_3_offset_x" y_offset="up_right_y+cell_3_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
-	<PolyhedraRegular name="Frame_up_right_3" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="up_right_x+cell_3_offset_x" y_offset="up_right_y+cell_3_offset_y" count="0" vis="YellowVis" sensitive="false"/>
-	<PolyhedraRegular name="Scint_up_right_4" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="up_right_x+cell_4_offset_x" y_offset="up_right_y+cell_4_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
-	<PolyhedraRegular name="Frame_up_right_4" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="up_right_x+cell_4_offset_x" y_offset="up_right_y+cell_4_offset_y" count="0" vis="YellowVis" sensitive="false"/>
-	<PolyhedraRegular name="Scint_up_right_5" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="up_right_x+cell_5_offset_x" y_offset="up_right_y+cell_5_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
-	<PolyhedraRegular name="Frame_up_right_5" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="up_right_x+cell_5_offset_x" y_offset="up_right_y+cell_5_offset_y" count="0" vis="YellowVis" sensitive="false"/>
-	<PolyhedraRegular name="Scint_up_right_6" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="up_right_x+cell_6_offset_x" y_offset="up_right_y+cell_6_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
-	<PolyhedraRegular name="Frame_up_right_6" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="up_right_x+cell_6_offset_x" y_offset="up_right_y+cell_6_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_up_right_0" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="up_right_x+hexcell_0_offset_x" y_offset="up_right_y+hexcell_0_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_up_right_0" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="up_right_x+hexcell_0_offset_x" y_offset="up_right_y+hexcell_0_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_up_right_1" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="up_right_x+hexcell_1_offset_x" y_offset="up_right_y+hexcell_1_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_up_right_1" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="up_right_x+hexcell_1_offset_x" y_offset="up_right_y+hexcell_1_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_up_right_2" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="up_right_x+hexcell_2_offset_x" y_offset="up_right_y+hexcell_2_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_up_right_2" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="up_right_x+hexcell_2_offset_x" y_offset="up_right_y+hexcell_2_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_up_right_3" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="up_right_x+hexcell_3_offset_x" y_offset="up_right_y+hexcell_3_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_up_right_3" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="up_right_x+hexcell_3_offset_x" y_offset="up_right_y+hexcell_3_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_up_right_4" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="up_right_x+hexcell_4_offset_x" y_offset="up_right_y+hexcell_4_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_up_right_4" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="up_right_x+hexcell_4_offset_x" y_offset="up_right_y+hexcell_4_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_up_right_5" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="up_right_x+hexcell_5_offset_x" y_offset="up_right_y+hexcell_5_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_up_right_5" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="up_right_x+hexcell_5_offset_x" y_offset="up_right_y+hexcell_5_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_up_right_6" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="up_right_x+hexcell_6_offset_x" y_offset="up_right_y+hexcell_6_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_up_right_6" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="up_right_x+hexcell_6_offset_x" y_offset="up_right_y+hexcell_6_offset_y" count="0" vis="YellowVis" sensitive="false"/>
 	<!-- megacell border frame -->
-	<Box name="Frame_up_right_border_up"	material="Polylactide" x="megacell_frame_x" y="frame_w" thickness="frame_t" x_offset="up_right_x+megacell_up_frame_offset_x"	y_offset="up_right_y+megacell_up_frame_offset_y"    count="0" vis="CyanVis" sensitive="false"/>
-	<Box name="Frame_up_right_border_dn"	material="Polylactide" x="megacell_frame_x" y="frame_w" thickness="frame_t" x_offset="up_right_x+megacell_dn_frame_offset_x"	y_offset="up_right_y+megacell_dn_frame_offset_y"    count="0" vis="CyanVis" sensitive="false"/>
-	<Box name="Frame_up_right_border_left"	material="Polylactide" x="frame_w" y="megacell_frame_y" thickness="frame_t" x_offset="up_right_x+megacell_left_frame_offset_x"	y_offset="up_right_y+megacell_left_frame_offset_y"  count="0" vis="CyanVis" sensitive="false"/>
-	<Box name="Frame_up_right_border_right"	material="Polylactide" x="frame_w" y="megacell_frame_y" thickness="frame_t" x_offset="up_right_x+megacell_right_frame_offset_x"	y_offset="up_right_y+megacell_right_frame_offset_y" count="0" vis="CyanVis" sensitive="false"/>
+	<PolyhedraRegular name="Frame_up_right_megacell"    material="Polylactide" numsides="4" rmin="megacell_inner_x/2" rmax="megacell_outer_x/2" thickness="frame_t" angle="45*degree" x_offset="up_right_x" y_offset="up_right_y" count="0" vis="CyanVis" sensitive="false"/>
 
 	<!-- bottom left -->
-	<PolyhedraRegular name="Scint_dn_left_0" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="dn_left_x+cell_0_offset_x" y_offset="dn_left_y+cell_0_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
-	<PolyhedraRegular name="Frame_dn_left_0" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="dn_left_x+cell_0_offset_x" y_offset="dn_left_y+cell_0_offset_y" count="0" vis="YellowVis" sensitive="false"/>
-	<PolyhedraRegular name="Scint_dn_left_1" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="dn_left_x+cell_1_offset_x" y_offset="dn_left_y+cell_1_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
-	<PolyhedraRegular name="Frame_dn_left_1" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="dn_left_x+cell_1_offset_x" y_offset="dn_left_y+cell_1_offset_y" count="0" vis="YellowVis" sensitive="false"/>
-	<PolyhedraRegular name="Scint_dn_left_2" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="dn_left_x+cell_2_offset_x" y_offset="dn_left_y+cell_2_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
-	<PolyhedraRegular name="Frame_dn_left_2" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="dn_left_x+cell_2_offset_x" y_offset="dn_left_y+cell_2_offset_y" count="0" vis="YellowVis" sensitive="false"/>
-	<PolyhedraRegular name="Scint_dn_left_3" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="dn_left_x+cell_3_offset_x" y_offset="dn_left_y+cell_3_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
-	<PolyhedraRegular name="Frame_dn_left_3" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="dn_left_x+cell_3_offset_x" y_offset="dn_left_y+cell_3_offset_y" count="0" vis="YellowVis" sensitive="false"/>
-	<PolyhedraRegular name="Scint_dn_left_4" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="dn_left_x+cell_4_offset_x" y_offset="dn_left_y+cell_4_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
-	<PolyhedraRegular name="Frame_dn_left_4" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="dn_left_x+cell_4_offset_x" y_offset="dn_left_y+cell_4_offset_y" count="0" vis="YellowVis" sensitive="false"/>
-	<PolyhedraRegular name="Scint_dn_left_5" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="dn_left_x+cell_5_offset_x" y_offset="dn_left_y+cell_5_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
-	<PolyhedraRegular name="Frame_dn_left_5" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="dn_left_x+cell_5_offset_x" y_offset="dn_left_y+cell_5_offset_y" count="0" vis="YellowVis" sensitive="false"/>
-	<PolyhedraRegular name="Scint_dn_left_6" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="dn_left_x+cell_6_offset_x" y_offset="dn_left_y+cell_6_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
-	<PolyhedraRegular name="Frame_dn_left_6" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="dn_left_x+cell_6_offset_x" y_offset="dn_left_y+cell_6_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_dn_left_0" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="dn_left_x+hexcell_0_offset_x" y_offset="dn_left_y+hexcell_0_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_dn_left_0" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="dn_left_x+hexcell_0_offset_x" y_offset="dn_left_y+hexcell_0_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_dn_left_1" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="dn_left_x+hexcell_1_offset_x" y_offset="dn_left_y+hexcell_1_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_dn_left_1" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="dn_left_x+hexcell_1_offset_x" y_offset="dn_left_y+hexcell_1_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_dn_left_2" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="dn_left_x+hexcell_2_offset_x" y_offset="dn_left_y+hexcell_2_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_dn_left_2" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="dn_left_x+hexcell_2_offset_x" y_offset="dn_left_y+hexcell_2_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_dn_left_3" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="dn_left_x+hexcell_3_offset_x" y_offset="dn_left_y+hexcell_3_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_dn_left_3" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="dn_left_x+hexcell_3_offset_x" y_offset="dn_left_y+hexcell_3_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_dn_left_4" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="dn_left_x+hexcell_4_offset_x" y_offset="dn_left_y+hexcell_4_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_dn_left_4" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="dn_left_x+hexcell_4_offset_x" y_offset="dn_left_y+hexcell_4_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_dn_left_5" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="dn_left_x+hexcell_5_offset_x" y_offset="dn_left_y+hexcell_5_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_dn_left_5" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="dn_left_x+hexcell_5_offset_x" y_offset="dn_left_y+hexcell_5_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_dn_left_6" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="dn_left_x+hexcell_6_offset_x" y_offset="dn_left_y+hexcell_6_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_dn_left_6" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="dn_left_x+hexcell_6_offset_x" y_offset="dn_left_y+hexcell_6_offset_y" count="0" vis="YellowVis" sensitive="false"/>
 	<!-- megacell border frame -->
-	<Box name="Frame_dn_left_border_up"	material="Polylactide" x="megacell_frame_x" y="frame_w" thickness="frame_t" x_offset="dn_left_x+megacell_up_frame_offset_x"	y_offset="dn_left_y+megacell_up_frame_offset_y"	    count="0" vis="CyanVis" sensitive="false"/>
-	<Box name="Frame_dn_left_border_dn"	material="Polylactide" x="megacell_frame_x" y="frame_w" thickness="frame_t" x_offset="dn_left_x+megacell_dn_frame_offset_x"	y_offset="dn_left_y+megacell_dn_frame_offset_y"	    count="0" vis="CyanVis" sensitive="false"/>
-	<Box name="Frame_dn_left_border_left"	material="Polylactide" x="frame_w" y="megacell_frame_y" thickness="frame_t" x_offset="dn_left_x+megacell_left_frame_offset_x"	y_offset="dn_left_y+megacell_left_frame_offset_y"   count="0" vis="CyanVis" sensitive="false"/>
-	<Box name="Frame_dn_left_border_right"	material="Polylactide" x="frame_w" y="megacell_frame_y" thickness="frame_t" x_offset="dn_left_x+megacell_right_frame_offset_x"	y_offset="dn_left_y+megacell_right_frame_offset_y"   count="0" vis="CyanVis" sensitive="false"/>
+	<PolyhedraRegular name="Frame_dn_left_megacell"    material="Polylactide" numsides="4" rmin="megacell_inner_x/2" rmax="megacell_outer_x/2" thickness="frame_t" angle="45*degree" x_offset="dn_left_x" y_offset="dn_left_y" count="0" vis="CyanVis" sensitive="false"/>
 
 	<!-- bottom right -->
-	<PolyhedraRegular name="Scint_dn_right_0" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="dn_right_x+cell_0_offset_x" y_offset="dn_right_y+cell_0_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
-	<PolyhedraRegular name="Frame_dn_right_0" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="dn_right_x+cell_0_offset_x" y_offset="dn_right_y+cell_0_offset_y" count="0" vis="YellowVis" sensitive="false"/>
-	<PolyhedraRegular name="Scint_dn_right_1" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="dn_right_x+cell_1_offset_x" y_offset="dn_right_y+cell_1_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
-	<PolyhedraRegular name="Frame_dn_right_1" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="dn_right_x+cell_1_offset_x" y_offset="dn_right_y+cell_1_offset_y" count="0" vis="YellowVis" sensitive="false"/>
-	<PolyhedraRegular name="Scint_dn_right_2" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="dn_right_x+cell_2_offset_x" y_offset="dn_right_y+cell_2_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
-	<PolyhedraRegular name="Frame_dn_right_2" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="dn_right_x+cell_2_offset_x" y_offset="dn_right_y+cell_2_offset_y" count="0" vis="YellowVis" sensitive="false"/>
-	<PolyhedraRegular name="Scint_dn_right_3" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="dn_right_x+cell_3_offset_x" y_offset="dn_right_y+cell_3_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
-	<PolyhedraRegular name="Frame_dn_right_3" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="dn_right_x+cell_3_offset_x" y_offset="dn_right_y+cell_3_offset_y" count="0" vis="YellowVis" sensitive="false"/>
-	<PolyhedraRegular name="Scint_dn_right_4" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="dn_right_x+cell_4_offset_x" y_offset="dn_right_y+cell_4_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
-	<PolyhedraRegular name="Frame_dn_right_4" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="dn_right_x+cell_4_offset_x" y_offset="dn_right_y+cell_4_offset_y" count="0" vis="YellowVis" sensitive="false"/>
-	<PolyhedraRegular name="Scint_dn_right_5" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="dn_right_x+cell_5_offset_x" y_offset="dn_right_y+cell_5_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
-	<PolyhedraRegular name="Frame_dn_right_5" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="dn_right_x+cell_5_offset_x" y_offset="dn_right_y+cell_5_offset_y" count="0" vis="YellowVis" sensitive="false"/>
-	<PolyhedraRegular name="Scint_dn_right_6" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="dn_right_x+cell_6_offset_x" y_offset="dn_right_y+cell_6_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
-	<PolyhedraRegular name="Frame_dn_right_6" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="dn_right_x+cell_6_offset_x" y_offset="dn_right_y+cell_6_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_dn_right_0" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="dn_right_x+hexcell_0_offset_x" y_offset="dn_right_y+hexcell_0_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_dn_right_0" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="dn_right_x+hexcell_0_offset_x" y_offset="dn_right_y+hexcell_0_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_dn_right_1" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="dn_right_x+hexcell_1_offset_x" y_offset="dn_right_y+hexcell_1_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_dn_right_1" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="dn_right_x+hexcell_1_offset_x" y_offset="dn_right_y+hexcell_1_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_dn_right_2" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="dn_right_x+hexcell_2_offset_x" y_offset="dn_right_y+hexcell_2_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_dn_right_2" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="dn_right_x+hexcell_2_offset_x" y_offset="dn_right_y+hexcell_2_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_dn_right_3" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="dn_right_x+hexcell_3_offset_x" y_offset="dn_right_y+hexcell_3_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_dn_right_3" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="dn_right_x+hexcell_3_offset_x" y_offset="dn_right_y+hexcell_3_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_dn_right_4" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="dn_right_x+hexcell_4_offset_x" y_offset="dn_right_y+hexcell_4_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_dn_right_4" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="dn_right_x+hexcell_4_offset_x" y_offset="dn_right_y+hexcell_4_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_dn_right_5" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="dn_right_x+hexcell_5_offset_x" y_offset="dn_right_y+hexcell_5_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_dn_right_5" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="dn_right_x+hexcell_5_offset_x" y_offset="dn_right_y+hexcell_5_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_dn_right_6" material="Polystyrene" numsides="6" rmin="hexagon_scint_rmin" rmax="hexagon_scint_rmax" thickness="scintillator_t" x_offset="dn_right_x+hexcell_6_offset_x" y_offset="dn_right_y+hexcell_6_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_dn_right_6" material="Polylactide" numsides="6" rmin="hexagon_frame_rmin" rmax="hexagon_frame_rmax" thickness="frame_t"	    x_offset="dn_right_x+hexcell_6_offset_x" y_offset="dn_right_y+hexcell_6_offset_y" count="0" vis="YellowVis" sensitive="false"/>
 	<!-- megacell border frame -->
-	<Box name="Frame_dn_right_border_up"	material="Polylactide" x="megacell_frame_x" y="frame_w" thickness="frame_t" x_offset="dn_right_x+megacell_up_frame_offset_x"	y_offset="dn_right_y+megacell_up_frame_offset_y"    count="0" vis="CyanVis" sensitive="false"/>
-	<Box name="Frame_dn_right_border_dn"	material="Polylactide" x="megacell_frame_x" y="frame_w" thickness="frame_t" x_offset="dn_right_x+megacell_dn_frame_offset_x"	y_offset="dn_right_y+megacell_dn_frame_offset_y"    count="0" vis="CyanVis" sensitive="false"/>
-	<Box name="Frame_dn_right_border_left"	material="Polylactide" x="frame_w" y="megacell_frame_y" thickness="frame_t" x_offset="dn_right_x+megacell_left_frame_offset_x"	y_offset="dn_right_y+megacell_left_frame_offset_y"  count="0" vis="CyanVis" sensitive="false"/>
-	<Box name="Frame_dn_right_border_right"	material="Polylactide" x="frame_w" y="megacell_frame_y" thickness="frame_t" x_offset="dn_right_x+megacell_right_frame_offset_x"	y_offset="dn_right_y+megacell_right_frame_offset_y" count="1" vis="CyanVis" sensitive="false"/>
+	<PolyhedraRegular name="Frame_dn_right_megacell"    material="Polylactide" numsides="4" rmin="megacell_inner_x/2" rmax="megacell_outer_x/2" thickness="frame_t" angle="45*degree" x_offset="dn_right_x" y_offset="dn_right_y" count="1" vis="CyanVis" sensitive="false"/>
 
 	<!-- ESR foil 2 -->
-        <Box name="ESR_2_up_left"	material="Polystyrene"	x="megacell_x" y="megacell_y" thickness="ESR_t"	x_offset="up_left_x"  y_offset="up_left_y"  count="0" vis="BlueVis" sensitive="false"/>
-        <Box name="ESR_2_up_right"	material="Polystyrene" 	x="megacell_x" y="megacell_y" thickness="ESR_t"	x_offset="up_right_x" y_offset="up_right_y" count="0" vis="BlueVis" sensitive="false"/>
-        <Box name="ESR_2_dn_left"	material="Polystyrene" 	x="megacell_x" y="megacell_y" thickness="ESR_t" x_offset="dn_left_x"  y_offset="dn_left_y"  count="0" vis="BlueVis" sensitive="false"/>
-        <Box name="ESR_2_dn_right"	material="Polystyrene" 	x="megacell_x" y="megacell_y" thickness="ESR_t" x_offset="dn_right_x" y_offset="dn_right_y" count="1" vis="BlueVis" sensitive="false"/>
+        <Box name="ESR_2_up_left"	material="Polystyrene"	x="megacell_outer_x" y="megacell_outer_y" thickness="ESR_t"	x_offset="up_left_x"  y_offset="up_left_y"  count="0" vis="BlueVis" sensitive="false"/>
+        <Box name="ESR_2_up_right"	material="Polystyrene" 	x="megacell_outer_x" y="megacell_outer_y" thickness="ESR_t"	x_offset="up_right_x" y_offset="up_right_y" count="0" vis="BlueVis" sensitive="false"/>
+        <Box name="ESR_2_dn_left"	material="Polystyrene" 	x="megacell_outer_x" y="megacell_outer_y" thickness="ESR_t" x_offset="dn_left_x"  y_offset="dn_left_y"  count="0" vis="BlueVis" sensitive="false"/>
+        <Box name="ESR_2_dn_right"	material="Polystyrene" 	x="megacell_outer_x" y="megacell_outer_y" thickness="ESR_t" x_offset="dn_right_x" y_offset="dn_right_y" count="1" vis="BlueVis" sensitive="false"/>
 
 	<!-- PCB -->
-        <Box name="PCB_up_left"		material="Fr4"		x="megacell_x" y="megacell_y" thickness="PCB_t"	x_offset="up_left_x"  y_offset="up_left_y"  count="0" vis="CyanVis" sensitive="false"/>
-        <Box name="PCB_up_right"    	material="Fr4" 		x="megacell_x" y="megacell_y" thickness="PCB_t"	x_offset="up_right_x" y_offset="up_right_y" count="0" vis="CyanVis" sensitive="false"/>
-        <Box name="PCB_dn_left"	    	material="Fr4" 		x="megacell_x" y="megacell_y" thickness="PCB_t" x_offset="dn_left_x"  y_offset="dn_left_y"  count="0" vis="CyanVis" sensitive="false"/>
-        <Box name="PCB_dn_right"    	material="Fr4" 		x="megacell_x" y="megacell_y" thickness="PCB_t" x_offset="dn_right_x" y_offset="dn_right_y" count="1" vis="CyanVis" sensitive="false"/>
+        <Box name="PCB_up_left"		material="Fr4"		x="megacell_outer_x" y="megacell_outer_y" thickness="PCB_t"	x_offset="up_left_x"  y_offset="up_left_y"  count="0" vis="CyanVis" sensitive="false"/>
+        <Box name="PCB_up_right"    	material="Fr4" 		x="megacell_outer_x" y="megacell_outer_y" thickness="PCB_t"	x_offset="up_right_x" y_offset="up_right_y" count="0" vis="CyanVis" sensitive="false"/>
+        <Box name="PCB_dn_left"	    	material="Fr4" 		x="megacell_outer_x" y="megacell_outer_y" thickness="PCB_t" x_offset="dn_left_x"  y_offset="dn_left_y"  count="0" vis="CyanVis" sensitive="false"/>
+        <Box name="PCB_dn_right"    	material="Fr4" 		x="megacell_outer_x" y="megacell_outer_y" thickness="PCB_t" x_offset="dn_right_x" y_offset="dn_right_y" count="1" vis="CyanVis" sensitive="false"/>
       </layer>
     </detector>
 
@@ -221,63 +215,84 @@
       <dimensions x="layer_x" y="layer_y" z="nrepeat_square*layer_t"/>
       <layer repeat="nrepeat_square">
 	<!-- absorber -->
-        <Box name="Absorber_up_left"	material="Steel235"	x="megacell_x" y="megacell_y" thickness="absorber_t" x_offset="up_left_x"  y_offset="up_left_y"  count="0" vis="AnlGray" sensitive="false"/>
-        <Box name="Absorber_up_right"	material="Steel235" 	x="megacell_x" y="megacell_y" thickness="absorber_t" x_offset="up_right_x" y_offset="up_right_y" count="0" vis="AnlGray" sensitive="false"/>
-        <Box name="Absorber_dn_left"	material="Steel235" 	x="megacell_x" y="megacell_y" thickness="absorber_t" x_offset="dn_left_x"  y_offset="dn_left_y"  count="0" vis="AnlGray" sensitive="false"/>
-        <Box name="Absorber_dn_right"	material="Steel235" 	x="megacell_x" y="megacell_y" thickness="absorber_t" x_offset="dn_right_x" y_offset="dn_right_y" count="1" vis="AnlGray" sensitive="false"/>
+        <Box name="Absorber_up_left"	material="Steel235"	x="megacell_outer_x" y="megacell_outer_y" thickness="absorber_t" x_offset="up_left_x"  y_offset="up_left_y"  count="0" vis="AnlGray" sensitive="false"/>
+        <Box name="Absorber_up_right"	material="Steel235" 	x="megacell_outer_x" y="megacell_outer_y" thickness="absorber_t" x_offset="up_right_x" y_offset="up_right_y" count="0" vis="AnlGray" sensitive="false"/>
+        <Box name="Absorber_dn_left"	material="Steel235" 	x="megacell_outer_x" y="megacell_outer_y" thickness="absorber_t" x_offset="dn_left_x"  y_offset="dn_left_y"  count="0" vis="AnlGray" sensitive="false"/>
+        <Box name="Absorber_dn_right"	material="Steel235" 	x="megacell_outer_x" y="megacell_outer_y" thickness="absorber_t" x_offset="dn_right_x" y_offset="dn_right_y" count="1" vis="AnlGray" sensitive="false"/>
 
 	<!-- scintillator cover -->
-        <Box name="Cover_up_left"	material="Polylactide"	x="megacell_x" y="megacell_y" thickness="cover_t"    x_offset="up_left_x"  y_offset="up_left_y"  count="0" vis="BlackVis" sensitive="false"/>
-        <Box name="Cover_up_right"	material="Polylactide" 	x="megacell_x" y="megacell_y" thickness="cover_t"    x_offset="up_right_x" y_offset="up_right_y" count="0" vis="BlackVis" sensitive="false"/>
-        <Box name="Cover_dn_left"	material="Polylactide" 	x="megacell_x" y="megacell_y" thickness="cover_t"    x_offset="dn_left_x"  y_offset="dn_left_y"  count="0" vis="BlackVis" sensitive="false"/>
-        <Box name="Cover_dn_right"	material="Polylactide" 	x="megacell_x" y="megacell_y" thickness="cover_t"    x_offset="dn_right_x" y_offset="dn_right_y" count="1" vis="BlackVis" sensitive="false"/>
+        <Box name="Cover_up_left"	material="Polylactide"	x="megacell_outer_x" y="megacell_outer_y" thickness="cover_t"    x_offset="up_left_x"  y_offset="up_left_y"  count="0" vis="BlackVis" sensitive="false"/>
+        <Box name="Cover_up_right"	material="Polylactide" 	x="megacell_outer_x" y="megacell_outer_y" thickness="cover_t"    x_offset="up_right_x" y_offset="up_right_y" count="0" vis="BlackVis" sensitive="false"/>
+        <Box name="Cover_dn_left"	material="Polylactide" 	x="megacell_outer_x" y="megacell_outer_y" thickness="cover_t"    x_offset="dn_left_x"  y_offset="dn_left_y"  count="0" vis="BlackVis" sensitive="false"/>
+        <Box name="Cover_dn_right"	material="Polylactide" 	x="megacell_outer_x" y="megacell_outer_y" thickness="cover_t"    x_offset="dn_right_x" y_offset="dn_right_y" count="1" vis="BlackVis" sensitive="false"/>
 
 	<!-- ESR foil 1 -->
-        <Box name="ESR_1_up_left"	material="Polystyrene"	x="megacell_x" y="megacell_y" thickness="ESR_t"	     x_offset="up_left_x"  y_offset="up_left_y"  count="0" vis="BlueVis" sensitive="false"/>
-        <Box name="ESR_1_up_right"	material="Polystyrene" 	x="megacell_x" y="megacell_y" thickness="ESR_t"	     x_offset="up_right_x" y_offset="up_right_y" count="0" vis="BlueVis" sensitive="false"/>
-        <Box name="ESR_1_dn_left"	material="Polystyrene" 	x="megacell_x" y="megacell_y" thickness="ESR_t"      x_offset="dn_left_x"  y_offset="dn_left_y"  count="0" vis="BlueVis" sensitive="false"/>
-        <Box name="ESR_1_dn_right"	material="Polystyrene" 	x="megacell_x" y="megacell_y" thickness="ESR_t"      x_offset="dn_right_x" y_offset="dn_right_y" count="1" vis="BlueVis" sensitive="false"/>
+        <Box name="ESR_1_up_left"	material="Polystyrene"	x="megacell_outer_x" y="megacell_outer_y" thickness="ESR_t"	     x_offset="up_left_x"  y_offset="up_left_y"  count="0" vis="BlueVis" sensitive="false"/>
+        <Box name="ESR_1_up_right"	material="Polystyrene" 	x="megacell_outer_x" y="megacell_outer_y" thickness="ESR_t"	     x_offset="up_right_x" y_offset="up_right_y" count="0" vis="BlueVis" sensitive="false"/>
+        <Box name="ESR_1_dn_left"	material="Polystyrene" 	x="megacell_outer_x" y="megacell_outer_y" thickness="ESR_t"      x_offset="dn_left_x"  y_offset="dn_left_y"  count="0" vis="BlueVis" sensitive="false"/>
+        <Box name="ESR_1_dn_right"	material="Polystyrene" 	x="megacell_outer_x" y="megacell_outer_y" thickness="ESR_t"      x_offset="dn_right_x" y_offset="dn_right_y" count="1" vis="BlueVis" sensitive="false"/>
 
 	<!-- square tile -->
-        <Box name="Scint_up_left"	material="Polystyrene"	x="megacell_x" y="megacell_y" thickness="scintillator_t" x_offset="up_left_x"  y_offset="up_left_y"  count="0" vis="AnlOrange" sensitive="true"/>
-        <Box name="Scint_up_right"	material="Polystyrene" 	x="megacell_x" y="megacell_y" thickness="scintillator_t" x_offset="up_right_x" y_offset="up_right_y" count="0" vis="AnlOrange" sensitive="true"/>
-        <Box name="Scint_dn_left"	material="Polystyrene" 	x="megacell_x" y="megacell_y" thickness="scintillator_t" x_offset="dn_left_x"  y_offset="dn_left_y"  count="0" vis="AnlOrange" sensitive="true"/>
-        <Box name="Scint_dn_right"	material="Polystyrene" 	x="megacell_x" y="megacell_y" thickness="scintillator_t" x_offset="dn_right_x" y_offset="dn_right_y" count="0" vis="AnlOrange" sensitive="true"/>
+
+	<!-- up left -->
+	<PolyhedraRegular name="Scint_up_left_0" material="Polystyrene" numsides="4" rmin="square_scint_rmin" rmax="square_scint_rmax" thickness="scintillator_t" angle="45*degree" x_offset="up_left_x+sqacell_0_offset_x" y_offset="up_left_y+sqacell_0_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_up_left_0" material="Polylactide" numsides="4" rmin="square_frame_rmin" rmax="square_frame_rmax" thickness="frame_t"	  angle="45*degree" x_offset="up_left_x+sqacell_0_offset_x" y_offset="up_left_y+sqacell_0_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_up_left_1" material="Polystyrene" numsides="4" rmin="square_scint_rmin" rmax="square_scint_rmax" thickness="scintillator_t" angle="45*degree" x_offset="up_left_x+sqacell_1_offset_x" y_offset="up_left_y+sqacell_1_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_up_left_1" material="Polylactide" numsides="4" rmin="square_frame_rmin" rmax="square_frame_rmax" thickness="frame_t"	  angle="45*degree" x_offset="up_left_x+sqacell_1_offset_x" y_offset="up_left_y+sqacell_1_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_up_left_2" material="Polystyrene" numsides="4" rmin="square_scint_rmin" rmax="square_scint_rmax" thickness="scintillator_t" angle="45*degree" x_offset="up_left_x+sqacell_2_offset_x" y_offset="up_left_y+sqacell_2_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_up_left_2" material="Polylactide" numsides="4" rmin="square_frame_rmin" rmax="square_frame_rmax" thickness="frame_t"	  angle="45*degree" x_offset="up_left_x+sqacell_2_offset_x" y_offset="up_left_y+sqacell_2_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_up_left_3" material="Polystyrene" numsides="4" rmin="square_scint_rmin" rmax="square_scint_rmax" thickness="scintillator_t" angle="45*degree" x_offset="up_left_x+sqacell_3_offset_x" y_offset="up_left_y+sqacell_3_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_up_left_3" material="Polylactide" numsides="4" rmin="square_frame_rmin" rmax="square_frame_rmax" thickness="frame_t"	  angle="45*degree" x_offset="up_left_x+sqacell_3_offset_x" y_offset="up_left_y+sqacell_3_offset_y" count="0" vis="YellowVis" sensitive="false"/>
 	<!-- up left megacell border frame -->
-	<Box name="Frame_up_left_border_up"	material="Polylactide" x="megacell_frame_x" y="frame_w" thickness="frame_t" x_offset="up_left_x+megacell_up_frame_offset_x"	y_offset="up_left_y+megacell_up_frame_offset_y"	    count="0" vis="CyanVis" sensitive="false"/>
-	<Box name="Frame_up_left_border_dn"	material="Polylactide" x="megacell_frame_x" y="frame_w" thickness="frame_t" x_offset="up_left_x+megacell_dn_frame_offset_x"	y_offset="up_left_y+megacell_dn_frame_offset_y"	    count="0" vis="CyanVis" sensitive="false"/>
-	<Box name="Frame_up_left_border_left"	material="Polylactide" x="frame_w" y="megacell_frame_y" thickness="frame_t" x_offset="up_left_x+megacell_left_frame_offset_x"	y_offset="up_left_y+megacell_left_frame_offset_y"   count="0" vis="CyanVis" sensitive="false"/>
-	<Box name="Frame_up_left_border_right"	material="Polylactide" x="frame_w" y="megacell_frame_y" thickness="frame_t" x_offset="up_left_x+megacell_right_frame_offset_x"	y_offset="up_left_y+megacell_right_frame_offset_y"   count="0" vis="CyanVis" sensitive="false"/>
+	<PolyhedraRegular name="Frame_up_left_megacell"    material="Polylactide" numsides="4" rmin="megacell_inner_x/2+frame_w/2" rmax="megacell_outer_x/2" thickness="frame_t" angle="45*degree" x_offset="up_left_x" y_offset="up_left_y" count="0" vis="CyanVis" sensitive="false"/>
 	     
+	<!-- up right -->
+	<PolyhedraRegular name="Scint_up_right_0" material="Polystyrene" numsides="4" rmin="square_scint_rmin" rmax="square_scint_rmax" thickness="scintillator_t" angle="45*degree" x_offset="up_right_x+sqacell_0_offset_x" y_offset="up_right_y+sqacell_0_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_up_right_0" material="Polylactide" numsides="4" rmin="square_frame_rmin" rmax="square_frame_rmax" thickness="frame_t"	   angle="45*degree" x_offset="up_right_x+sqacell_0_offset_x" y_offset="up_right_y+sqacell_0_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_up_right_1" material="Polystyrene" numsides="4" rmin="square_scint_rmin" rmax="square_scint_rmax" thickness="scintillator_t" angle="45*degree" x_offset="up_right_x+sqacell_1_offset_x" y_offset="up_right_y+sqacell_1_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_up_right_1" material="Polylactide" numsides="4" rmin="square_frame_rmin" rmax="square_frame_rmax" thickness="frame_t"	   angle="45*degree" x_offset="up_right_x+sqacell_1_offset_x" y_offset="up_right_y+sqacell_1_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_up_right_2" material="Polystyrene" numsides="4" rmin="square_scint_rmin" rmax="square_scint_rmax" thickness="scintillator_t" angle="45*degree" x_offset="up_right_x+sqacell_2_offset_x" y_offset="up_right_y+sqacell_2_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_up_right_2" material="Polylactide" numsides="4" rmin="square_frame_rmin" rmax="square_frame_rmax" thickness="frame_t"	   angle="45*degree" x_offset="up_right_x+sqacell_2_offset_x" y_offset="up_right_y+sqacell_2_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_up_right_3" material="Polystyrene" numsides="4" rmin="square_scint_rmin" rmax="square_scint_rmax" thickness="scintillator_t" angle="45*degree" x_offset="up_right_x+sqacell_3_offset_x" y_offset="up_right_y+sqacell_3_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_up_right_3" material="Polylactide" numsides="4" rmin="square_frame_rmin" rmax="square_frame_rmax" thickness="frame_t"	   angle="45*degree" x_offset="up_right_x+sqacell_3_offset_x" y_offset="up_right_y+sqacell_3_offset_y" count="0" vis="YellowVis" sensitive="false"/>
 	<!-- up right megacell border frame -->
-	<Box name="Frame_up_right_border_up"	material="Polylactide" x="megacell_frame_x" y="frame_w" thickness="frame_t" x_offset="up_right_x+megacell_up_frame_offset_x"	y_offset="up_right_y+megacell_up_frame_offset_y"    count="0" vis="CyanVis" sensitive="false"/>
-	<Box name="Frame_up_right_border_dn"	material="Polylactide" x="megacell_frame_x" y="frame_w" thickness="frame_t" x_offset="up_right_x+megacell_dn_frame_offset_x"	y_offset="up_right_y+megacell_dn_frame_offset_y"    count="0" vis="CyanVis" sensitive="false"/>
-	<Box name="Frame_up_right_border_left"	material="Polylactide" x="frame_w" y="megacell_frame_y" thickness="frame_t" x_offset="up_right_x+megacell_left_frame_offset_x"	y_offset="up_right_y+megacell_left_frame_offset_y"  count="0" vis="CyanVis" sensitive="false"/>
-	<Box name="Frame_up_right_border_right"	material="Polylactide" x="frame_w" y="megacell_frame_y" thickness="frame_t" x_offset="up_right_x+megacell_right_frame_offset_x"	y_offset="up_right_y+megacell_right_frame_offset_y" count="0" vis="CyanVis" sensitive="false"/>
+	<PolyhedraRegular name="Frame_up_right_megacell"    material="Polylactide" numsides="4" rmin="megacell_inner_x/2+frame_w/2" rmax="megacell_outer_x/2" thickness="frame_t" angle="45*degree" x_offset="up_right_x" y_offset="up_right_y" count="0" vis="CyanVis" sensitive="false"/>
 
-	<!-- bottom left megacell border frame -->
-	<Box name="Frame_dn_left_border_up"	material="Polylactide" x="megacell_frame_x" y="frame_w" thickness="frame_t" x_offset="dn_left_x+megacell_up_frame_offset_x"	y_offset="dn_left_y+megacell_up_frame_offset_y"	    count="0" vis="CyanVis" sensitive="false"/>
-	<Box name="Frame_dn_left_border_dn"	material="Polylactide" x="megacell_frame_x" y="frame_w" thickness="frame_t" x_offset="dn_left_x+megacell_dn_frame_offset_x"	y_offset="dn_left_y+megacell_dn_frame_offset_y"	    count="0" vis="CyanVis" sensitive="false"/>
-	<Box name="Frame_dn_left_border_left"	material="Polylactide" x="frame_w" y="megacell_frame_y" thickness="frame_t" x_offset="dn_left_x+megacell_left_frame_offset_x"	y_offset="dn_left_y+megacell_left_frame_offset_y"   count="0" vis="CyanVis" sensitive="false"/>
-	<Box name="Frame_dn_left_border_right"	material="Polylactide" x="frame_w" y="megacell_frame_y" thickness="frame_t" x_offset="dn_left_x+megacell_right_frame_offset_x"	y_offset="dn_left_y+megacell_right_frame_offset_y"   count="0" vis="CyanVis" sensitive="false"/>
+	<!-- dn left -->
+	<PolyhedraRegular name="Scint_dn_left_0" material="Polystyrene" numsides="4" rmin="square_scint_rmin" rmax="square_scint_rmax" thickness="scintillator_t" angle="45*degree" x_offset="dn_left_x+sqacell_0_offset_x" y_offset="dn_left_y+sqacell_0_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_dn_left_0" material="Polylactide" numsides="4" rmin="square_frame_rmin" rmax="square_frame_rmax" thickness="frame_t"	  angle="45*degree" x_offset="dn_left_x+sqacell_0_offset_x" y_offset="dn_left_y+sqacell_0_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_dn_left_1" material="Polystyrene" numsides="4" rmin="square_scint_rmin" rmax="square_scint_rmax" thickness="scintillator_t" angle="45*degree" x_offset="dn_left_x+sqacell_1_offset_x" y_offset="dn_left_y+sqacell_1_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_dn_left_1" material="Polylactide" numsides="4" rmin="square_frame_rmin" rmax="square_frame_rmax" thickness="frame_t"	  angle="45*degree" x_offset="dn_left_x+sqacell_1_offset_x" y_offset="dn_left_y+sqacell_1_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_dn_left_2" material="Polystyrene" numsides="4" rmin="square_scint_rmin" rmax="square_scint_rmax" thickness="scintillator_t" angle="45*degree" x_offset="dn_left_x+sqacell_2_offset_x" y_offset="dn_left_y+sqacell_2_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_dn_left_2" material="Polylactide" numsides="4" rmin="square_frame_rmin" rmax="square_frame_rmax" thickness="frame_t"	  angle="45*degree" x_offset="dn_left_x+sqacell_2_offset_x" y_offset="dn_left_y+sqacell_2_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_dn_left_3" material="Polystyrene" numsides="4" rmin="square_scint_rmin" rmax="square_scint_rmax" thickness="scintillator_t" angle="45*degree" x_offset="dn_left_x+sqacell_3_offset_x" y_offset="dn_left_y+sqacell_3_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_dn_left_3" material="Polylactide" numsides="4" rmin="square_frame_rmin" rmax="square_frame_rmax" thickness="frame_t"	  angle="45*degree" x_offset="dn_left_x+sqacell_3_offset_x" y_offset="dn_left_y+sqacell_3_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<!-- dn left megacell border frame -->
+	<PolyhedraRegular name="Frame_dn_left_megacell"    material="Polylactide" numsides="4" rmin="megacell_inner_x/2+frame_w/2" rmax="megacell_outer_x/2" thickness="frame_t" angle="45*degree" x_offset="dn_left_x" y_offset="dn_left_y" count="0" vis="CyanVis" sensitive="false"/>
 
-	<!-- bottom right megacell border frame -->
-	<Box name="Frame_dn_right_border_up"	material="Polylactide" x="megacell_frame_x" y="frame_w" thickness="frame_t" x_offset="dn_right_x+megacell_up_frame_offset_x"	y_offset="dn_right_y+megacell_up_frame_offset_y"    count="0" vis="CyanVis" sensitive="false"/>
-	<Box name="Frame_dn_right_border_dn"	material="Polylactide" x="megacell_frame_x" y="frame_w" thickness="frame_t" x_offset="dn_right_x+megacell_dn_frame_offset_x"	y_offset="dn_right_y+megacell_dn_frame_offset_y"    count="0" vis="CyanVis" sensitive="false"/>
-	<Box name="Frame_dn_right_border_left"	material="Polylactide" x="frame_w" y="megacell_frame_y" thickness="frame_t" x_offset="dn_right_x+megacell_left_frame_offset_x"	y_offset="dn_right_y+megacell_left_frame_offset_y"  count="0" vis="CyanVis" sensitive="false"/>
-	<Box name="Frame_dn_right_border_right"	material="Polylactide" x="frame_w" y="megacell_frame_y" thickness="frame_t" x_offset="dn_right_x+megacell_right_frame_offset_x"	y_offset="dn_right_y+megacell_right_frame_offset_y" count="1" vis="CyanVis" sensitive="false"/>
+	<!-- dn right -->
+	<PolyhedraRegular name="Scint_dn_right_0" material="Polystyrene" numsides="4" rmin="square_scint_rmin" rmax="square_scint_rmax" thickness="scintillator_t" angle="45*degree" x_offset="dn_right_x+sqacell_0_offset_x" y_offset="dn_right_y+sqacell_0_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_dn_right_0" material="Polylactide" numsides="4" rmin="square_frame_rmin" rmax="square_frame_rmax" thickness="frame_t"	   angle="45*degree" x_offset="dn_right_x+sqacell_0_offset_x" y_offset="dn_right_y+sqacell_0_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_dn_right_1" material="Polystyrene" numsides="4" rmin="square_scint_rmin" rmax="square_scint_rmax" thickness="scintillator_t" angle="45*degree" x_offset="dn_right_x+sqacell_1_offset_x" y_offset="dn_right_y+sqacell_1_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_dn_right_1" material="Polylactide" numsides="4" rmin="square_frame_rmin" rmax="square_frame_rmax" thickness="frame_t"	   angle="45*degree" x_offset="dn_right_x+sqacell_1_offset_x" y_offset="dn_right_y+sqacell_1_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_dn_right_2" material="Polystyrene" numsides="4" rmin="square_scint_rmin" rmax="square_scint_rmax" thickness="scintillator_t" angle="45*degree" x_offset="dn_right_x+sqacell_2_offset_x" y_offset="dn_right_y+sqacell_2_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_dn_right_2" material="Polylactide" numsides="4" rmin="square_frame_rmin" rmax="square_frame_rmax" thickness="frame_t"	   angle="45*degree" x_offset="dn_right_x+sqacell_2_offset_x" y_offset="dn_right_y+sqacell_2_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<PolyhedraRegular name="Scint_dn_right_3" material="Polystyrene" numsides="4" rmin="square_scint_rmin" rmax="square_scint_rmax" thickness="scintillator_t" angle="45*degree" x_offset="dn_right_x+sqacell_3_offset_x" y_offset="dn_right_y+sqacell_3_offset_y" count="0" vis="AnlOrange" sensitive="true"/>
+	<PolyhedraRegular name="Frame_dn_right_3" material="Polylactide" numsides="4" rmin="square_frame_rmin" rmax="square_frame_rmax" thickness="frame_t"	   angle="45*degree" x_offset="dn_right_x+sqacell_3_offset_x" y_offset="dn_right_y+sqacell_3_offset_y" count="0" vis="YellowVis" sensitive="false"/>
+	<!-- dn right megacell border frame -->
+	<PolyhedraRegular name="Frame_dn_right_megacell"    material="Polylactide" numsides="4" rmin="megacell_inner_x/2+frame_w/2" rmax="megacell_outer_x/2" thickness="frame_t" angle="45*degree" x_offset="dn_right_x" y_offset="dn_right_y" count="1" vis="CyanVis" sensitive="false"/>
 
 	<!-- ESR foil 2 -->
-        <Box name="ESR_2_up_left"	material="Polystyrene"	x="megacell_x" y="megacell_y" thickness="ESR_t"	x_offset="up_left_x"  y_offset="up_left_y"  count="0" vis="BlueVis" sensitive="false"/>
-        <Box name="ESR_2_up_right"	material="Polystyrene" 	x="megacell_x" y="megacell_y" thickness="ESR_t"	x_offset="up_right_x" y_offset="up_right_y" count="0" vis="BlueVis" sensitive="false"/>
-        <Box name="ESR_2_dn_left"	material="Polystyrene" 	x="megacell_x" y="megacell_y" thickness="ESR_t" x_offset="dn_left_x"  y_offset="dn_left_y"  count="0" vis="BlueVis" sensitive="false"/>
-        <Box name="ESR_2_dn_right"	material="Polystyrene" 	x="megacell_x" y="megacell_y" thickness="ESR_t" x_offset="dn_right_x" y_offset="dn_right_y" count="1" vis="BlueVis" sensitive="false"/>
+        <Box name="ESR_2_up_left"	material="Polystyrene"	x="megacell_outer_x" y="megacell_outer_y" thickness="ESR_t" x_offset="up_left_x"  y_offset="up_left_y"  count="0" vis="BlueVis" sensitive="false"/>
+        <Box name="ESR_2_up_right"	material="Polystyrene" 	x="megacell_outer_x" y="megacell_outer_y" thickness="ESR_t" x_offset="up_right_x" y_offset="up_right_y" count="0" vis="BlueVis" sensitive="false"/>
+        <Box name="ESR_2_dn_left"	material="Polystyrene" 	x="megacell_outer_x" y="megacell_outer_y" thickness="ESR_t" x_offset="dn_left_x"  y_offset="dn_left_y"  count="0" vis="BlueVis" sensitive="false"/>
+        <Box name="ESR_2_dn_right"	material="Polystyrene" 	x="megacell_outer_x" y="megacell_outer_y" thickness="ESR_t" x_offset="dn_right_x" y_offset="dn_right_y" count="1" vis="BlueVis" sensitive="false"/>
 
 	<!-- PCB -->
-        <Box name="PCB_up_left"		material="Fr4"		x="megacell_x" y="megacell_y" thickness="PCB_t"	x_offset="up_left_x"  y_offset="up_left_y"  count="0" vis="CyanVis" sensitive="false"/>
-        <Box name="PCB_up_right"    	material="Fr4" 		x="megacell_x" y="megacell_y" thickness="PCB_t"	x_offset="up_right_x" y_offset="up_right_y" count="0" vis="CyanVis" sensitive="false"/>
-        <Box name="PCB_dn_left"	    	material="Fr4" 		x="megacell_x" y="megacell_y" thickness="PCB_t" x_offset="dn_left_x"  y_offset="dn_left_y"  count="0" vis="CyanVis" sensitive="false"/>
-        <Box name="PCB_dn_right"    	material="Fr4" 		x="megacell_x" y="megacell_y" thickness="PCB_t" x_offset="dn_right_x" y_offset="dn_right_y" count="1" vis="CyanVis" sensitive="false"/>
+        <Box name="PCB_up_left"		material="Fr4"		x="megacell_outer_x" y="megacell_outer_y" thickness="PCB_t" x_offset="up_left_x"  y_offset="up_left_y"  count="0" vis="CyanVis" sensitive="false"/>
+        <Box name="PCB_up_right"    	material="Fr4" 		x="megacell_outer_x" y="megacell_outer_y" thickness="PCB_t" x_offset="up_right_x" y_offset="up_right_y" count="0" vis="CyanVis" sensitive="false"/>
+        <Box name="PCB_dn_left"	    	material="Fr4" 		x="megacell_outer_x" y="megacell_outer_y" thickness="PCB_t" x_offset="dn_left_x"  y_offset="dn_left_y"  count="0" vis="CyanVis" sensitive="false"/>
+        <Box name="PCB_dn_right"    	material="Fr4" 		x="megacell_outer_x" y="megacell_outer_y" thickness="PCB_t" x_offset="dn_right_x" y_offset="dn_right_y" count="1" vis="CyanVis" sensitive="false"/>
       </layer>
     </detector>
   </detectors>
