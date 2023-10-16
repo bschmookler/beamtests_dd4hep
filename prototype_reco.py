@@ -9,8 +9,8 @@ import ROOT
 from Configurables import ApplicationMgr, EICDataSvc, PodioInput, PodioOutput, GeoSvc
 from GaudiKernel.SystemOfUnits import MeV, GeV, mm, cm, mrad
 
-# detector_name = "prototype"
-detector_name = "single_block"
+detector_name = "prototype"
+# detector_name = "single_block"
 detector_path = "."
 compact_path = os.path.join(detector_path, detector_name)
 
