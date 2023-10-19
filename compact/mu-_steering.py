@@ -187,10 +187,10 @@ SIM.gun.energy = None
 SIM.gun.isotrop = True
 
 ## Maximal momentum when using distribution (default = 0.0)
-SIM.gun.momentumMax = 4000.0
+SIM.gun.momentumMax = 10000.0
 
 ## Minimal momentum when using distribution (default = 0.0)
-SIM.gun.momentumMin = 4000.0
+SIM.gun.momentumMin = 10000.0
 SIM.gun.multiplicity = 1
 SIM.gun.particle = "mu-"
 SIM.gun.phiMax = 0.0

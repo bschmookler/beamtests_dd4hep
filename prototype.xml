@@ -21,7 +21,7 @@
     <constant name="world_z" 	    	    value="100.0*m"/>
     <constant name="tracker_region_zmax"    value="10.0*m"/>
     <constant name="tracker_region_rmax"    value="1.0*m"/>
-    <constant name="x0"		     	    value="30.0*cm"/>
+    <constant name="x0"		     	    value="0.0*cm"/>
     <constant name="y0"		     	    value="0.0"/>
     <constant name="z0"		     	    value="700.0*cm"/>
     <constant name="sin_60"		    value="sqrt(3)/2"/>

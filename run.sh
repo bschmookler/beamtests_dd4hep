@@ -30,11 +30,11 @@ if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
 eval set -- "$OPTIONS"
 
 # default configurations
-particle="e+"
-particleEnergy=4	# in GeV
+particle="e-"
+particleEnergy=10	# in GeV
 numberOfEvents=1000
 compactFile="prototype.xml"
-steeringFile="compact/steering.py"
+steeringFile="compact/mu-_steering.py"
 outputSuffix=""
 
 while true; do

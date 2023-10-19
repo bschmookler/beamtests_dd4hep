@@ -28,34 +28,54 @@ LD_LIBRARY_PATH:
 source setup.sh
 ```
 
-### work flow
-     (make_tree.py)
-data ------------> ROOT tree
-			    \
-			     \
-			      --> plot.py --> compare.C
-			     /
-			    /
-sim  ------------> ROOT tree
-     (make_tree.py)
+### Running the simulation
+To run the simulation, simply do:
+```
+./run.sh
+```
+This will run 1000 events, with a single electron generated per event. 
+The generated electron has an energy of 10 GeV, moves along the z-axis, and has 
+its origin at (x,y,z) = (0,0,0). The default geometry is 'prototype.xml', to
+produce hits, one should make sure that the prototype is along the z-axis.
+The DD4HEP output is digitized using the Juggler software.
 
-* There are two make_tree.py scripts, one for simulation and the other one for 
-  data processing. They will deal with different aspects of data and simulations,
-  the output will be a ROOT tree with hit_cellID and hit_energy (in units of MIP).
-* The plot.py script will read in the ROOT tree and produce histograms (graphs)
-* The compare.C script produce comparison plots from histograms (graphs) resulted from plot.py
+The simulation will produce a '.edm4hep.root' file, which contains all simulation 
+information. What is interesting to us is only hit related information, specifically:
+cellID, energy and position. They are extracted by the [make_tree.py](analysis/sim/make_tree.py)
+script.
+
+To run a more complicated simulation, one needs to provide their own steeringFile
+and compactFile. The steeringFile defines the beam profile and the compactFile
+defines the prototype geometry and position. Try
+```
+./run.sh -h
+```
+for more available options.
+
+
+### Analysis
+As an example, to draw the total digitized energy deposit in the sensitive 
+area per event, do the following:
+```
+root -l prototype_reco_e-_2_GeV.edm4hep.root
+events->Draw("Sum$(HCALHitsReco.energy)")
+```
 
 ### Detector geometry
-The detector geometry is defined in [this file](prototype.xml). Note that the 
-detector is aligned parallel to the z-axis and placed 350 cm from the nominal 
-particle generation point. The world volume is air. 
-Also note how there are 9 readout cells per scintillator slice.
+The detector geometry is defined in [this file](prototype.xml). The prototype
+consists of 7 layers of hexagal cells and 13 layers of square cells. Each cell
+is surrounded by 3D-printed plastic frame. There are 4 blocks per layer, and 7 
+hexagal (4 square) cells per block.
+
+The world volume is air. The prototype position is adjustable, by changing
+the x0/y0/z0 values.
 
 #### detector visualization
 To view the prototype, one can use the `dd_web_display` toolkit:
 ```
 dd_web_display prototype.xml
 ```
+![detector_geometry](figures/prototype_geometry.png?raw=true)
 
 Another method is to convert the xml file into gdml file, and then show it with ROOT
 ```
@@ -67,25 +87,4 @@ TGeoManager::Import("prototype.gdml") // root or GDML file
 gGeoManager->SetVisLevel(10) // Increase it to get more detailed geometry
 gGeoManager->GetTopVolume()->Draw("ogl")
 ```
-
-### Running the simulation
-To run the simulation, simply do:
-```
-./run.sh
-```
-This will run 100 events, with a single electron generated per event. 
-The generated electron has an energy of 4 GeV, moves along the z-axis, and has 
-its origin at (x,y,z) = (0,0,0). The DD4HEP output is digitized using the Juggler software.
-
-![detector_geometry](figures/prototype_geometry.png?raw=true)
-
-### Analysis
-As an example, to draw the total digitized energy deposit in the sensitive 
-area per event, do the following:
-```
-root -l prototype_reco_e-_2_GeV.edm4hep.root
-events->Draw("Sum$(HCALHitsReco.energy)")
-```
-
-![energy_figure](figures/prototype_sum.png?raw=true)
 <br/>

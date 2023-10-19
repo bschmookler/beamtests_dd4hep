@@ -72,51 +72,72 @@ class ADC:
         hit_cellID = arrays[f'{branch}.cellID']
         hit_x = arrays[f'{branch}.position.x']
         hit_y = arrays[f'{branch}.position.y']
+        hit_z = arrays[f'{branch}.position.z']
         hit_energy = arrays[f'{branch}.energy']
         hit_amplitude = arrays[amplitude_var]
 
         hit_cellID_out = []
+        hit_layer_out = []
         hit_energy_out = []
+        hit_x_out = []
+        hit_y_out = []
+        hit_z_out = []
         hit_amplitude_out = []
 
         print('INFO -- reading tree')
 
+        blocks = 4
+        hexagon_layers = 7
+        hexagon_cells_per_layer = blocks*7
+        square_cells_per_layer = blocks*4
         for i in range(len(hit_cellID)):
             if (i%10000 == 0):
                 print(f'\tevent {i}')
 
             cellID_b = []
+            layer_b = []
             energy_b = []
+            x_b = []
+            y_b = []
+            z_b = []
             amplitude_b = []
             for hi in range(len(hit_cellID[i])):
                 system_id = (int(hit_cellID[i][hi]) & 0x0000FF)
                 layer_id  = (int(hit_cellID[i][hi]) & 0x00FF00) >> 8
                 cell_id   = (int(hit_cellID[i][hi]) & 0xFF0000) >> 16
-                layer = 7*(system_id-1) + (layer_id-1)
+                layer = hexagon_layers*(system_id-1) + (layer_id-1)
 
                 cell = cell_id-1
-                if (layer < 7):
-                    cell = cell + 7*layer
+                if (layer < hexagon_layers):
+                    cell = cell + hexagon_cells_per_layer*layer
                 else:
-                    cell = cell + 7*7 + 4*(layer - 7)
+                    cell = cell + hexagon_layers*hexagon_cells_per_layer + square_cells_per_layer*(layer - hexagon_layers)
 
                 energy = hit_energy[i][hi]*self.ADC2MIP
                 amplitude = hit_amplitude[i][hi]
 
                 cellID_b.append(cell)
+                layer_b.append(layer)
                 energy_b.append(energy) 
+                x_b.append(hit_x[i][hi]) 
+                y_b.append(hit_y[i][hi]) 
+                z_b.append(hit_z[i][hi]) 
                 amplitude_b.append(amplitude)
 
             if (len(hit_cellID[i]) > 0):
                 hit_cellID_out.append(cellID_b)
+                hit_layer_out.append(layer_b)
                 hit_energy_out.append(energy_b)
+                hit_x_out.append(x_b)
+                hit_y_out.append(y_b)
+                hit_z_out.append(z_b)
                 hit_amplitude_out.append(amplitude_b)
 
         with ur.recreate(self.out_file) as fout:
             if level == "sim":
                 fout['events'] = { 'hit': ak.zip({'cellID': hit_cellID_out, 'energy': hit_energy_out}) }
             elif level == "reco":
-                fout['events'] = { 'hit': ak.zip({'cellID': hit_cellID_out, 'energy': hit_energy_out, 'amplitude': hit_amplitude_out}) }
+                fout['events'] = { 'hit': ak.zip({'cellID': hit_cellID_out, 'layer': hit_layer_out, 'energy': hit_energy_out, 'x': hit_x_out, 'y': hit_y_out, 'z': hit_z_out, 'amplitude': hit_amplitude_out}) }
 
 
 if __name__ == '__main__':
