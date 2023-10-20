@@ -35,7 +35,7 @@ from Configurables import Jug__Reco__CalorimeterHitsMerger as CalHitsMerger
 from Configurables import Jug__Reco__CalorimeterIslandCluster as IslandCluster
 # from Configurables import Jug__Reco__ImagingPixelReco as ImCalPixelReco
 # from Configurables import Jug__Reco__ImagingTopoCluster as ImagingCluster
-# from Configurables import Jug__Reco__ClusterRecoCoG as RecoCoG
+from Configurables import Jug__Reco__ClusterRecoCoG as RecoCoG
 # from Configurables import Jug__Reco__ImagingClusterReco as ImagingClusterReco
 
 # branches needed from simulation root file
@@ -84,6 +84,10 @@ ci_hcal_insert_cl = IslandCluster("ci_hcal_insert_cl",
 	sectorDist=5.0*cm,
 	dimScaledLocalDistXY=[1.8, 1.8])          # dimension scaled dist is good for hybrid sectors with different module size
 								
+ci_hcal_insert_cl_reco = RecoCoG("ci_hcal_insert_cl_reco",
+	inputProtoClusterCollection=ci_hcal_insert_cl.outputProtoClusterCollection,
+	outputClusterCollection="HCALClustersReco",
+	logWeightBase=4.6)
 
 # Output
 podout.outputCommands = ['drop *',
@@ -94,7 +98,7 @@ podout.outputCommands = ['drop *',
 
 ApplicationMgr(
     TopAlg = [podin,
-            ci_hcal_insert_digi, ci_hcal_insert_reco, ci_hcal_insert_merger, ci_hcal_insert_cl,
+            ci_hcal_insert_digi, ci_hcal_insert_reco, ci_hcal_insert_merger, ci_hcal_insert_cl, ci_hcal_insert_cl_reco,
 	    podout],
     EvtSel = 'NONE',
     EvtMax = n_events,
