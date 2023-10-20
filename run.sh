@@ -80,8 +80,8 @@ gaudirun.py prototype_reco.py
 output=${recofile%.edm4hep.root}
 level=reco
 
-make_tree='${ROOTDIR}/analysis/sim/make_tree.py'
-# plot='${ROOTDIR}/analysis/plot.py'
-CONFIG_FILE='${ROOTDIR}/analysis/sim/config.cfg'
+make_tree="${ROOTDIR}/analysis/sim/make_tree.py"
+# plot="${ROOTDIR}/analysis/plot.py"
+CONFIG_FILE="${ROOTDIR}/analysis/sim/config.cfg"
 $make_tree -c $CONFIG_FILE -o ${output}.root -l $level ${recofile}
 # $plot -c $CONFIG_FILE -o ${output}_hist.root ${output}.root
