@@ -72,6 +72,7 @@ npsim \
 --outputFile ${simfile}  || exit
 
 # Running reconstruction
+export DETECTOR=$(basename ${compactFile}) DETECTOR_PATH=${ROOTDIR} 
 export JUGGLER_SIM_FILE=${simfile} JUGGLER_REC_FILE=${recofile} JUGGLER_N_EVENTS=${numberOfEvents}
 gaudirun.py prototype_reco.py
 
@@ -79,7 +80,7 @@ gaudirun.py prototype_reco.py
 output=${recofile%.edm4hep.root}
 level=reco
 
-make_tree='${ROOTDIR}/beamtests_dd4hep/analysis/sim/make_tree.py'
+make_tree='${ROOTDIR}/analysis/sim/make_tree.py'
 # plot='${ROOTDIR}/analysis/plot.py'
 CONFIG_FILE='${ROOTDIR}/analysis/sim/config.cfg'
 $make_tree -c $CONFIG_FILE -o ${output}.root -l $level ${recofile}
