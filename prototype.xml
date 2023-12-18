@@ -23,7 +23,7 @@
     <constant name="tracker_region_rmax"    value="1.0*m"/>
     <constant name="x0"		     	    value="0.0*cm"/>
     <constant name="y0"		     	    value="0.0"/>
-    <constant name="z0"		     	    value="700.0*cm"/>
+    <constant name="z0"		     	    value="100.0*cm"/>
     <constant name="sin_60"		    value="sqrt(3)/2"/>
     <constant name="nrepeat_hexagon"	    value="7"/>
     <constant name="nrepeat_square"	    value="13"/>
@@ -46,8 +46,8 @@
     <constant name="megacell_inner_y"	    value="megacell_inner_x" />
     <constant name="megacell_outer_x"	    value="megacell_inner_x + 2*frame_w" />
     <constant name="megacell_outer_y"	    value="megacell_inner_y + 2*frame_w" />
-    <constant name="gap_x"		    value="5.0*mm" />
-    <constant name="gap_y"		    value="10.0*mm" />
+    <constant name="gap_x"		    value="0.0*mm" />
+    <constant name="gap_y"		    value="0.0*mm" />
     <constant name="layer_x"		    value="2*megacell_outer_x + gap_x" />
     <constant name="layer_y"		    value="2*megacell_outer_y + gap_y" />
 
@@ -99,7 +99,7 @@
   <detectors>
 
     <!-- Hexagon Tiles -->
-    <detector id="1" name="HCAL1" type="Polyhedra_ZDC_Sampling" readout="HCALHits" vis="GreenVis">
+    <detector id="1" name="HCAL1" type="Polyhedra_ZDC_Sampling" readout="HcalEndcapPInsertHits" vis="GreenVis">
       <position x="x0" y="y0" z="z0"/>
       <rotation x="0" y="0" z="0"/>
       <dimensions x="layer_x" y="layer_y" z="nrepeat_hexagon*layer_t"/>
@@ -209,7 +209,7 @@
     </detector>
 
     <!-- Square Tiles -->
-    <detector id="2" name="HCAL2" type="Polyhedra_ZDC_Sampling" readout="HCALHits" vis="GreenVis">
+    <detector id="2" name="HCAL2" type="Polyhedra_ZDC_Sampling" readout="HcalEndcapPInsertHits" vis="GreenVis">
       <position x="x0" y="y0" z="z0+nrepeat_hexagon*layer_t"/>
       <rotation x="0" y="0" z="0"/>
       <dimensions x="layer_x" y="layer_y" z="nrepeat_square*layer_t"/>
@@ -298,7 +298,7 @@
   </detectors>
 
   <readouts>
-    <readout name="HCALHits">
+    <readout name="HcalEndcapPInsertHits">
       <segmentation type="NoSegmentation"/>
       <id>system:8,layer:8,slice:8,x:8,y:8</id>  
     </readout>

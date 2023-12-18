@@ -7,7 +7,7 @@ import os
 import ROOT
 
 from Configurables import ApplicationMgr, EICDataSvc, PodioInput, PodioOutput, GeoSvc
-from GaudiKernel.SystemOfUnits import MeV, GeV, mm, cm, mrad
+from GaudiKernel.SystemOfUnits import MeV, GeV, mm, cm, mrad, rad
 
 detector_name = str(os.environ.get("DETECTOR", "prototype.xml"))
 # detector_config = str(os.environ.get("DETECTOR_CONFIG", detector_name))
@@ -16,7 +16,7 @@ detector_name = str(os.environ.get("DETECTOR", "prototype.xml"))
 detector_path = str(os.environ.get("DETECTOR_PATH", "."))
 compact_path = os.path.join(detector_path, detector_name)
 
-ci_hcal_insert_sf = "1."
+ci_hcal_insert_sf = "0.02"
 
 # input and output
 input_sims = [f.strip() for f in str.split(os.environ["JUGGLER_SIM_FILE"], ",") if f.strip()]
@@ -32,9 +32,9 @@ podioevent = EICDataSvc("EventDataSvc", inputs=input_sims)
 from Configurables import Jug__Digi__CalorimeterHitDigi as CalHitDigi
 from Configurables import Jug__Reco__CalorimeterHitReco as CalHitReco
 from Configurables import Jug__Reco__CalorimeterHitsMerger as CalHitsMerger
-from Configurables import Jug__Reco__CalorimeterIslandCluster as IslandCluster
+# from Configurables import Jug__Reco__CalorimeterIslandCluster as IslandCluster
 # from Configurables import Jug__Reco__ImagingPixelReco as ImCalPixelReco
-# from Configurables import Jug__Reco__ImagingTopoCluster as ImagingCluster
+from Configurables import Jug__Reco__ImagingTopoCluster as ImagingCluster
 from Configurables import Jug__Reco__ClusterRecoCoG as RecoCoG
 # from Configurables import Jug__Reco__ImagingClusterReco as ImagingClusterReco
 
@@ -63,6 +63,7 @@ ci_hcal_insert_digi = CalHitDigi("ci_hcal_insert_digi",
 ci_hcal_insert_reco = CalHitReco("ci_hcal_insert_reco",
         inputHitCollection=ci_hcal_insert_digi.outputHitCollection,
         outputHitCollection="HCALHitsReco",
+	# layerField="layer",
         thresholdFactor=0.0,
         samplingFraction=ci_hcal_insert_sf,
         **ci_hcal_insert_daq)
@@ -74,20 +75,30 @@ ci_hcal_insert_merger = CalHitsMerger("ci_hcal_insert_merger",
         fields=["layer", "slice"],
         fieldRefNumbers=[1, 0])
 
-ci_hcal_insert_cl = IslandCluster("ci_hcal_insert_cl",
-	# OutputLevel=DEBUG,
+ci_hcal_insert_cl = ImagingCluster("ci_hcal_insert_cl",
 	inputHitCollection=ci_hcal_insert_reco.outputHitCollection,
 	outputProtoClusterCollection="HCALClusters",
-	splitCluster=False,
-	minClusterHitEdep=1.0*MeV,  # discard low energy hits
-	minClusterCenterEdep=30*MeV,
-	sectorDist=5.0*cm,
-	dimScaledLocalDistXY=[1.8, 1.8])          # dimension scaled dist is good for hybrid sectors with different module size
-								
+  	minClusterHitEdep=100*MeV,	    # discard low energy hits
+  	minClusterCenterEdep=0.5*GeV,
+	localDistXY=[10*mm, 10*mm],         # same layer
+	layerDistEtaPhi=[0*mrad, 0*mrad],   # adjacent layer
+	neighbourLayersRange=1,             # id diff for adjacent layer
+	sectorDist=100.*cm)                 # different sector
+    
 ci_hcal_insert_cl_reco = RecoCoG("ci_hcal_insert_cl_reco",
 	inputProtoClusterCollection=ci_hcal_insert_cl.outputProtoClusterCollection,
 	outputClusterCollection="HCALClustersReco",
 	logWeightBase=4.6)
+
+# ci_hcal_insert_cl = IslandCluster("ci_hcal_insert_cl",
+# 	# OutputLevel=DEBUG,
+# 	inputHitCollection=ci_hcal_insert_merger.outputHitCollection,
+# 	outputProtoClusterCollection="HCALClusters",
+# 	splitCluster=False,
+# 	minClusterHitEdep=1.0*MeV,  # discard low energy hits
+# 	minClusterCenterEdep=30*MeV,
+# 	sectorDist=5.0*cm,
+# 	dimScaledLocalDistXY=[1.8, 1.8])          # dimension scaled dist is good for hybrid sectors with different module size
 
 # Output
 podout.outputCommands = ['drop *',
