@@ -56,24 +56,12 @@ for more available options.
 We are now using the [JANA](https://jeffersonlab.github.io/JANA2/index.html) based 
 [eicrecon](https://github.com/eic/EICrecon) for reconstruction. To do that, one
 needs to compile the [CALI](CALI) plugin, which is not a standard eicrecon plugin 
-yet. Unfortunately, the plugin can't be compiled simplily with the eic-shell curently, 
-because of some missing header files, making the compilation a little complicated: 
-* clone the eicrecon repo.
-```
-    git clone https://github.com/eic/EICrecon	
-```
-* cp the CALI dir. into the eicrecon detector dir. 
-```
-    cp -r beamtests_dd4hep/CALI EICrecon/src/detector/
-```
-* make eicrecon be aware of the new detector, add 'add_subdirectory(CALI))'
-  to EICrecon/src/detector/CMakeLists.txt
+yet. To compile it:
 * compile and install eicrecon, and make it the default executable
 ```
-    cd EICrecon
-    cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
-    cmake --build build --target install -- -j8
-    source bin/eicrecon-this.sh
+    cmake -S CALI -B CALI/build -DCMAKE_INSTALL_PREFIX=plugins
+    cd CALI/build
+    make install
 ```
 * now, we can use the CALI plugin
 ```

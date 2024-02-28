@@ -38,7 +38,7 @@ static Ref_t createDetector(Detector& desc, xml_h e, SensitiveDetector sens)
   envelopeVol.setVisAttributes(desc.visAttributes(x_det.visStr()));
   PlacedVolume pv;
 
-  int layer_num = 1;
+  static int layer_num = 1;
   // Read layers
   for (xml_coll_t c(x_det, _U(layer)); c; ++c) {
     xml_comp_t x_layer    = c;
@@ -120,7 +120,7 @@ static Ref_t createPolyhedraZDC(Detector& desc, xml_h e, SensitiveDetector sens)
   envelopeVol.setVisAttributes(desc.visAttributes(x_det.visStr()));
   PlacedVolume pv;
 
-  int layer_num = 1;
+  static int layer_num = 1;
   // Read layers
   for (xml_coll_t c(x_det, _U(layer)); c; ++c) {
     xml_comp_t x_layer    = c;

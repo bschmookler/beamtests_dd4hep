@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: LGPL-3.0-or-later
 // Copyright (C) 2023 Friederike Bock, Wouter Deconinck
+//
+//
 
 #include <Evaluator/DD4hepUnits.h>
 #include <JANA/JApplication.h>
-#include <TString.h>
 #include <string>
 
-#include "algorithms/calorimetry/CalorimeterHitDigiConfig.h"
 #include "extensions/jana/JOmniFactoryGeneratorT.h"
 #include "factories/calorimetry/CalorimeterClusterRecoCoG_factory.h"
 #include "factories/calorimetry/CalorimeterHitDigi_factory.h"
@@ -22,8 +22,7 @@ extern "C" {
 	using namespace eicrecon;
 
 	InitJANAPlugin(app);
-
-	// Make sure digi and reco use the same value
+// Make sure digi and reco use the same value
 	decltype(CalorimeterHitDigiConfig::capADC)        HCAL_capADC = 4096;
 	decltype(CalorimeterHitDigiConfig::dyRangeADC)    HCAL_dyRangeADC = 400 * dd4hep::MeV;
 	decltype(CalorimeterHitDigiConfig::pedMeanADC)    HCAL_pedMeanADC = 60;
@@ -62,7 +61,7 @@ extern "C" {
 		.thresholdFactor = 0.,
 		.thresholdValue = 0, // 0.25 MeV --> 0.52 / 400 * 4096 = 2.56
 
-		.sampFrac = 0.02138,
+		.sampFrac = 0.01,
 		.readout = "CALIHits",
 		.layerField = "layer",
 		.sectorField = "system",
@@ -87,12 +86,12 @@ extern "C" {
 	    {"CALIRecHits"},
 	    {"CALIIslandProtoClusters"},
 	    {
-		.sectorDist = 1.5 * dd4hep::cm,
-		.localDistXY = {15*dd4hep::mm, 15*dd4hep::mm},
+		// .sectorDist = 10 * dd4hep::cm,
+		.localDistXY = {30*dd4hep::mm, 35*dd4hep::mm},
 		// .dimScaledLocalDistXY = {10.0*dd4hep::mm, 10.0*dd4hep::mm},
 		.splitCluster = false,
 		.minClusterHitEdep = 100.0 * dd4hep::MeV,
-		.minClusterCenterEdep = 500.0 * dd4hep::MeV,
+		.minClusterCenterEdep = 1000.0 * dd4hep::MeV,
 		// .transverseEnergyProfileMetric = "globalDistEtaPhi",
 		// .transverseEnergyProfileScale = 1.,
 	    },
@@ -104,12 +103,12 @@ extern "C" {
 	    {"CALIImagingTopoClusters"},
 	    {
 		.neighbourLayersRange = 1,
-		.localDistXY = {15*dd4hep::mm, 15*dd4hep::mm},
-		.layerDistEtaPhi = {0.9, 0.5},
-		.sectorDist = 10.0 * dd4hep::cm,
-		.minClusterHitEdep = 100.0 * dd4hep::MeV,
-		.minClusterCenterEdep = 500.0 * dd4hep::MeV,
-		.minClusterEdep = 1000.0 * dd4hep::MeV,
+		.localDistXY = {55*dd4hep::mm, 50*dd4hep::mm},
+		// .layerDistEtaPhi = {0.9, 0.5},
+		// .sectorDist = 10.0 * dd4hep::cm,
+		.minClusterHitEdep = 10.0 * dd4hep::MeV,
+		.minClusterCenterEdep = 100.0 * dd4hep::MeV,
+		.minClusterEdep = 3000.0 * dd4hep::MeV,
 		.minClusterNhits = 1,
 	    },
 	    app   // TODO: Remove me once fixed

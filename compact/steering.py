@@ -187,21 +187,21 @@ SIM.gun.energy = None
 SIM.gun.isotrop = True
 
 ## Maximal momentum when using distribution (default = 0.0)
-SIM.gun.momentumMax = 4*GeV
+SIM.gun.momentumMax = 40*GeV
 
 ## Minimal momentum when using distribution (default = 0.0)
-SIM.gun.momentumMin = 4*GeV
+SIM.gun.momentumMin = 40*GeV
 SIM.gun.multiplicity = 1
-SIM.gun.particle = "e+"
+SIM.gun.particle = "gamma"
+SIM.gun.phiMax = 0.0
 
 ## Minimal azimuthal angle for random distribution
-SIM.gun.phiMin = -110*degree
-SIM.gun.phiMax = -70*degree
+SIM.gun.phiMin = 0.0
 
 ##  position of the particle gun, 3 vector 
-SIM.gun.position = (-1*mm, 218*mm, 0)
-SIM.gun.thetaMax = 0.042
-SIM.gun.thetaMin = 0.040
+SIM.gun.position = (0.0, 0.0, 0.0)
+SIM.gun.thetaMax = 0.001
+SIM.gun.thetaMin = 1e-6
 
 
 ################################################################################

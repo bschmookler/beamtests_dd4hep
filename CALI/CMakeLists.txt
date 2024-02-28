@@ -1,27 +1,31 @@
+
+#
+# EICrecon stand alone plugin
+#
+# Before using this, make sure your environment is set up
+# for the EICrecon version you are using. The easiest way
+# to do this is to source the bin/eicrecon-this.(c)sh
+# script.
+#
+
 cmake_minimum_required(VERSION 3.16)
+project(CALI_project)
 
-project(CALI)
+find_package(EICrecon REQUIRED)
+find_package(spdlog REQUIRED)
 
-# Automatically set plugin name the same as the directory name
-# Don't forget string(REPLACE " " "_" PLUGIN_NAME ${PLUGIN_NAME}) if this dir has spaces in its name
-get_filename_component(PLUGIN_NAME ${CMAKE_CURRENT_LIST_DIR} NAME)
+set(CMAKE_CXX_STANDARD ${EICrecon_CXX_STANDARD})
 
-# Function creates ${PLUGIN_NAME}_plugin and ${PLUGIN_NAME}_library targets
-# Setting default includes, libraries and installation paths
-plugin_add(${PLUGIN_NAME} )
+# Automatically determine source file list.
+file(GLOB mysourcefiles *.cpp *.cc *.c  *.hpp *.hh *.h)
+set( CALI_PLUGIN_SOURCES ${mysourcefiles} )
 
-# The macro grabs sources as *.cc *.cpp *.c and headers as *.h *.hh *.hpp
-# Then correctly sets sources for ${_name}_plugin and ${_name}_library targets
-# Adds headers to the correct installation directory
-plugin_glob_all(${PLUGIN_NAME})
+# Create plugin
+add_library(CALI SHARED ${CALI_PLUGIN_SOURCES})
+target_link_libraries(CALI EICrecon::rootfile_plugin)
+set_target_properties(CALI PROPERTIES PREFIX "" OUTPUT_NAME "CALI" SUFFIX ".so")
+target_compile_definitions(CALI PUBLIC HAVE_PODIO)
 
-# Find dependencies
-plugin_add_event_model(${PLUGIN_NAME})
-plugin_add_dd4hep(${PLUGIN_NAME})
+# Install plugin USER_PLUGIN_OUTPUT_DIRECTORY is set depending on EICrecon_MY envar.
+install(TARGETS CALI DESTINATION ${USER_PLUGIN_OUTPUT_DIRECTORY} )
 
-
-# Add include directories (works same as target_include_directories)
-# plugin_include_directories(${PLUGIN_NAME} SYSTEM PUBLIC ...)
-
-# Add libraries (works same as target_include_directories)
-plugin_link_libraries(${PLUGIN_NAME} algorithms_calorimetry_library )
